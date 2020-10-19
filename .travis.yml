@@ -1,7 +1,7 @@
 language: csharp
-solution: alugamer.sln
+solution: Alugamer.sln
 install:
-  - nuget restore alugamer.sln
+  - nuget restore Alugamer.sln
 script:
-  - msbuild /p:Configuration=Release alugamer.sln
+  - msbuild /p:Configuration=Release Alugamer.sln
   - mono ./testrunner/xunit.runners.*/tools/xunit.console.clr4.exe ./Alugamer.Testes/bin/Release/Alugamer.Testes.dll
