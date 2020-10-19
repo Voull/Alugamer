@@ -1,7 +1,8 @@
 language: csharp
 solution: Alugamer.sln
+mono: none
 install:
   - nuget restore Alugamer.sln
 script:
   - msbuild /p:Configuration=Release Alugamer.sln
-  - mono ./testrunner/xunit.runners.*/tools/xunit.console.clr4.exe ./Alugamer.Testes/bin/Release/Alugamer.Testes.dll
+  - dotnet test
