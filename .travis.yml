@@ -5,5 +5,5 @@ mono: none
 
 script:
   - dotnet restore
-  - msbuild /p:Configuration=Release Alugamer.sln
+  - dotnet build --configuration Release
   - dotnet test
