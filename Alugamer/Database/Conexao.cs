@@ -118,7 +118,7 @@ namespace Alugamer.Database
 						adapter.Fill(ds);
 						//_transacao.Commit();
 					}
-					catch (Exception ex)
+					catch (Exception)
 					{
 						//System.Web.HttpContext.Current.Response.Write(ex.Message);
 						//_transacao.Rollback();
@@ -147,7 +147,7 @@ namespace Alugamer.Database
 						adapter.Fill(tb);
 						//_transacao.Commit();
 					}
-					catch (Exception ex)
+					catch (Exception)
 					{
 						//System.Web.HttpContext.Current.Response.Write(ex.Message);
 						//_transacao.Rollback();
@@ -176,7 +176,7 @@ namespace Alugamer.Database
 						adapter.Fill(ds, tabela);
 						//_transacao.Commit();
 					}
-					catch (Exception ex)
+					catch (Exception)
 					{
 						//System.Web.HttpContext.Current.Response.Write(ex.Message);
 						//_transacao.Rollback();
@@ -215,7 +215,7 @@ namespace Alugamer.Database
 					leitor.Close();
 					//_transacao.Commit();
 				}
-				catch (Exception ex)
+				catch (Exception)
 				{
 					//System.Web.HttpContext.Current.Response.Write(ex.Message);
 					//_transacao.Rollback();
