@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Alugamer.Database
 {
-    public class ClienteDao
+    public class ClienteDao : BaseDao
     {
         private Conexao _conn;
         public ClienteDao()
@@ -16,12 +16,21 @@ namespace Alugamer.Database
             _conn = new Conexao();
 		}
 
-        public void Insert(Cliente cliente)
+        public string Insert(Cliente cliente)
 		{
             string sql = $@"INSERT INTO CAD_CLIENTES (nome, email, telefone, endereco, data_nascimento, sexo, cpf)
                             VALUES ('{cliente.Nome}', '{cliente.Email}', '{cliente.Telefone}', '{cliente.Endereco}', 
                                     '{cliente.DataNascimento.ToString("MM-dd-yyyy")}', '{cliente.Sexo}', '{cliente.Cpf}')";
-            _conn.execute(sql);
+
+            try
+            {
+                _conn.execute(sql);
+                return string.Empty;
+            }
+            catch (Exception)
+            {
+                return erroDatabase.GeraErroGenerico(Utils.Erro.ERRO.ERRO_GENERICO);
+            }
         }
 
         public Cliente Read(int id)
@@ -99,13 +108,21 @@ namespace Alugamer.Database
             return listaClientes;
         }
 
-        public void Update(Cliente cliente)
+        public string Update(Cliente cliente)
         {
             string sql = $@"UPDATE CAD_CLIENTES set nome ='{cliente.Nome}', email = '{cliente.Email}', telefone = '{cliente.Telefone}',
                             endereco = '{cliente.Endereco}', data_nascimento = '{cliente.DataNascimento.ToString("MM-dd-yyyy")}', sexo = '{cliente.Sexo}',
                             cpf = '{cliente.Cpf}' where cod_cliente = {cliente.Id}";
 
-            _conn.execute(sql);
+            try
+            {
+                _conn.execute(sql);
+                return string.Empty;
+            }
+            catch (Exception)
+            {
+                return erroDatabase.GeraErroGenerico(Utils.Erro.ERRO.ERRO_GENERICO_DATABASE);
+            }
         }
 
         public void Delete(int id)

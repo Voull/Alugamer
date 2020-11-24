@@ -15,4 +15,8 @@
     <PackageReference Include="xunit" Version="1.9.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Alugamer\Alugamer.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -35,19 +35,29 @@ namespace Alugamer.Controllers
 		[HttpPost]
 		public IActionResult Novo([FromBody] Cliente cliente)
 		{
-			ClienteDao clienteDao = new ClienteDao();
-			clienteDao.Insert(cliente);
+			if (cliente == null) return BadRequest();
 
-			return Ok();
+			List<String> errosCliente = cliente.validar();
+			if (errosCliente.Count > 0) return BadRequest(JsonConvert.SerializeObject(errosCliente));
+
+			ClienteDao clienteDao = new ClienteDao();
+			string resposta = clienteDao.Insert(cliente);
+
+			return Ok(resposta);
 		}
 
 		[HttpPost]
 		public IActionResult Edita([FromBody]Cliente cliente)
 		{
-			ClienteDao clienteDao = new ClienteDao();
-			clienteDao.Update(cliente);
+			if (cliente == null) return BadRequest();
 
-			return Ok();
+			List<String> errosCliente = cliente.validar();
+			if (errosCliente.Count > 0) return BadRequest(JsonConvert.SerializeObject(errosCliente));
+
+			ClienteDao clienteDao = new ClienteDao();
+			string resposta = clienteDao.Update(cliente);
+
+			return Ok(resposta);
 		}
 
 		[HttpDelete]
