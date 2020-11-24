@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,7 +14,7 @@
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
-    <PackageReference Include="xunit" Version="1.9.2" />
+    <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
 
   <ItemGroup>

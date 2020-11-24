@@ -6,10 +6,11 @@ namespace Alugamer.Testes
 {
 	public class UnitTestCliente
 	{
+		private readonly Cliente cliente = new Cliente();
 		[Fact]
 		public void TesteClienteVazio()
 		{
-			Assert.True(new Cliente().validar().Count > 0);
+			Assert.True(cliente.validar().Count > 0);
 		}
 	}
 }
