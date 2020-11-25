@@ -16,7 +16,7 @@ namespace Alugamer.Database
 		{
 			if (_connck == null)
 			{
-				_connck = new SqlConnection("data source=localhost\\SQLEXPRESS;initial catalog=alugamer;integrated security=true;");
+				_connck = new SqlConnection("data source=localhost;initial catalog=alugamer;integrated security=true;");
 			}
 		}
 

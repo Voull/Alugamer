@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Alugamer.Database;
 using Alugamer.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 
 namespace Alugamer.Controllers
@@ -26,10 +28,9 @@ namespace Alugamer.Controllers
 		public IActionResult Busca(int id)
 		{
 			ClienteDao clienteDao = new ClienteDao();
-
 			Cliente cliente = clienteDao.Read(id);
 
-			return Ok();
+			return Ok(JsonConvert.SerializeObject(cliente));
 		}
 
 		[HttpPost]
@@ -60,7 +61,12 @@ namespace Alugamer.Controllers
 			return Ok(resposta);
 		}
 
-		[HttpDelete]
+        private ValidationResult GetErrorMessage()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpDelete]
 		public IActionResult Remove(int id)
 		{
 			ClienteDao clienteDao = new ClienteDao();
