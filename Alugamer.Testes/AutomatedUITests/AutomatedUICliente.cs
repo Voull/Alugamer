@@ -9,20 +9,20 @@ using BrowserStack;
 
 namespace Alugamer.Testes.AutomatedUITests
 {
-    public class AutomatedUICliente : IDisposable
+    public class AutomatedUICliente /*: IDisposable*/
     {
-        private readonly IWebDriver _webDriver;
+        //private readonly IWebDriver _webDriver;
 
-        public AutomatedUICliente()
-        {
-            _webDriver = new FirefoxDriver();
-        }
+        //public AutomatedUICliente()
+        //{
+        //    _webDriver = new FirefoxDriver();
+        //}
 
-        public void Dispose()
-        {
-            _webDriver.Quit();
-            _webDriver.Dispose();
-        }
+        //public void Dispose()
+        //{
+        //    _webDriver.Quit();
+        //    _webDriver.Dispose();
+        //}
 
         [Fact]
         public void TesteNovo()
