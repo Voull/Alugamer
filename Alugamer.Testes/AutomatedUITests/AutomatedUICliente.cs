@@ -6,28 +6,27 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using Xunit;
 using BrowserStack;
+using Alugamer.Testes.Utils;
+using OpenQA.Selenium.Remote;
 
 namespace Alugamer.Testes.AutomatedUITests
 {
-    public class AutomatedUICliente /*: IDisposable*/
+    public class AutomatedUICliente
     {
-        //private readonly IWebDriver _webDriver;
+        BrowserStackLocal localConfig;
+        RemoteWebDriver driver;
 
-        //public AutomatedUICliente()
-        //{
-        //    _webDriver = new FirefoxDriver();
-        //}
+        public AutomatedUICliente()
+        {
+            localConfig = new BrowserStackLocal();
 
-        //public void Dispose()
-        //{
-        //    _webDriver.Quit();
-        //    _webDriver.Dispose();
-        //}
+            driver = new RemoteWebDriver(new Uri("http://voull1.browserstack.com"), localConfig.capabilities);
+        }
 
         [Fact]
         public void TesteNovo()
         {
-            Assert.True(Environment.GetEnvironmentVariable("BROWSERSTACK_KEY") != null);
+            Assert.Equal("Home Page - Alugamer", driver.Title);
         }
     }
 }
