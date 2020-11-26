@@ -13,10 +13,6 @@ addons:
     access_key: $BROWSERSTACK_KEY
   chrome: stable
 
-before_script:
-  - dotnet run -c 'Debug' -p Alugamer  # start a Web server
-  - sleep 10 # give Web server some time to bind to sockets, etc
-
 script:
   - dotnet restore
   - dotnet build --configuration Release
