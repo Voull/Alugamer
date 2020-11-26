@@ -5,6 +5,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using Xunit;
+using BrowserStack;
 
 namespace Alugamer.Testes.AutomatedUITests
 {
@@ -26,10 +27,7 @@ namespace Alugamer.Testes.AutomatedUITests
         [Fact]
         public void TesteNovo()
         {
-            _webDriver.Navigate()
-                .GoToUrl("https://localhost:5000/Cliente");
-
-            Assert.Equal("Cliente", _webDriver.Title);
+            Assert.True(Environment.GetEnvironmentVariable("BROWSERSTACK_KEY") != null);
         }
     }
 }

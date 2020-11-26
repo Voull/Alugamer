@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BrowserStack" Version="2.0.1" />
     <PackageReference Include="CsvHelper" Version="15.0.8" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="Selenium.Chrome.WebDriver" Version="85.0.0" />
