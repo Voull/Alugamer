@@ -12,7 +12,7 @@ addons:
 
 before_script:
   - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+  - "sudo sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
   - dotnet run -c 'Debug' -p Alugamer  # start a Web server
   - sleep 10 # give Web server some time to bind to sockets, etc
