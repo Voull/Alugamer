@@ -27,7 +27,7 @@ namespace Alugamer.Testes.AutomatedUITests
         public void TesteNovo()
         {
             _webDriver.Navigate()
-                .GoToUrl("https://localhost:44392/Cliente");
+                .GoToUrl("https://localhost:5000/Cliente");
 
             Assert.Equal("Cliente", _webDriver.Title);
         }
