@@ -10,8 +10,7 @@ services:
 addons:
   browserstack:
     username: "voull1"
-    access_key:
-        secure: "bFkeKH6AThbr6aaGsE3K+hTAUL9dGirExuvHwG9tLz+ZN7aVNZceK+UZlugyTT8fbHcdvQdJ8u1o5qCcjItuI2F9wv5/1LG2CFHBQPua/IuvNcHRX4dnJm2/s5zt0uaKpqaJzffYNtejh8IZaEmkabKicyrdVQb925fYnZR3jK5Cs+swLntOHUWnKNqxTjVdK/4mKJxhcbHkQ/xnMDfYSdO5hwa7wONxe7P9a8otEnulC/Ps2vQp55ZZTtYdsaiOn+nq6hWwyL8Dh0CeyNw5rYCkLZITu7SCB0psei5xIFfvFO8FlEWUGgKoY6ccopj63cJUMI3EZK/Jw1JqNLS0n5njRrK/imctRh9wOxiNe0FvFV5l8No2pCBx8Auu5yGj97cNI/jssdY50WFwTTI0cEAsvRsmjw+h2xWcdt7SeFsPgD+haObrHYud7qayyw/dCondkbHIrz9FlilrtUhIm/ybEWQqkQYJbid6LWXysh5DIRteNFqS+vUcGohxJslvxt80hs+aoTsyXxu3HxOzSpLM8YRP44Hv+xpxPhXHsH3l85BGotGGITjS9Bhr74sON7GzO6W4Ya25U9ycDyU8ChgV6DMu2WhVirMo9x53rzGIdOvJ8JZiim9hyqvzvc2vVgXd144tFRXbF5LMcVYgxeCnlSHXgJjZUVR0q0V1+ts="
+    access_key: $BROWSERSTACK_KEY
   chrome: stable
 
 before_script:
