@@ -27,7 +27,7 @@ namespace Alugamer.Testes.AutomatedUITests
             if (pasta != null && Directory.Exists(pasta.FullName + "\\Alugamer"))
                 pasta = new DirectoryInfo(pasta.FullName + "\\Alugamer");
             else
-                Environment.FailFast("Pasta do Projeto não encontrada!");
+                Environment.FailFast($"Pasta do Projeto não encontrada! Caminho: {pasta.FullName}");
 
             ProcessStartInfo prStartInfo = new ProcessStartInfo("dotnet")
             {
