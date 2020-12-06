@@ -54,7 +54,7 @@ namespace Alugamer.Testes.AutomatedUITests
             };
 
             pr = Process.Start(prStartInfo);
-
+            Console.Write(pr.StandardOutput.ReadToEnd());
             Thread.Sleep(10000);
         }
 
