@@ -52,7 +52,7 @@ namespace Alugamer.Testes.AutomatedUITests
             }
             catch(Exception)
             {
-                Environment.FailFast(pr.StandardOutput.ReadToEnd());
+                startup.GetOutput();
             }
         }
     }
