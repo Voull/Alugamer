@@ -24,12 +24,12 @@ namespace Alugamer.Testes.AutomatedUITests
             //localConfig = new BrowserStackLocal();
 
             //driver = new RemoteWebDriver(new Uri("https://localhost:5001"), localConfig.capabilities);
-            var AAAA = new FirefoxOptions
+            var AAAA = new ChromeOptions
             {
                 AcceptInsecureCertificates = true
             };
-            AAAA.AddArgument("-headless");
-            driver = new FirefoxDriver(AAAA);
+            AAAA.AddArgument("headless");
+            driver = new ChromeDriver(AAAA);
         }
 
         public void Dispose()
@@ -47,7 +47,6 @@ namespace Alugamer.Testes.AutomatedUITests
             {
                 driver.Url = "https://localhost:5001/cliente";
                 driver.Navigate();
-
                 Assert.Equal("Gestão de Clientes - Alugamer", driver.Title);
             }
             catch(Exception)
