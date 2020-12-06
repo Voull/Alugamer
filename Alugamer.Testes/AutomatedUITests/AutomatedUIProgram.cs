@@ -54,10 +54,17 @@ namespace Alugamer.Testes.AutomatedUITests
             };
 
             pr = Process.Start(prStartInfo);
-            Console.Write(pr.StandardOutput.ReadToEnd());
             Thread.Sleep(10000);
+            if (pr.HasExited)
+            {
+                Environment.FailFast(pr.StandardOutput.ReadToEnd());
+            }
         }
 
+        public void GetOutput()
+        {
+            Environment.FailFast(pr.StandardOutput.ReadToEnd());
+        }
         public void Dispose()
         {
             if (pr != null)

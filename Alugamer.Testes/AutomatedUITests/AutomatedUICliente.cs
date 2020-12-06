@@ -43,10 +43,17 @@ namespace Alugamer.Testes.AutomatedUITests
         [Fact]
         public void TesteNovo()
         {
-            driver.Url = "https://localhost:5001/cliente";
-            driver.Navigate();
-            
-            Assert.Equal("Gestão de Clientes - Alugamer", driver.Title);
+            try
+            {
+                driver.Url = "https://localhost:5001/cliente";
+                driver.Navigate();
+
+                Assert.Equal("Gestão de Clientes - Alugamer", driver.Title);
+            }
+            catch(Exception)
+            {
+                Environment.FailFast(pr.StandardOutput.ReadToEnd());
+            }
         }
     }
 }
