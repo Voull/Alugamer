@@ -24,8 +24,16 @@ namespace Alugamer.Testes.AutomatedUITests
 
             while (pasta != null && !pasta.Name.Equals("Alugamer"))
                 pasta = pasta.Parent;
-            if (pasta != null && Directory.Exists(pasta.FullName + "\\Alugamer"))
-                pasta = new DirectoryInfo(pasta.FullName + "\\Alugamer");
+            if (pasta != null) {
+                foreach (DirectoryInfo dir in pasta.GetDirectories())
+                {
+                    if (dir.Name.Equals("Alugamer"))
+                    {
+                        pasta = dir;
+                        break;
+                    }
+                }
+            }
             else
             {
                 string msg = "";
