@@ -11,22 +11,40 @@ using OpenQA.Selenium.Remote;
 
 namespace Alugamer.Testes.AutomatedUITests
 {
-    public class AutomatedUICliente
+    public class AutomatedUICliente : IDisposable
     {
-        BrowserStackLocal localConfig;
-        RemoteWebDriver driver;
+        //BrowserStackLocal localConfig;
+        //RemoteWebDriver driver;
+        IWebDriver driver;
+        AutomatedUIProgram startup;
 
         public AutomatedUICliente()
         {
-            localConfig = new BrowserStackLocal();
+            startup = new AutomatedUIProgram();
+            //localConfig = new BrowserStackLocal();
 
-            driver = new RemoteWebDriver(new Uri("http://voull1.browserstack.com"), localConfig.capabilities);
+            //driver = new RemoteWebDriver(new Uri("https://localhost:5001"), localConfig.capabilities);
+            driver = new FirefoxDriver(new FirefoxOptions
+            {
+                AcceptInsecureCertificates = true
+            });
         }
+
+        public void Dispose()
+        {
+            startup.Dispose();
+            driver.Close();
+            driver.Dispose();
+        }
+
 
         [Fact]
         public void TesteNovo()
         {
-            Assert.Equal("Home Page - Alugamer", driver.Title);
+            driver.Url = "https://localhost:5001/cliente";
+            driver.Navigate();
+            
+            Assert.Equal("Gestão de Clientes - Alugamer", driver.Title);
         }
     }
 }

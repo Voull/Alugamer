@@ -15,6 +15,7 @@ namespace Alugamer.Testes.Utils
         {
             capabilities = new ChromeOptions();
             capabilities.BrowserVersion = "latest";
+            capabilities.AcceptInsecureCertificates = true;
             Dictionary<string, object> browserstackOptions = new Dictionary<string, object>();
             browserstackOptions.Add("os", "Windows");
             browserstackOptions.Add("osVersion", "10");
