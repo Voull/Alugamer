@@ -24,10 +24,12 @@ namespace Alugamer.Testes.AutomatedUITests
             //localConfig = new BrowserStackLocal();
 
             //driver = new RemoteWebDriver(new Uri("https://localhost:5001"), localConfig.capabilities);
-            driver = new FirefoxDriver(new FirefoxOptions
+            var AAAA = new FirefoxOptions
             {
                 AcceptInsecureCertificates = true
-            });
+            };
+            AAAA.AddArgument("-headless");
+            driver = new FirefoxDriver(AAAA);
         }
 
         public void Dispose()
