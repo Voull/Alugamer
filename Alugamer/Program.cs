@@ -21,6 +21,9 @@ namespace Alugamer
 				.ConfigureWebHostDefaults(webBuilder =>
 				{
 					webBuilder.UseStartup<Startup>();
+					#if TRAVIS
+					webBuilder.UseUrls("https://0.0.0.0:5001/");
+					#endif
 				});
 	}
 }
