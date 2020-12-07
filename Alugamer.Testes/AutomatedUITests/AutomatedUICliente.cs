@@ -13,46 +13,58 @@ namespace Alugamer.Testes.AutomatedUITests
 {
     public class AutomatedUICliente : IDisposable
     {
-        //BrowserStackLocal localConfig;
-        //RemoteWebDriver driver;
-        IWebDriver driver;
+        BrowserStackLocal localConfig;
+        RemoteWebDriver driver;
+        //IWebDriver driver;
         AutomatedUIProgram startup;
+        Local local;
 
         public AutomatedUICliente()
         {
             startup = new AutomatedUIProgram();
-            //localConfig = new BrowserStackLocal();
+            localConfig = new BrowserStackLocal();
 
-            //driver = new RemoteWebDriver(new Uri("https://localhost:5001"), localConfig.capabilities);
-            var AAAA = new ChromeOptions
-            {
-                AcceptInsecureCertificates = true
+            local = new Local();
+            List<KeyValuePair<string, string>> bsLocalArgs = new List<KeyValuePair<string, string>>() {
+                new KeyValuePair<string, string>("key", Environment.GetEnvironmentVariable("BROWSERSTACK_KEY")),
+                new KeyValuePair<string, string>("forcelocal", "true")
             };
-            AAAA.AddArgument("headless");
-            driver = new ChromeDriver(AAAA);
+
+            try
+            {
+                local.start(bsLocalArgs);
+                driver = new RemoteWebDriver(new Uri("https://hub-cloud.browserstack.com/wd/hub/"), localConfig.capabilities);
+            }
+            catch(Exception e)
+            {
+                Dispose();
+                throw e;
+            }
         }
 
         public void Dispose()
         {
             startup.Dispose();
-            driver.Close();
-            driver.Dispose();
+            
+            if(driver != null)
+            {
+                driver.Close();
+                driver.Dispose();
+            }
+
+            if (local.isRunning())
+            {
+                local.stop();
+            }
         }
 
 
         [Fact]
         public void TesteNovo()
         {
-            try
-            {
-                driver.Url = "https://localhost:5001/cliente";
-                driver.Navigate();
-                Assert.Equal("Gestão de Clientes - Alugamer", driver.Title);
-            }
-            catch(Exception)
-            {
-                startup.GetOutput();
-            }
+            driver.Url = "https://localhost:5001/cliente";
+            driver.Navigate();
+            Assert.Equal("Gestão de Clientes - Alugamer", driver.Title);
         }
     }
 }
