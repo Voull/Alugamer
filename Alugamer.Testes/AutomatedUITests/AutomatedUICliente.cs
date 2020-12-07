@@ -23,16 +23,19 @@ namespace Alugamer.Testes.AutomatedUITests
         {
             startup = new AutomatedUIProgram();
             localConfig = new BrowserStackLocal();
-
+            #if !TRAVIS
             local = new Local();
             List<KeyValuePair<string, string>> bsLocalArgs = new List<KeyValuePair<string, string>>() {
                 new KeyValuePair<string, string>("key", Environment.GetEnvironmentVariable("BROWSERSTACK_KEY")),
                 new KeyValuePair<string, string>("forcelocal", "true")
             };
+            #endif
 
             try
             {
+                #if !TRAVIS
                 local.start(bsLocalArgs);
+                #endif
                 driver = new RemoteWebDriver(new Uri("https://hub-cloud.browserstack.com/wd/hub/"), localConfig.capabilities);
             }
             catch(Exception e)
@@ -51,11 +54,13 @@ namespace Alugamer.Testes.AutomatedUITests
                 driver.Close();
                 driver.Dispose();
             }
-
+           #if !TRAVIS
             if (local.isRunning())
             {
                 local.stop();
             }
+          #endif
+
         }
 
 

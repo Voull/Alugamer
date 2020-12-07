@@ -16,16 +16,21 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		TRAVIS|Any CPU = TRAVIS|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A85B7D31-8912-45A1-9041-01D4BC8D5FC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A85B7D31-8912-45A1-9041-01D4BC8D5FC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A85B7D31-8912-45A1-9041-01D4BC8D5FC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A85B7D31-8912-45A1-9041-01D4BC8D5FC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A85B7D31-8912-45A1-9041-01D4BC8D5FC0}.TRAVIS|Any CPU.ActiveCfg = TRAVIS|Any CPU
+		{A85B7D31-8912-45A1-9041-01D4BC8D5FC0}.TRAVIS|Any CPU.Build.0 = TRAVIS|Any CPU
 		{9E8EFF0C-326B-4B5C-99F1-84119EDEDC5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9E8EFF0C-326B-4B5C-99F1-84119EDEDC5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E8EFF0C-326B-4B5C-99F1-84119EDEDC5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E8EFF0C-326B-4B5C-99F1-84119EDEDC5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E8EFF0C-326B-4B5C-99F1-84119EDEDC5E}.TRAVIS|Any CPU.ActiveCfg = TRAVIS|Any CPU
+		{9E8EFF0C-326B-4B5C-99F1-84119EDEDC5E}.TRAVIS|Any CPU.Build.0 = TRAVIS|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

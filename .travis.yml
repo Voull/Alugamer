@@ -13,4 +13,4 @@ addons:
 script:
   - dotnet restore
   - dotnet build --configuration Release
-  - dotnet test
+  - dotnet test -c "TRAVIS"

@@ -6,6 +6,8 @@
     <IsPackable>false</IsPackable>
 
     <StartupObject></StartupObject>
+
+    <Configurations>Debug;Release;TRAVIS</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
