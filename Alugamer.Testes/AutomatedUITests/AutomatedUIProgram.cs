@@ -59,6 +59,13 @@ namespace Alugamer.Testes.AutomatedUITests
             {
                 Environment.FailFast("Erro na Inicialização do Projeto! \n Log do Console:\n" + pr.StandardOutput.ReadToEnd());
             }
+            else
+            {
+                while (true)
+                {
+                    Console.WriteLine(pr.StandardOutput.ReadLine());
+                }
+            }
         }
         public void Dispose()
         {

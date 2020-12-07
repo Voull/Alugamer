@@ -3,6 +3,9 @@ solution: Alugamer.sln
 dotnet: 3.1
 mono: none
 
+env:
+    - ASPNETCORE_URLS=https://localhost:5001/
+
 addons:
   browserstack:
     username: "voull1"
