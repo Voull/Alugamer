@@ -58,7 +58,7 @@ namespace Alugamer.Models
 
 			if(string.IsNullOrEmpty(Sexo))
 				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Sexo"));
-			else if(!Sexo.Equals("M") || !Sexo.Equals("F"))
+			else if(!Sexo.Equals("M") && !Sexo.Equals("F"))
 				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "Sexo"));
 
 			return listaErros;
