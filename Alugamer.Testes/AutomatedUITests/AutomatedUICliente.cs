@@ -8,6 +8,7 @@ using Xunit;
 using BrowserStack;
 using Alugamer.Testes.Utils;
 using OpenQA.Selenium.Remote;
+using Xunit.Sdk;
 
 namespace Alugamer.Testes.AutomatedUITests
 {
@@ -55,10 +56,7 @@ namespace Alugamer.Testes.AutomatedUITests
                 driver.Dispose();
             }
            #if !TRAVIS
-            if (local.isRunning())
-            {
-                local.stop();
-            }
+            local.stop();
           #endif
 
         }
@@ -69,7 +67,18 @@ namespace Alugamer.Testes.AutomatedUITests
         {
             driver.Url = "https://localhost:5001/cliente";
             driver.Navigate();
-            Assert.Equal("Gestão de Clientes - Alugamer", driver.Title);
+            try
+            {
+                Assert.Equal("Gestão de Clientes - Alugamer", driver.Title);
+            }
+            catch(EqualException e)
+            {
+                ((IJavaScriptExecutor)driver).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \"" + $"Esperado: {e.Expected}\nEncontrado:{e.Actual}" + "\"}}");
+                throw e;
+            }
+            
+            ((IJavaScriptExecutor)driver).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"passed\", \"reason\": \" Sucesso!\"}}");
+
         }
     }
 }
