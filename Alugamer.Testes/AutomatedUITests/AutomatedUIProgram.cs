@@ -48,7 +48,7 @@ namespace Alugamer.Testes.AutomatedUITests
 
             ProcessStartInfo prStartInfo = new ProcessStartInfo("dotnet")
             {
-                Arguments = $"run --project {pasta.FullName} -c TRAVIS",
+                Arguments = $"run --project {pasta.FullName} -c \"TRAVIS\"",
                 UseShellExecute = false,
                 RedirectStandardOutput = true
             };

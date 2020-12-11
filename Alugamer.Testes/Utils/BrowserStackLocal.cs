@@ -21,7 +21,7 @@ namespace Alugamer.Testes.Utils
             capabilities.AddAdditionalCapability("os_version", "10", true);
             capabilities.AddAdditionalCapability("browser", "Chrome", true);
             capabilities.AddAdditionalCapability("browser_version", "latest", true);
-            capabilities.AddAdditionalCapability("browserstack.local", "true", true);
+            //capabilities.AddAdditionalCapability("browserstack.local", "true", true);
             capabilities.AddAdditionalCapability("browserstack.debug", "true", true);
             capabilities.AddAdditionalCapability("browserstack.selenium_version", "3.141.0", true);
             capabilities.AddAdditionalCapability("browserstack.user", "voull1", true);
