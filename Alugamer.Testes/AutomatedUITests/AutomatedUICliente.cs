@@ -31,7 +31,6 @@ namespace Alugamer.Testes.AutomatedUITests
                 new KeyValuePair<string, string>("forcelocal", "true")
             };
             #endif
-
             try
             {
                 #if !TRAVIS
