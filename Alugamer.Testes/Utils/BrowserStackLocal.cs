@@ -27,6 +27,10 @@ namespace Alugamer.Testes.Utils
             capabilities.AddAdditionalCapability("browserstack.user", "voull1", true);
             capabilities.AddAdditionalCapability("browserstack.key", Environment.GetEnvironmentVariable("BROWSERSTACK_KEY"), true);
 
+            #if TRAVIS
+            capabilities.AddAdditionalCapability("browserstack.localIdentifier", Environment.GetEnvironmentVariable("BROWSERSTACK_LOCAL_IDENTIFIER"), true);
+            #endif
+
 
         }
     }
