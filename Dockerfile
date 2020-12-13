@@ -14,4 +14,5 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 WORKDIR /app/Alugamer
 COPY --from=build-env /app/Alugamer/out .
-ENTRYPOINT ["dotnet", "Alugamer.dll"]
+#ENTRYPOINT ["dotnet", "Alugamer.dll"]
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet Alugamer.dll
