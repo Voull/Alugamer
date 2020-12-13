@@ -54,26 +54,26 @@ function salvaCliente() {
 		alert("Selecione um Cliente ou clique em Novo!");
 	}
 
-	//let cliente = {
-	//	id = id,
-	//	nome = $("#nomeCli").val(),
-	//	email = $("#emailCli").val(),
-	//	telefone = $("#celCli").val(),
-	//	dataNascimento = $("#dataNascCli").val(),
-	//	endereco = $("#endCli").val(),
-	//	sexo = $("#sexoCli").val(),
-	//	cpf = $("#cpfCli").val()
-	//};
+	let cliente = {
+		id: Number(id),
+		nome: $("#nomeCli").val(),
+		email: $("#emailCli").val(),
+		telefone: $("#celCli").val(),
+		dataNascimento: $("#dataNascCli").val(),
+		endereco: $("#endCli").val(),
+		sexo: $("#sexoCli").val(),
+		cpf: $("#cpfCli").val()
+	};
 
-	let cliente = {};
-	cliente.Id = Number(id);
-	cliente.Nome = $("#nomeCli").val();
-	cliente.Email = $("#emailCli").val();
-	cliente.Telefone = $("#celCli").val();
-	cliente.Endereco = $("#endCli").val();
-	cliente.DataNascimento = $("#dataNascCli").val() + "T00:00:00";
-	cliente.Sexo = $("#sexoCli").val();
-	cliente.Cpf = $("#cpfCli").val();
+	//let cliente = {};
+	//cliente.Id = Number(id);
+	//cliente.Nome = $("#nomeCli").val();
+	//cliente.Email = $("#emailCli").val();
+	//cliente.Telefone = $("#celCli").val();
+	//cliente.Endereco = $("#endCli").val();
+	//cliente.DataNascimento = $("#dataNascCli").val() + "T00:00:00";
+	//cliente.Sexo = $("#sexoCli").val();
+	//cliente.Cpf = $("#cpfCli").val();
 
 	cliente = JSON.stringify(cliente);
 
@@ -88,6 +88,11 @@ function salvaCliente() {
 }
 
 function successSalvaCliente(data) {
+	data = JSON.parse(data);
+	if (data == "")
+		res = alert("Cliente salvo com sucesso!");
+	else
+		alert(data);
 	location.reload();
 }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Alugamer.CRUD;
 using Alugamer.Database;
 using Alugamer.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +16,9 @@ namespace Alugamer.Controllers
 	{
 		public IActionResult Index()
 		{
-			ClienteDao clienteDao = new ClienteDao();
+			CRUDClientes crudClientes = new CRUDClientes();
 
-			List<Cliente> listaClientes = clienteDao.ReadAllSimples();
+			List<Cliente> listaClientes = crudClientes.Lista();
 
 			ViewBag.listaClientes = listaClientes;
 
@@ -27,8 +28,8 @@ namespace Alugamer.Controllers
 		[HttpGet]
 		public IActionResult Busca(int id)
 		{
-			ClienteDao clienteDao = new ClienteDao();
-			Cliente cliente = clienteDao.Read(id);
+			CRUDClientes crudClientes = new CRUDClientes();
+			Cliente cliente = crudClientes.Busca(id);
 
 			return Ok(JsonConvert.SerializeObject(cliente));
 		}
@@ -36,15 +37,17 @@ namespace Alugamer.Controllers
 		[HttpPost]
 		public IActionResult Novo([FromBody] Cliente cliente)
 		{
-			if (cliente == null) return BadRequest();
+			if (cliente == null) return BadRequest("Dados Inválidos!");
 
-			List<String> errosCliente = cliente.validar();
-			if (errosCliente.Count > 0) return BadRequest(JsonConvert.SerializeObject(errosCliente));
+			CRUDClientes crudClientes = new CRUDClientes();
+			string erros = crudClientes.Novo(cliente);
 
-			ClienteDao clienteDao = new ClienteDao();
-			string resposta = clienteDao.Insert(cliente);
+			if (!string.IsNullOrEmpty(erros))
+            {
+				return BadRequest(JsonConvert.SerializeObject(erros));
+            }
 
-			return Ok(resposta);
+			return Ok(JsonConvert.SerializeObject(erros));
 		}
 
 		[HttpPost]
@@ -52,25 +55,22 @@ namespace Alugamer.Controllers
 		{
 			if (cliente == null) return BadRequest();
 
-			List<String> errosCliente = cliente.validar();
-			if (errosCliente.Count > 0) return BadRequest(JsonConvert.SerializeObject(errosCliente));
+			CRUDClientes crudClientes = new CRUDClientes();
+			string erros = crudClientes.Edita(cliente);
 
-			ClienteDao clienteDao = new ClienteDao();
-			string resposta = clienteDao.Update(cliente);
+			if (!string.IsNullOrEmpty(erros))
+			{
+				return BadRequest(erros);
+			}
 
-			return Ok(resposta);
+			return Ok(erros);
 		}
-
-        private ValidationResult GetErrorMessage()
-        {
-            throw new NotImplementedException();
-        }
 
         [HttpDelete]
 		public IActionResult Remove(int id)
 		{
-			ClienteDao clienteDao = new ClienteDao();
-			clienteDao.Delete(id);
+			CRUDClientes crudClientes = new CRUDClientes();
+			crudClientes.Remove(id);
 
 			return Ok();
 		}

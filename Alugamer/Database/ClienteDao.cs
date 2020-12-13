@@ -40,7 +40,7 @@ namespace Alugamer.Database
 
             DataTable resp = _conn.dataTable(sql);
 
-            if (resp.Rows.Count == 0) return null;
+            if (resp.Rows.Count == 0) return new Cliente();
 
             return new Cliente
             {

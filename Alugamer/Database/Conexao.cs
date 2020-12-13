@@ -16,10 +16,14 @@ namespace Alugamer.Database
 		{
 			if (_connck == null)
 			{
-                //_connck = new SqlConnection("data source=localhost;initial catalog=alugamer;integrated security=true;");
-                _connck = new SqlConnection("data source=alugamer.cam921hw53qq.us-east-2.rds.amazonaws.com;initial catalog=alugamer;User ID=admin;Password=dfOoEQOxSCbDTVgcAhk3");
-
-            }
+				//_connck = new SqlConnection("data source=localhost;initial catalog=alugamer;integrated security=true;");
+				#if !TRAVIS
+				_connck = new SqlConnection("data source=alugamer.cam921hw53qq.us-east-2.rds.amazonaws.com;initial catalog=alugamer;User ID=admin;Password=dfOoEQOxSCbDTVgcAhk3");
+				#endif
+				#if TRAVIS
+				_connck = new SqlConnection("data source=alugamer.cam921hw53qq.us-east-2.rds.amazonaws.com;initial catalog=alugamer_testes;User ID=admin;Password=dfOoEQOxSCbDTVgcAhk3");
+				#endif
+			}
 		}
 
 		internal Conexao(string strConn)
