@@ -3,6 +3,7 @@ using Alugamer.Utils;
 using Alugamer.Validations;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Xunit;
 
 namespace Alugamer.Testes
@@ -11,7 +12,10 @@ namespace Alugamer.Testes
 	{
 		private readonly ClienteValidation clienteValidation = new ClienteValidation();
 		private readonly ErroModel erroModel = new ErroModel();
-
+		public UnitTestCliente()
+        {
+			System.Console.Out.WriteLine(Encoding.Default.EncodingName);
+        }
 		[Fact]
         public void TesteClienteVazio()
 		{
