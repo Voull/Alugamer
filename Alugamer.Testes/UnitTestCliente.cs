@@ -200,7 +200,7 @@ namespace Alugamer.Testes
 			List<string> erros = clienteValidation.validar(clienteEndereco);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Endereço"), true);
+			Assert.True(erros[0].Equals(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Endereço")));
 		}
 
 		[Fact]
