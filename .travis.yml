@@ -1,9 +1,16 @@
-﻿language: csharp
-solution: alugamer.sln
-
-mono: none
+language: csharp
+solution: Alugamer.sln
 dotnet: 3.1
+mono: none
+
+addons:
+  browserstack:
+    username: "voull1"
+    access_key:
+      secure: "qwk4bkNXrIXiExAHiE2VqFA659jWLO7Z/KApyuy0x92Fm2MexV6nptGLRYBnp5FlCNSzjMXNwycVmOBISZTnHhZm7dueFTb9MuxiW/6s3uZvexBrGKUxkSZcJxPF8sLLDRfPXKsLEZp2Hp/x+r4TO7uo2m+kAAH0XHm+GF3d3qKekGCoSAGyuX4sWCtf6A5conqSzDXTuCpPnzwtB5sFdSFZGwmoTL9ejW7VBWJ3ohW7bOf4z5ylZDwYNu/ZJQn7QB3i3f+EFXz421mmuSRfhCmInjFzvYXUfBUPN4KSPO0zApPGveCrysNR1czQphWAJ+rUx8eE3K52LAyfM3o3aD/tMV+AfliPol535nLskxqSXtaMH0yMzW/fMjvbPK9cwqDZSK15MSQgJm0NjtetPRYlrO8R8Zx+2btFrQsTmmQKXfRhcfUTRZVootMZIQpVeqz7IAJqQ1JbYoQmGQALOT1VjwBaoZHZhKDpk7tk+PcDNSZIr9iQgeAgIIvqYe84CaEA91q9ugqsxIbbP8/JVp9cErGoARFTRJ87iH6YA+iHHrE3AwkARpEQtW21GdXG2XOcQY4OwdiIKqfzkMRtcxoimM6OhBvKW0iPxSvzOH8/E7YVyl5+1YPu2Oi2Y1lxxnHHzog1Ua4TLXF25ndMXqEw4jYeEanMojZQcUkY2Ts="
+    forcelocal: true
+
 script:
- - dotnet restore
- - msbuild /p:Configuration=Release alugamer.sln
- - mono ./packages/xunit.runners.*/tools/xunit.console.clr4.exe ./Alugamer.Testes/bin/Release/Alugamer.Testes.dll
+  - dotnet restore
+  - dotnet build --configuration Release
+  - dotnet test -c "TRAVIS"
