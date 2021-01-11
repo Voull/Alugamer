@@ -37,7 +37,7 @@ namespace Alugamer.Controllers
 		[HttpPost]
 		public IActionResult Novo([FromBody] Cliente cliente)
 		{
-			if (cliente == null) return BadRequest("Dados Inválidos!");
+			if (cliente == null) return BadRequest(JsonConvert.SerializeObject("Dados Inválidos!"));
 
 			CRUDClientes crudClientes = new CRUDClientes();
 			string erros = crudClientes.Novo(cliente);
@@ -47,7 +47,7 @@ namespace Alugamer.Controllers
 				return BadRequest(JsonConvert.SerializeObject(erros));
             }
 
-			return Ok(JsonConvert.SerializeObject(erros));
+			return Ok(JsonConvert.SerializeObject(""));
 		}
 
 		[HttpPost]
@@ -60,10 +60,10 @@ namespace Alugamer.Controllers
 
 			if (!string.IsNullOrEmpty(erros))
 			{
-				return BadRequest(erros);
+				return BadRequest(JsonConvert.SerializeObject(erros));
 			}
 
-			return Ok(erros);
+			return Ok(JsonConvert.SerializeObject(""));
 		}
 
         [HttpDelete]

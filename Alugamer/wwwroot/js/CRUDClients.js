@@ -83,19 +83,21 @@ function salvaCliente() {
 		type: "POST",
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
-		success: function (data) { successSalvaCliente(data); }
-	});
+		success: function () { successSalvaCliente();},
+		error: function (data) { failSalvaCliente(data);}
+	})
+	
 }
 
-function successSalvaCliente(data) {
-	data = JSON.parse(data);
-	if (data == "")
-		res = alert("Cliente salvo com sucesso!");
-	else
-		alert(data);
+function successSalvaCliente() {
+	res = alert("Cliente salvo com sucesso!");
 	location.reload();
 }
 
+function failSalvaCliente(data) {
+	parsed = data.responseJSON;
+	alert(parsed);
+}
 
 function criaCliente() {
 	limpaCampos();
