@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Alugamer.CRUD;
 using Alugamer.Database;
 using Alugamer.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 
 namespace Alugamer.Controllers
@@ -13,11 +16,11 @@ namespace Alugamer.Controllers
 	{
 		public IActionResult Index()
 		{
-			AlugavelDao alugavelDao = new AlugavelDao();
+			CRUDAlugavel crudAlugavel = new CRUDAlugavel();
 
-			List<Alugavel> listaAlugaveis = alugavelDao.ReadAllSimples();
+			List<Alugavel> listaAlugavel = crudAlugavel.Lista();
 
-			ViewBag.listaAlugaveis = listaAlugaveis;
+			ViewBag.listaAlugavel = listaAlugavel;
 
 			return View();
 		}
@@ -25,9 +28,8 @@ namespace Alugamer.Controllers
 		[HttpGet]
 		public IActionResult Busca(int id)
 		{
-			AlugavelDao alugavelDao = new AlugavelDao();
-
-			Alugavel alugavel = alugavelDao.Read(id);
+			CRUDAlugavel crudAlugavel = new CRUDAlugavel();
+			Alugavel alugavel = crudAlugavel.Busca(id);
 
 			return Ok(JsonConvert.SerializeObject(alugavel));
 		}
@@ -35,28 +37,48 @@ namespace Alugamer.Controllers
 		[HttpPost]
 		public IActionResult Novo([FromBody] Alugavel alugavel)
 		{
-			AlugavelDao alugavelDao = new AlugavelDao();
-			alugavelDao.Insert(alugavel);
+			if (alugavel == null) return BadRequest(JsonConvert.SerializeObject("Dados Inválidos!"));
 
-			return Ok();
+			CRUDAlugavel crudAlugavel = new CRUDAlugavel();
+			string erros = crudAlugavel.Novo(alugavel);
+
+			if (!string.IsNullOrEmpty(erros))
+			{
+				return BadRequest(JsonConvert.SerializeObject(erros));
+			}
+
+			return Ok(JsonConvert.SerializeObject(""));
 		}
 
 		[HttpPost]
 		public IActionResult Edita([FromBody] Alugavel alugavel)
 		{
-			AlugavelDao alugavelDao = new AlugavelDao();
-			alugavelDao.Update(alugavel);
+			if (alugavel == null) return BadRequest();
 
-			return Ok();
+			CRUDAlugavel crudAlugavel = new CRUDAlugavel();
+			string erros = crudAlugavel.Edita(alugavel);
+
+			if (!string.IsNullOrEmpty(erros))
+			{
+				return BadRequest(JsonConvert.SerializeObject(erros));
+			}
+
+			return Ok(JsonConvert.SerializeObject(""));
 		}
 
 		[HttpDelete]
 		public IActionResult Remove(int id)
 		{
-			AlugavelDao alugavelDao = new AlugavelDao();
-			alugavelDao.Delete(id);
+			CRUDAlugavel crudAlugavel = new CRUDAlugavel();
+			crudAlugavel.Remove(id);
 
 			return Ok();
 		}
+
+		//public IActionResult Index(int id)
+		//{
+		//	AlugavelDao cliente
+		//	return View();
+		//}
 	}
 }

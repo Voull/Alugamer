@@ -3,11 +3,11 @@
 }
 @section Scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script>
-    <script src="~/js/CRUDAlugaveis.js"></script>
+    <script src="~/js/CRUDAlugavel.js"></script>
 }
 
 @section CSS{
-    <link rel="stylesheet" href="~/css/CRUDAlugaveis.css" />
+    <link rel="stylesheet" href="~/css/CRUDAlugavel.css" />
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -21,17 +21,17 @@
                     <tr>
                         <td>
                             <label for="nomeBuscaAluga">Nome:</label>
-                            <input type="text" id="nomeBuscaAluga">
-                            @*<select id="clienteCli">
+                            @*<input type="text" id="nomeBuscaAluga">*@
+                            <select id="AlugavelAlu">
                                     <option value="0">Escolha...</option>
-                                    @foreach (Cliente cliente in ViewBag.listaClientes)
+                                    @foreach (Alugavel alugavel in ViewBag.listaAlugavel)
                                     {
-                                        <option value="@cliente.Id">@cliente.Nome</option>
+                                        <option value="@alugavel.Id">@alugavel.Nome</option>
                                     }
-                                </select>*@
+                                </select>
                         </td>
                         <td>
-                            <input type="button" id="btnBuscaAluga" onclick="" value="Buscar">
+                            <input type="button" id="btnBuscaAluga" onclick="buscaAlugavel()" value="Buscar">
                         </td>
                     </tr>
                 </tbody>
@@ -43,6 +43,10 @@
                 <p>
                     <label for="nomeAluga">Nome:</label>
                     <input type="text" id="nomeAluga" class="campoAlugaMedio" disabled>
+                </p>
+                <p>
+                    <label for="descricaoAluga">Descrição:</label>
+                    <input type="text" id="descricaoAluga" class="campoAlugaMedio" disabled>
                 </p>
                 <p>
                     <label for="categoriaAluga">Categoria:</label>
@@ -76,20 +80,20 @@
                     <tbody>
                         <tr>
                             <td>
-                                <input type="button" id="btnNovoAluga" onclick="" value="Novo">
+                                <input type="button" id="btnNovoAluga" onclick="criaAlugavel()" value="Novo">
                             </td>
                             @*<td>
-                                    <input type="button" id="btnEditarCli" onclick="editaCliente()" value="Editar">
-                                </td>*@
+                            <input type="button" id="btnEditarCli" onclick="editaCliente()" value="Editar">
+                    </td>*@
                             <td>
-                                <input type="button" id="btnExcluirAluga" onclick="" value="Excluir">
+                                <input type="button" id="btnExcluirAluga" onclick="excluiAlugavel()" value="Excluir">
                             </td>
 
                             <td>
-                                <input type="button" id="btnSalvar" onclick="" value="Salvar">
+                                <input type="button" id="btnSalvar" onclick="salvaAlugavel()" value="Salvar">
                             </td>
                             <td>
-                                <input type="button" id="btnCancelarAluga" onclick="" value="Cancelar">
+                                <input type="button" id="btnCancelarAluga" onclick="cancela()" value="Cancelar">
                             </td>
                         </tr>
                     </tbody>

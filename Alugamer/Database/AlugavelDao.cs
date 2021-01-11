@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Alugamer.Database
 {
-    public class AlugavelDao
+    public class AlugavelDao : BaseDao
     {
         private Conexao _conn;
         public AlugavelDao()
@@ -16,17 +16,25 @@ namespace Alugamer.Database
             _conn = new Conexao();
 		}
 
-        public void Insert(Alugavel alugavel)
+        public string Insert(Alugavel alugavel)
 		{
-            string sql = $@"INSERT INTO CAD_ALUGAVEIS (nome, descricao, quantidade, valor_compra, valor_aluguel)
-                            VALUES ('{alugavel.Nome}', '{alugavel.Descricao}', '{alugavel.Quantidade}', '{alugavel.valor_compra}',
-                                    '{alugavel.valor_aluguel}')";
-            _conn.execute(sql);
+            string sql = $@"INSERT INTO CAD_ALUGAVEIS (nome, descricao, quantidade, valor_compra, valor_aluguel, categoria)
+                            VALUES ('{alugavel.Nome}', '{alugavel.Descricao}', '{alugavel.Quantidade}', '{alugavel.Valor_compra}',
+                                    '{alugavel.Valor_aluguel}' , '{alugavel.Categoria}')";
+            try
+            {
+                _conn.execute(sql);
+                return string.Empty;
+            }
+            catch (Exception)
+            {
+                return erroDatabase.GeraErroGenerico(Utils.Erro.ERRO.ERRO_GENERICO);
+            }
         }
 
         public Alugavel Read(int id)
         {
-            string sql = $@"SELECT cod_alugavel, nome, descricao, quantidade, valor_compra, valor_aluguel 
+            string sql = $@"SELECT cod_alugavel, nome, descricao, quantidade, valor_compra, valor_aluguel , categoria
                             from CAD_ALUGAVEIS where cod_alugavel =({id})";
 
             DataTable resp = _conn.dataTable(sql);
@@ -39,9 +47,9 @@ namespace Alugamer.Database
                 Nome = Convert.ToString(resp.Rows[0]["nome"]),
                 Descricao = Convert.ToString(resp.Rows[0]["descricao"]),
                 Quantidade = Convert.ToInt32(resp.Rows[0]["quantidade"]),
-                valor_compra = Convert.ToDecimal(resp.Rows[0]["valor_compra"]),
-                valor_aluguel = Convert.ToDecimal(resp.Rows[0]["data_nascimento"])
-
+                Valor_compra = Convert.ToDecimal(resp.Rows[0]["valor_compra"]),
+                Valor_aluguel = Convert.ToDecimal(resp.Rows[0]["valor_aluguel"]),
+                Categoria = Convert.ToString(resp.Rows[0]["categoria"])
             };
         }
 
@@ -62,8 +70,9 @@ namespace Alugamer.Database
                     Nome = Convert.ToString(linhaAlugavel["nome"]),
                     Descricao = Convert.ToString(linhaAlugavel["descricao"]),
                     Quantidade = Convert.ToInt32(linhaAlugavel["quantidade"]),
-                    valor_compra = Convert.ToDecimal(linhaAlugavel["valor_compra"]),
-                    valor_aluguel = Convert.ToDecimal(linhaAlugavel["data_nascimento"])
+                    Valor_compra = Convert.ToDecimal(linhaAlugavel["valor_compra"]),
+                    Valor_aluguel = Convert.ToDecimal(linhaAlugavel["data_nascimento"]),
+                    Categoria = Convert.ToString(linhaAlugavel["categoria"])
                 };
 
                 listaAlugavel.Add(alugavel);
@@ -95,12 +104,20 @@ namespace Alugamer.Database
             return listaAlugavel;
         }
 
-        public void Update(Alugavel alugavel)
+        public string Update(Alugavel alugavel)
         {
             string sql = $@"UPDATE CAD_ALUGAVEIS set nome ='{alugavel.Nome}', descricao = '{alugavel.Descricao}', quantidade = '{alugavel.Quantidade}',
-                            valor_compra = '{alugavel.valor_compra}', valor_aluguel = '{alugavel.valor_aluguel}' where cod_alugavel = {alugavel.Id}";
+                            valor_compra = '{alugavel.Valor_compra}', valor_aluguel = '{alugavel.Valor_aluguel}', categoria = '{alugavel.Categoria}' where cod_alugavel = {alugavel.Id}";
 
-            _conn.execute(sql);
+            try
+            {
+                _conn.execute(sql);
+                return string.Empty;
+            }
+            catch (Exception)
+            {
+                return erroDatabase.GeraErroGenerico(Utils.Erro.ERRO.ERRO_GENERICO_DATABASE);
+            }
         }
 
         public void Delete(int id)
