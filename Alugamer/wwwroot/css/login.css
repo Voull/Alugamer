@@ -1,0 +1,16 @@
+﻿.back {
+    background-color: #f5f5f5;
+}
+
+.header-title {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    margin-bottom: 2%;
+    box-shadow: 0px 0px 47px 0px #5c5c5c;
+    border-bottom: 3px solid forestgreen;
+}
+
+.divalert {
+    border: 1px solid red;
+}
