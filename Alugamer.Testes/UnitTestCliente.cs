@@ -199,9 +199,6 @@ namespace Alugamer.Testes
 
 			List<string> erros = clienteValidation.validar(clienteEndereco);
 
-            Console.WriteLine(System.Globalization.CultureInfo.CurrentCulture.TextInfo.CultureName);
-            System.Globalization.CultureInfo.DefaultThreadCurrentCulture = new System.Globalization.CultureInfo("en-US");
-
             Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
 			Assert.True(erros[0].Equals(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Endereço")));
 		}
