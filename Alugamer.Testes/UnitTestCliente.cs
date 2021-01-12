@@ -2,6 +2,7 @@ using Alugamer.Models;
 using Alugamer.Utils;
 using Alugamer.Validations;
 using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
@@ -13,6 +14,10 @@ namespace Alugamer.Testes
 		private readonly ClienteValidation clienteValidation = new ClienteValidation();
 		private readonly ErroModel erroModel = new ErroModel();
 
+		public UnitTestCliente()
+        {
+			CultureInfo.CurrentCulture = new CultureInfo("pt-BR");
+        }
 		[Fact]
         public void TesteClienteVazio()
 		{
@@ -199,8 +204,9 @@ namespace Alugamer.Testes
 
 			List<string> erros = clienteValidation.validar(clienteEndereco);
 
+			
             Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.True(erros[0].Equals(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Endereço")));
+			Assert.True(string.Compare(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Endereço"), false, CultureInfo.CurrentCulture) == 0);
 		}
 
 		[Fact]
