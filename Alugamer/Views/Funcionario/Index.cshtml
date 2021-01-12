@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Gestão de Clientes";
+    ViewData["Title"] = "Gestão de Funcionários";
 }
 @section Scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script>
@@ -24,7 +24,7 @@
 							@*<input type="text" id="nomeBuscaCli">*@
 							<select id="funcionarioFunc">
 								<option value="0">Escolha...</option>
-								@foreach (Funcionario funcionario in ViewBag.listaFuncionarios)
+								@foreach (Funcionario funcionario in ViewBag.listaFuncionario)
 								{
 									<option value="@funcionario.Id">@funcionario.Nome</option>
 								}
@@ -45,8 +45,8 @@
 					<input type="text" id="nomeFunc" class="campoFuncMedio" disabled>
 				</p>
 				<p>
-					<label for="emailCli">E-mail:</label>
-					<input type="email" id="emailCli" class="campoFuncMedio"disabled>
+					<label for="emailFunc">E-mail:</label>
+					<input type="email" id="emailFunc" class="campoFuncMedio"disabled>
 				</p>
 				<table>
 					<tbody>

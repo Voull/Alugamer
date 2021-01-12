@@ -54,7 +54,7 @@ function salvaFuncionario() {
 		alert("Selecione um Funcionario ou clique em Novo!");
 	}
 
-	let cliente = {
+	let funcionario = {
 		id: Number(id),
 		nome: $("#nomeFunc").val(),
 		email: $("#emailFunc").val(),
@@ -83,23 +83,25 @@ function salvaFuncionario() {
 		type: "POST",
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
-		success: function (data) { successSalvaCliente(data); }
+		success: function () { successSalvaFuncionario(); },
+		error: function (data) { failSalvaFuncionario(data); }
 	});
 }
 
-function successSalvaCliente(data) {
-	data = JSON.parse(data);
-	if (data == "")
-		res = alert("Cliente salvo com sucesso!");
-	else
-		alert(data);
+function successSalvaFuncionario (data) {
+	res = alert("Funcionario salvo com sucesso!");
 	location.reload();
 }
 
+function failSalvaFuncionario(data) {
+	parsed = data.responseJSON;
+	alert(parsed);
+}
 
-function criaCliente() {
+
+function criaFuncionario() {
 	limpaCampos();
-	$("#idCli").val("0");
+	$("#idFunc").val("0");
 
 	$(":input").removeAttr("disabled");
 }
@@ -108,25 +110,24 @@ function editaFuncionario() {
 	$(":input").removeAttr("disabled");
 }
 
-function excluiCliente() {
-	let id = $("#idCli").val();
+function excluiFuncionario() {
+	let id = $("#idFunc").val();
 	if (id <= 0) return;
 
-	if (confirm("Você realmente deseja excluir este cliente?")) {
+	if (confirm("Você realmente deseja excluir este funcionario?")) {
 		$.ajax({
-			url: "Cliente/Remove/" + id,
+			url: "Funcionario/Remove/" + id,
 			type: "DELETE",
-			success: function (data) { successExcluiCliente(data); }
+			success: function (data) { successExcluiFuncionario(data); }
 		});
 	}
 }
 
-function successExcluiCliente(data) {
+function successExcluiFuncionario(data) {
 	location.reload();
 }
 
 
 function cancela() {
 	limpaCampos();
-
 }
