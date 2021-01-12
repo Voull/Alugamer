@@ -1,0 +1,113 @@
+﻿@{
+    ViewData["Title"] = "Gestão de Clientes";
+}
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script>
+    <script src="~/js/CRUDFuncionario.js"></script>
+}
+
+@section CSS{
+	<link rel="stylesheet" href="~/css/CRUDFuncionario.css" />
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="formFuncionario">
+    <form>
+		<fieldset>
+			<input type="hidden" id="idFunc">
+			<table class="tableBusca">
+				<tbody>
+					<tr>
+						<td>
+							<label for="nomeBuscaFunc">Nome:</label>
+							@*<input type="text" id="nomeBuscaCli">*@
+							<select id="funcionarioFunc">
+								<option value="0">Escolha...</option>
+								@foreach (Funcionario funcionario in ViewBag.listaFuncionarios)
+								{
+									<option value="@funcionario.Id">@funcionario.Nome</option>
+								}
+							</select>
+						</td>
+						<td>
+							<input type="button" id="btnBuscaFunc" onclick="buscaFuncionario()" value="Buscar">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<br>
+			<div class="lblDadosFuncionario"><h3>Dados</h3></div>
+			<div class="dadosFuncionario">
+				<p>
+					<label for="nomeFunc">Nome:</label>
+					<input type="text" id="nomeFunc" class="campoFuncMedio" disabled>
+				</p>
+				<p>
+					<label for="emailCli">E-mail:</label>
+					<input type="email" id="emailCli" class="campoFuncMedio"disabled>
+				</p>
+				<table>
+					<tbody>
+						<tr>
+							<td>
+								<label for="celFunc">Celular:</label>
+								<input type="tel" id="celFunc" disabled/>
+							</td>
+							<td>
+								<label for="dataNascFunc">Data de Nascimento:</label>
+								<input type="date" id="dataNascFunc" disabled>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>
+					<label for="endFunc">Endereço:</label>
+					<input type="text" id="endFunc" class="campoFuncGrande" disabled>
+				</p>
+				<table>
+					<tbody>
+						<tr>
+							<td>
+								<label for="sexoFunc">Sexo:</label>
+								<select id="sexoFunc" disabled>
+									<option value="M">Masculino</option>
+									<option value="F">Feminino</option>
+								</select>
+							</td>
+							<td>
+								<label for="cpfFunc">CPF:</label>
+								<input type="text" id="cpfFunc" disabled>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<table class="btnRodape">
+					<tbody>
+                        <tr>
+                            <td>
+                                <input type="button" id="btnNovoFunc" onclick="criaFuncionario()" value="Novo">
+                            </td>
+                            @*<td>
+                                <input type="button" id="btnEditarCli" onclick="editaCliente()" value="Editar">
+                            </td>*@
+                            <td>
+                                <input type="button" id="btnExcluirFunc" onclick="excluiFuncionario()" value="Excluir">
+                            </td>
+
+                            <td>
+                                <input type="button" id="btnSalvar" onclick="salvaFuncionario()" value="Salvar">
+                            </td>
+                            <td>
+                                <input type="button" id="btnCancelarFunc" onclick="cancela()" value="Cancelar">
+                            </td>
+                        </tr>
+					</tbody>
+				</table>
+			</div>
+		</fieldset>
+    </form>
+</div>
+
+
