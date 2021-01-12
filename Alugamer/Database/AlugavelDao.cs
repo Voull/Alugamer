@@ -10,11 +10,6 @@ namespace Alugamer.Database
 {
     public class AlugavelDao : BaseDao
     {
-        private Conexao _conn;
-        public AlugavelDao()
-		{
-            _conn = new Conexao();
-		}
 
         public string Insert(Alugavel alugavel)
 		{

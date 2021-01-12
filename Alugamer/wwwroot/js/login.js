@@ -7,7 +7,7 @@
     setInputFilter(document.getElementById("campoSenha"), function (value) {
         return !/["']/.test(value);
     });
-};
+});
 
 $('#modalLogin').on('shown.bs.modal', function (e) {
     Login();
@@ -24,34 +24,17 @@ function Login() {
     var url = "/Login/Login";
 
     var usuario = $("#campoUsuario").val();
-    var senha = $("#campoSenha").val();
+    var senha = SHA256($("#campoSenha").val());
 
     $.ajax({
         url: url,
         type: "POST",
-        data: { Usuario: usuario, Senha: senha, Captcha: captcha },
+        data: { nomeUsuario: usuario, senha: senha},
 
-        success: function (data) {
-            data = JSON.parse(data);
-
-            if (!data.Item1) {
-                document.getElementById("modalErroMensagem").innerHTML = data.Item2;
-
-                $("#modalLogin").modal('hide');
-                $("#modalErro").modal();
-                grecaptcha.reset();
-            }
-            else {
-                document.location.href = data.Item2;
-            }
-
-        },
-
-        error: function () {
-            document.getElementById("modalErroMensagem").innerHTML = "Erro na Validação do Login. Tente Novamente mais tarde.";
+        error: function (data) {
+            document.getElementById("modalErroMensagem").innerHTML = data.responseText;
             $("#modalLogin").modal('hide');
             $("#modalErro").modal();
-            grecaptcha.reset();
         }
     });
 }

@@ -9,10 +9,11 @@ namespace Alugamer.Database
     public class BaseDao
     {
         protected ErroDatabase erroDatabase;
-
+        protected Conexao _conn;
         public BaseDao()
         {
             erroDatabase = new ErroDatabase();
+            _conn = new Conexao();
         }
     }
 }

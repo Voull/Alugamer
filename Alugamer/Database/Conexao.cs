@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Alugamer.Database
 {
-	internal class Conexao
+	public class Conexao
 	{
 		private SqlConnection _connck;
 		private SqlTransaction _transaction;

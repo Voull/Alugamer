@@ -10,11 +10,6 @@ namespace Alugamer.Database
 {
     public class ClienteDao : BaseDao
     {
-        private Conexao _conn;
-        public ClienteDao()
-		{
-            _conn = new Conexao();
-		}
 
         public string Insert(Cliente cliente)
 		{
