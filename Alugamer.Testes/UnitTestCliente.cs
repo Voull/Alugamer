@@ -2,7 +2,9 @@ using Alugamer.Models;
 using Alugamer.Utils;
 using Alugamer.Validations;
 using System;
+using System.Globalization;
 using System.Collections.Generic;
+using System.Text;
 using Xunit;
 
 namespace Alugamer.Testes
@@ -197,9 +199,9 @@ namespace Alugamer.Testes
 			};
 
 			List<string> erros = clienteValidation.validar(clienteEndereco);
-
-			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Endereço"));
+			
+            Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Endereco"));
 		}
 
 		[Fact]
@@ -219,7 +221,7 @@ namespace Alugamer.Testes
 			List<string> erros = clienteValidation.validar(clienteEndereco);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Endereço"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Endereco"));
 		}
 
 
