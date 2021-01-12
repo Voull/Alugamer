@@ -14,10 +14,6 @@ namespace Alugamer.Testes
 		private readonly ClienteValidation clienteValidation = new ClienteValidation();
 		private readonly ErroModel erroModel = new ErroModel();
 
-		public UnitTestCliente()
-        {
-			CultureInfo.CurrentCulture = new CultureInfo("pt-BR");
-        }
 		[Fact]
         public void TesteClienteVazio()
 		{
@@ -203,10 +199,9 @@ namespace Alugamer.Testes
 			};
 
 			List<string> erros = clienteValidation.validar(clienteEndereco);
-
 			
             Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.True(string.Compare(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Endereço"), false, CultureInfo.CurrentCulture) == 0);
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Endereco"));
 		}
 
 		[Fact]
@@ -226,7 +221,7 @@ namespace Alugamer.Testes
 			List<string> erros = clienteValidation.validar(clienteEndereco);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Endereço"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Endereco"));
 		}
 
 
