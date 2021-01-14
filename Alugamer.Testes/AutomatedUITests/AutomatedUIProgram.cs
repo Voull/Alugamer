@@ -93,9 +93,16 @@ namespace Alugamer.Testes.AutomatedUITests
 #if TRAVIS
         public static void ResetDatabase()
         {
-            HttpClient client = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("POST"), "http://localhost:5001/Reset");
-            var response = client.SendAsync(request).Result;
+            using(var clientHandler = new HttpClientHandler())
+            {
+                clientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                using(var client = new HttpClient(clientHandler))
+                {
+                    HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("POST"), "https://localhost:5001/Reset");
+
+                    var response = client.SendAsync(request).Result;
+                }
+            }
         }
 #endif
     }
