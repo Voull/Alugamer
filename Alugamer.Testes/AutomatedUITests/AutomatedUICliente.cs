@@ -22,27 +22,34 @@ namespace Alugamer.Testes.AutomatedUITests
         BrowserStackLocal localConfig;
         RemoteWebDriver driver;
         //IWebDriver driver;
+#if !TRAVIS
         AutomatedUIProgram startup;
+#endif
         Local local;
         BrowserStackStatus browserStackStatus;
 
         public AutomatedUICliente()
         {
+#if !TRAVIS
             startup = new AutomatedUIProgram();
+#endif
+#if TRAVIS
+            AutomatedUIProgram.StartupApplication();
+#endif
             localConfig = new BrowserStackLocal();
             browserStackStatus = new BrowserStackStatus();
-            #if !TRAVIS
+#if !TRAVIS
             local = new Local();
             List<KeyValuePair<string, string>> bsLocalArgs = new List<KeyValuePair<string, string>>() {
                 new KeyValuePair<string, string>("key", Environment.GetEnvironmentVariable("BROWSERSTACK_KEY")),
                 new KeyValuePair<string, string>("forcelocal", "true")
             };
-            #endif
+#endif
             try
             {
-                #if !TRAVIS
+#if !TRAVIS
                 local.start(bsLocalArgs);
-                #endif
+#endif
                 driver = new RemoteWebDriver(new Uri("https://hub-cloud.browserstack.com/wd/hub/"), localConfig.capabilities);
             }
             catch(Exception e)
@@ -54,16 +61,16 @@ namespace Alugamer.Testes.AutomatedUITests
 
         public void Dispose()
         {
-            startup.Dispose();
-            
+
             if(driver != null)
             {
                 driver.Close();
                 driver.Dispose();
             }
-           #if !TRAVIS
+#if !TRAVIS
+            startup.Dispose();
             local.stop();
-          #endif
+#endif
 
         }
 
