@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,7 +35,10 @@ namespace Alugamer.Testes.AutomatedUITests
         public static void StartupApplication()
         {
             if (pr != null)
+            {
+                ResetDatabase();
                 return;
+            }   
 #endif
             DirectoryInfo pasta = new DirectoryInfo(Environment.CurrentDirectory);
 
@@ -86,5 +90,13 @@ namespace Alugamer.Testes.AutomatedUITests
             if (pr != null)
                 pr.Kill();
         }
+#if TRAVIS
+        public static void ResetDatabase()
+        {
+            HttpClient client = new HttpClient();
+            HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("POST"), "https://localhost:5001/Reset");
+            var response = client.SendAsync(request).Result;
+        }
+#endif
     }
 }
