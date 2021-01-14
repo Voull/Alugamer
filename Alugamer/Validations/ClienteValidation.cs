@@ -24,7 +24,7 @@ namespace Alugamer.Validations
 			List<string> listaErros = new List<string>();
 
 			if (cliente.Id < 0)
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Código"));
+				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "Código"));
 
 			if (string.IsNullOrEmpty(cliente.Nome))
 				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Nome"));

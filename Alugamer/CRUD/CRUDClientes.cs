@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Alugamer.Database;
 using Alugamer.Models;
+using Alugamer.Utils;
 using Alugamer.Validations;
 
 namespace Alugamer.CRUD
@@ -12,10 +13,12 @@ namespace Alugamer.CRUD
     {
         private ClienteDao clienteDao;
         private ClienteValidation clienteValidation;
+        private ErroDatabase erroDatabase;
         public CRUDClientes()
         {
             clienteDao = new ClienteDao();
             clienteValidation = new ClienteValidation();
+            erroDatabase = new ErroDatabase();
         }
 
         public Cliente Busca(int id)
@@ -53,9 +56,11 @@ namespace Alugamer.CRUD
 
         }
 
-        public void Remove(int id)
+        public string Remove(int id)
         {
-            clienteDao.Delete(id);
+            if (!clienteDao.Delete(id))
+                return erroDatabase.GeraErroDatabase(ErroDatabase.ERRO_DATABASE.ERRO_DELETAR_NAO_EXISTE);
+            return string.Empty;
         }
     }
 }

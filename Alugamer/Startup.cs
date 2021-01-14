@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Alugamer.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,7 +28,7 @@ namespace Alugamer
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			if (env.IsDevelopment())
 			{
@@ -52,6 +53,20 @@ namespace Alugamer
 					name: "default",
 					pattern: "{controller=Home}/{action=Index}/{id?}");
 			});
+
+#if (TRAVIS || TESTE)
+			Initialization();
+#endif
+
 		}
+
+#if (TRAVIS || TESTE)
+		protected void Initialization()
+		{
+			TesteDAO testeDAO = new TesteDAO();
+			testeDAO.InicializaBDTeste();
+		}
+#endif
 	}
 }
+

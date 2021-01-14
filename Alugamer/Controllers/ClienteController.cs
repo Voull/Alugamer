@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Alugamer.CRUD;
 using Alugamer.Database;
 using Alugamer.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
@@ -70,7 +71,12 @@ namespace Alugamer.Controllers
 		public IActionResult Remove(int id)
 		{
 			CRUDClientes crudClientes = new CRUDClientes();
-			crudClientes.Remove(id);
+			string erro = crudClientes.Remove(id);
+            if (!string.IsNullOrEmpty(erro))
+            {
+				Response.StatusCode = StatusCodes.Status410Gone;
+				return Json(erro);
+			}
 
 			return Ok();
 		}

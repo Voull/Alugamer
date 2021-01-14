@@ -124,6 +124,7 @@ function excluiCliente() {
 }
 
 function successExcluiCliente(data) {
+	let msg = alert("Cliente removido com sucesso!");
 	location.reload();
 }
 
