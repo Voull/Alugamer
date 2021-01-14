@@ -146,6 +146,7 @@ namespace Alugamer.Testes.AutomatedUITests
             {
                 Assert.Equal("Gestão de Clientes - Alugamer", driver.Title);
                 var dropDownBusca = driver.FindElementById("clienteCli");
+                dropDownBusca.Click();
                 var selectBusca = new SelectElement(dropDownBusca);
                 selectBusca.SelectByText("Joaquim");
 
@@ -200,6 +201,8 @@ namespace Alugamer.Testes.AutomatedUITests
             {
                 Assert.Equal("Gestão de Clientes - Alugamer", driver.Title);
                 var dropDownBusca = driver.FindElementById("clienteCli");
+                dropDownBusca.Click();
+
                 var selectBusca = new SelectElement(dropDownBusca);
                 selectBusca.SelectByText("Joaquim");
 
