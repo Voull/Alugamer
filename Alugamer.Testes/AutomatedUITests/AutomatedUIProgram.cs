@@ -94,7 +94,7 @@ namespace Alugamer.Testes.AutomatedUITests
         public static void ResetDatabase()
         {
             HttpClient client = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("POST"), "https://localhost:5001/Reset");
+            HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("POST"), "http://localhost:5001/Reset");
             var response = client.SendAsync(request).Result;
         }
 #endif
