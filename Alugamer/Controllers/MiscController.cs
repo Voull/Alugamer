@@ -9,6 +9,7 @@ namespace Alugamer.Controllers
 {
     public class MiscController : Controller
     {
+#if TRAVIS
         [HttpPost]
         [Route("/Reset")]
         public IActionResult Reset()
@@ -18,5 +19,6 @@ namespace Alugamer.Controllers
 
             return NoContent();
         }
+#endif
     }
 }
