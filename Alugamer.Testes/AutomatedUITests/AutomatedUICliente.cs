@@ -151,7 +151,8 @@ namespace Alugamer.Testes.AutomatedUITests
                 selectBusca.SelectByText("Joaquim");
 
                 driver.FindElementById("btnBuscaCli").Click();
-                waitHelpers.ExpectedConditions.ElementToBeClickable(By.Id("nomeCli"));
+
+                IWebElement wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(waitHelpers.ExpectedConditions.ElementToBeClickable(By.Id("nomeCli")));
 
                 driver.FindElementById("nomeCli").Clear();
                 driver.FindElementById("nomeCli").SendKeys("Gabriel Teste");
@@ -208,7 +209,8 @@ namespace Alugamer.Testes.AutomatedUITests
 
                 driver.FindElementById("btnBuscaCli").Click();
 
-                waitHelpers.ExpectedConditions.ElementToBeClickable(By.Id("nomeCli"));
+                IWebElement wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(waitHelpers.ExpectedConditions.ElementToBeClickable(By.Id("nomeCli")));
+
                 driver.FindElementById("btnExcluirCli").Click();
 
                 driver.SwitchTo().Alert().Accept();
