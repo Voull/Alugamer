@@ -62,6 +62,7 @@ function validaCampos() {
 		alert(erros);
 		return false;
 	}
+	return true;
 }
 
 function salvaCliente() {
