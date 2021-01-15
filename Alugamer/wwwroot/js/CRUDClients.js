@@ -47,12 +47,28 @@ function limpaCampos() {
 	$("#cpfCli").attr("disabled");
 }
 
-function salvaCliente() {
-	let id = $("#idCli").val();
+function validaCampos() {
+	let erros = "";
 
-	if (id == -1) {
-		alert("Selecione um Cliente ou clique em Novo!");
+	if ($("#idCli").val() == -1) {
+		erros += "Selecione um Cliente ou clique em Novo!" + "\n";
 	}
+
+	if (new Date($("#dataNascCli").val()).getFullYear() == new Date().getFullYear()) {
+		erros += "Insira uma Data Válida!" + "\n";
+	}
+
+	if (erros != "") {
+		alert(erros);
+		return false;
+	}
+}
+
+function salvaCliente() {
+	if (!validaCampos())
+		return;
+
+	let id = $("#idCli").val();
 
 	let cliente = {
 		id: Number(id),
