@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,17 +10,36 @@ using Xunit.Runners;
 
 namespace Alugamer.Testes.AutomatedUITests
 {
-    public class AutomatedUIProgram : IDisposable
+#if TRAVIS
+    public static class AutomatedUIProgram
     {
-        Process pr;
+
+        private static Process pr;
+#endif
+#if !TRAVIS
+    public class AutomatedUIProgram
+    {
+        private Process pr;
 
         public AutomatedUIProgram()
         {
-            StartupApplication();    
+            StartupApplication();
         }
+#endif
 
-        private void StartupApplication()
+#if !TRAVIS
+        public void StartupApplication()
         {
+#endif
+#if TRAVIS
+        public static void StartupApplication()
+        {
+            if (pr != null)
+            {
+                ResetDatabase();
+                return;
+            }   
+#endif
             DirectoryInfo pasta = new DirectoryInfo(Environment.CurrentDirectory);
 
             while (pasta != null && !pasta.Name.Equals("Alugamer"))
@@ -60,10 +80,30 @@ namespace Alugamer.Testes.AutomatedUITests
                 Environment.FailFast("Erro na Inicialização do Projeto! \n Log do Console:\n" + pr.StandardOutput.ReadToEnd());
             }
         }
+#if TRAVIS
+        public static void Dispose()
+#endif
+#if !TRAVIS
         public void Dispose()
+#endif
         {
             if (pr != null)
                 pr.Kill();
         }
+#if TRAVIS
+        public static void ResetDatabase()
+        {
+            using(var clientHandler = new HttpClientHandler())
+            {
+                clientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                using(var client = new HttpClient(clientHandler))
+                {
+                    HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("POST"), "https://localhost:5001/Reset");
+
+                    var response = client.SendAsync(request).Result;
+                }
+            }
+        }
+#endif
     }
 }
