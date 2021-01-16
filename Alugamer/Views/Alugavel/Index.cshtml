@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Alugamer.Models.Alugavel>
+
+@{
     ViewData["Title"] = "Gestão de Estoque";
 }
 @section Scripts{
@@ -23,12 +25,12 @@
                             <label for="nomeBuscaAluga">Nome:</label>
                             @*<input type="text" id="nomeBuscaAluga">*@
                             <select id="AlugavelAlu">
-                                    <option value="0">Escolha...</option>
-                                    @foreach (Alugavel alugavel in ViewBag.listaAlugavel)
-                                    {
-                                        <option value="@alugavel.Id">@alugavel.Nome</option>
-                                    }
-                                </select>
+                                <option value="0">Escolha...</option>
+                                @foreach (Alugavel alugavel in Model)
+                                {
+                                    <option value="@alugavel.Id">@alugavel.Nome</option>
+                                }
+                            </select>
                         </td>
                         <td>
                             <input type="button" id="btnBuscaAluga" onclick="buscaAlugavel()" value="Buscar">
@@ -51,10 +53,10 @@
                 <p>
                     <label for="categoriaAluga">Categoria:</label>
                     <select id="categoriaAluga" disabled>
-                        <option value="Acessorio">Acessorio</option>
-                        <option value="Computador">Computador</option>
-                        <option value="Console">Computador</option>
-                        <option value="VR">Computador</option>
+                        @foreach (Categoria categoria in ViewBag.ListaCategoria)
+                        {
+                            <option value="@categoria.Id">@categoria.Nome</option>
+                        }
                     </select>
                 </p>
                 <table>
@@ -83,8 +85,8 @@
                                 <input type="button" id="btnNovoAluga" onclick="criaAlugavel()" value="Novo">
                             </td>
                             @*<td>
-                            <input type="button" id="btnEditarCli" onclick="editaCliente()" value="Editar">
-                    </td>*@
+                                        <input type="button" id="btnEditarCli" onclick="editaCliente()" value="Editar">
+                                </td>*@
                             <td>
                                 <input type="button" id="btnExcluirAluga" onclick="excluiAlugavel()" value="Excluir">
                             </td>

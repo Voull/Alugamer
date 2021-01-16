@@ -14,21 +14,30 @@ namespace Alugamer.Controllers
 {
 	public class AlugavelController : Controller
 	{
+		private CRUDAlugavel crudAlugavel;
+		CRUDCategoria crudCategoria;
+
+		public AlugavelController()
+		{
+			crudAlugavel = new CRUDAlugavel();
+			crudCategoria = new CRUDCategoria();
+		}
+
 		public IActionResult Index()
 		{
 			CRUDAlugavel crudAlugavel = new CRUDAlugavel();
 
 			List<Alugavel> listaAlugavel = crudAlugavel.Lista();
+			List<Categoria> listaCategoria = crudCategoria.ListaSimples();
 
-			ViewBag.listaAlugavel = listaAlugavel;
+			ViewBag.ListaCategoria = listaCategoria;
 
-			return View();
+			return View(listaAlugavel);
 		}
 
 		[HttpGet]
 		public IActionResult Busca(int id)
 		{
-			CRUDAlugavel crudAlugavel = new CRUDAlugavel();
 			Alugavel alugavel = crudAlugavel.Busca(id);
 
 			return Ok(JsonConvert.SerializeObject(alugavel));
