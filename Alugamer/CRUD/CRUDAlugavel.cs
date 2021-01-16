@@ -32,6 +32,14 @@ namespace Alugamer.CRUD
             
         }
 
+        public List<Alugavel> ListaCompleta(string categoria)
+        {
+            List<Alugavel> listaAlugavel = alugavelDao.ReadAllMaisDados(categoria);
+
+            return listaAlugavel;
+
+        }
+
         public string Novo(Alugavel alugavel)
         {
             List<String> errosAlugavel = alugavelValidation.validar(alugavel);

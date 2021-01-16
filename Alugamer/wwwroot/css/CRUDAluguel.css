@@ -1,0 +1,60 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+div.formAluguel {
+    width: 90%;
+    border-style: outset;
+}
+
+fieldset{
+    margin: 15px;
+}
+
+div.dadosFuncionario {
+    border-style: ridge;
+    margin-left: 60px;
+    margin: 30px;
+    width: 60%;
+    padding: 15px;
+}
+
+div.lblDadosAluguel {
+    margin-left: 75px;
+}
+
+label.Vendedor{
+    margin-left: 30px;
+}
+
+input.campoAluguelMini {
+    width: 20%;
+}
+
+input.campoAluguelPequeno {
+    width: 30%;
+}
+
+input.campoAluguelMedio {
+    width: 60%;
+}
+
+input.campoAluguelGrande {
+    width: 90%;
+}
+
+table.tableInfo {
+    margin-top: 30px;
+}
+
+td {
+    padding: 5px;
+}
+
+td.Cabecalho {
+    background-color: lightgray;
+}
+
+td.Cem {
+    width: 100%;
+    text-align:left;
+}

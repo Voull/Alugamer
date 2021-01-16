@@ -71,7 +71,7 @@ namespace Alugamer.Database
                     Descricao = Convert.ToString(linhaAlugavel["descricao"]),
                     Quantidade = Convert.ToInt32(linhaAlugavel["quantidade"]),
                     Valor_compra = Convert.ToDecimal(linhaAlugavel["valor_compra"]),
-                    Valor_aluguel = Convert.ToDecimal(linhaAlugavel["data_nascimento"]),
+                    Valor_aluguel = Convert.ToDecimal(linhaAlugavel["valor_aluguel"]),
                     Categoria = Convert.ToString(linhaAlugavel["categoria"])
                 };
 
@@ -96,6 +96,33 @@ namespace Alugamer.Database
                 {
                     Id = Convert.ToInt32(linhaAlugavel["cod_alugavel"]),
                     Nome = Convert.ToString(linhaAlugavel["nome"]),
+                };
+
+                listaAlugavel.Add(alugavel);
+            }
+
+            return listaAlugavel;
+        }
+
+        public List<Alugavel> ReadAllMaisDados(string Categoria)
+        {
+
+           string sql = $@"SELECT cod_alugavel, nome, descricao, quantidade, valor_aluguel 
+                        from CAD_ALUGAVEIS where categoria like '{Categoria}'";
+
+            DataTable resp = _conn.dataTable(sql);
+
+            List<Alugavel> listaAlugavel = new List<Alugavel>();
+
+            foreach (DataRow linhaAlugavel in resp.Rows)
+            {
+                Alugavel alugavel = new Alugavel
+                {
+                    Id = Convert.ToInt32(linhaAlugavel["cod_alugavel"]),
+                    Nome = Convert.ToString(linhaAlugavel["nome"]),
+                    Descricao = Convert.ToString(linhaAlugavel["descricao"]),
+                    Quantidade = Convert.ToInt32(linhaAlugavel["quantidade"]),
+                    Valor_aluguel = Convert.ToDecimal(linhaAlugavel["valor_aluguel"])
                 };
 
                 listaAlugavel.Add(alugavel);
