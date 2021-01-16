@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Alugamer.Testes.Utils
 {
-    class BrowserStackStatus
+    public class BrowserStackStatus
     {
 
         public void UpdateStatus(string sessionId, bool success, string message)

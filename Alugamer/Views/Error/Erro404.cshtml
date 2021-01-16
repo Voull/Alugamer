@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section CSS{
+    <link rel="stylesheet" type="text/css" href="~/css/erro.css" />
+}
+
+<img src="~/img/alert-triangle.svg" class="rounded mx-auto d-block" />
+
+<h4>@ViewBag.Msg</h4>
+
+<a href="javascript:history.back()"><< Voltar</a>

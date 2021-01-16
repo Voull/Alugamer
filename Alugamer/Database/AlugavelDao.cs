@@ -1,4 +1,5 @@
 ﻿using Alugamer.Models;
+using Alugamer.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,7 +21,7 @@ namespace Alugamer.Database
 		{
             string sql = $@"INSERT INTO CAD_ALUGAVEIS (nome, descricao, quantidade, valor_compra, valor_aluguel, categoria)
                             VALUES ('{alugavel.Nome}', '{alugavel.Descricao}', '{alugavel.Quantidade}', '{alugavel.Valor_compra}',
-                                    '{alugavel.Valor_aluguel}' , '{alugavel.Categoria}')";
+                                    '{alugavel.Valor_aluguel}' , '{alugavel.IdCategoria}')";
             try
             {
                 _conn.execute(sql);
@@ -28,7 +29,7 @@ namespace Alugamer.Database
             }
             catch (Exception)
             {
-                return erroDatabase.GeraErroGenerico(Utils.Erro.ERRO.ERRO_GENERICO);
+                return erroDatabase.GeraErroGenerico(ERRO.ERRO_GENERICO);
             }
         }
 
@@ -49,7 +50,7 @@ namespace Alugamer.Database
                 Quantidade = Convert.ToInt32(resp.Rows[0]["quantidade"]),
                 Valor_compra = Convert.ToDecimal(resp.Rows[0]["valor_compra"]),
                 Valor_aluguel = Convert.ToDecimal(resp.Rows[0]["valor_aluguel"]),
-                Categoria = Convert.ToString(resp.Rows[0]["categoria"])
+                IdCategoria = Convert.ToInt32(resp.Rows[0]["categoria"])
             };
         }
 
@@ -71,8 +72,8 @@ namespace Alugamer.Database
                     Descricao = Convert.ToString(linhaAlugavel["descricao"]),
                     Quantidade = Convert.ToInt32(linhaAlugavel["quantidade"]),
                     Valor_compra = Convert.ToDecimal(linhaAlugavel["valor_compra"]),
-                    Valor_aluguel = Convert.ToDecimal(linhaAlugavel["valor_aluguel"]),
-                    Categoria = Convert.ToString(linhaAlugavel["categoria"])
+                    Valor_aluguel = Convert.ToDecimal(linhaAlugavel["data_nascimento"]),
+                    IdCategoria = Convert.ToInt32(linhaAlugavel["categoria"])
                 };
 
                 listaAlugavel.Add(alugavel);
@@ -104,37 +105,10 @@ namespace Alugamer.Database
             return listaAlugavel;
         }
 
-        public List<Alugavel> ReadAllMaisDados(string Categoria)
-        {
-
-           string sql = $@"SELECT cod_alugavel, nome, descricao, quantidade, valor_aluguel 
-                        from CAD_ALUGAVEIS where categoria like '{Categoria}'";
-
-            DataTable resp = _conn.dataTable(sql);
-
-            List<Alugavel> listaAlugavel = new List<Alugavel>();
-
-            foreach (DataRow linhaAlugavel in resp.Rows)
-            {
-                Alugavel alugavel = new Alugavel
-                {
-                    Id = Convert.ToInt32(linhaAlugavel["cod_alugavel"]),
-                    Nome = Convert.ToString(linhaAlugavel["nome"]),
-                    Descricao = Convert.ToString(linhaAlugavel["descricao"]),
-                    Quantidade = Convert.ToInt32(linhaAlugavel["quantidade"]),
-                    Valor_aluguel = Convert.ToDecimal(linhaAlugavel["valor_aluguel"])
-                };
-
-                listaAlugavel.Add(alugavel);
-            }
-
-            return listaAlugavel;
-        }
-
         public string Update(Alugavel alugavel)
         {
             string sql = $@"UPDATE CAD_ALUGAVEIS set nome ='{alugavel.Nome}', descricao = '{alugavel.Descricao}', quantidade = '{alugavel.Quantidade}',
-                            valor_compra = '{alugavel.Valor_compra}', valor_aluguel = '{alugavel.Valor_aluguel}', categoria = '{alugavel.Categoria}' where cod_alugavel = {alugavel.Id}";
+                            valor_compra = '{alugavel.Valor_compra}', valor_aluguel = '{alugavel.Valor_aluguel}', categoria = '{alugavel.IdCategoria}' where cod_alugavel = {alugavel.Id}";
 
             try
             {
@@ -143,7 +117,7 @@ namespace Alugamer.Database
             }
             catch (Exception)
             {
-                return erroDatabase.GeraErroGenerico(Utils.Erro.ERRO.ERRO_GENERICO_DATABASE);
+                return erroDatabase.GeraErroGenerico(ERRO.ERRO_GENERICO_DATABASE);
             }
         }
 

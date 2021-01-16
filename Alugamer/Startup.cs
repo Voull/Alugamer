@@ -24,7 +24,7 @@ namespace Alugamer
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddControllersWithViews();
+			services.AddControllersWithViews().AddRazorRuntimeCompilation();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,7 +40,18 @@ namespace Alugamer
 				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
-			app.UseHttpsRedirection();
+
+            app.Use(async (context, next) =>
+            {
+                await next();
+                if (context.Response.StatusCode == 404)
+                {
+                    context.Request.Path = "/404";
+                    await next();
+                }
+            });
+
+            app.UseHttpsRedirection();
 			app.UseStaticFiles();
 
 			app.UseRouting();

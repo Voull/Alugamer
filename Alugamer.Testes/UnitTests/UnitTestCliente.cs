@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Alugamer.Testes
+namespace Alugamer.Testes.UnitTests
 {
 	public class UnitTestCliente
 	{

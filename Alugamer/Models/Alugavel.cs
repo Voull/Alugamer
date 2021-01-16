@@ -23,7 +23,7 @@ namespace Alugamer.Models
 
 		public Decimal Valor_aluguel { get; set; }
 
-		public string Categoria { get; set; }
+		public int IdCategoria { get; set; }
 
 		public Alugavel()
 		{
@@ -33,7 +33,7 @@ namespace Alugamer.Models
 			Quantidade = -1;
 			Valor_compra = -1;
 			Valor_aluguel = -1;
-			Categoria = string.Empty;
+			IdCategoria = -1;
 		}
 	}
 }

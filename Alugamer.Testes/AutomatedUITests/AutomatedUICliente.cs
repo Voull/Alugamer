@@ -17,63 +17,8 @@ using waitHelpers = SeleniumExtras.WaitHelpers;
 
 namespace Alugamer.Testes.AutomatedUITests
 {
-    public class AutomatedUICliente : IDisposable
+    public class AutomatedUICliente : AutomatedUIBase
     {
-        BrowserStackLocal localConfig;
-        RemoteWebDriver driver;
-        //IWebDriver driver;
-#if !TRAVIS
-        AutomatedUIProgram startup;
-#endif
-        Local local;
-        BrowserStackStatus browserStackStatus;
-
-        public AutomatedUICliente()
-        {
-#if !TRAVIS
-            startup = new AutomatedUIProgram();
-#endif
-#if TRAVIS
-            AutomatedUIProgram.StartupApplication();
-#endif
-            localConfig = new BrowserStackLocal();
-            browserStackStatus = new BrowserStackStatus();
-#if !TRAVIS
-            local = new Local();
-            List<KeyValuePair<string, string>> bsLocalArgs = new List<KeyValuePair<string, string>>() {
-                new KeyValuePair<string, string>("key", Environment.GetEnvironmentVariable("BROWSERSTACK_KEY")),
-                new KeyValuePair<string, string>("forcelocal", "true")
-            };
-#endif
-            try
-            {
-#if !TRAVIS
-                local.start(bsLocalArgs);
-#endif
-                driver = new RemoteWebDriver(new Uri("https://hub-cloud.browserstack.com/wd/hub/"), localConfig.capabilities);
-            }
-            catch(Exception e)
-            {
-                Dispose();
-                throw e;
-            }
-        }
-
-        public void Dispose()
-        {
-
-            if(driver != null)
-            {
-                driver.Close();
-                driver.Dispose();
-            }
-#if !TRAVIS
-            startup.Dispose();
-            local.stop();
-#endif
-
-        }
-
 
         [Fact]
         public void NovoCliente()
