@@ -13,39 +13,22 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Alugamer.Testes
+namespace Alugamer.Testes.IntegrationTests
 {
     [TestCaseOrderer("Alugamer.Testes.Utils.PriorityOrderer", "Alugamer.Testes")]
-    public class IntegrationTestCliente : IClassFixture<WebApplicationFactory<Startup>>
+    public class IntegrationTestCliente : IntegrationTestBase
     {
-        private readonly WebApplicationFactory<Startup> _factory;
+
         private readonly ErroModel erroModel;
         private readonly ErroDatabase erroDatabase;
         private readonly ClienteValidation clienteValidation;
-        public IntegrationTestCliente(WebApplicationFactory<Startup> factory)
+        public IntegrationTestCliente(WebApplicationFactory<Startup> factory) : base(factory)
         {
-            _factory = factory;
             erroModel = new ErroModel();
             erroDatabase = new ErroDatabase();
             clienteValidation = new ClienteValidation();
         }
 
-        [Theory]
-        [InlineData("/")]
-        [InlineData("/Cliente")]
-        public async Task GetEndpoints(string url)
-        {
-            // Arrange
-            var client = _factory.CreateClient();
-
-            // Act
-            var response = await client.GetAsync(url);
-
-            // Assert
-            response.EnsureSuccessStatusCode(); // Status Code 200-299
-            Assert.Equal("text/html; charset=utf-8",
-                response.Content.Headers.ContentType.ToString());
-        }
         [Fact, TestPriority(-1)]
         public async Task GetCliente()
         {
