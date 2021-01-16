@@ -47,12 +47,29 @@ function limpaCampos() {
 	$("#cpfCli").attr("disabled");
 }
 
-function salvaCliente() {
-	let id = $("#idCli").val();
+function validaCampos() {
+	let erros = "";
 
-	if (id == -1) {
-		alert("Selecione um Cliente ou clique em Novo!");
+	if ($("#idCli").val() == -1) {
+		erros += "Selecione um Cliente ou clique em Novo!" + "\n";
 	}
+
+	if (new Date($("#dataNascCli").val()).getFullYear() == new Date().getFullYear()) {
+		erros += "Insira uma Data Válida!" + "\n";
+	}
+
+	if (erros != "") {
+		alert(erros);
+		return false;
+	}
+	return true;
+}
+
+function salvaCliente() {
+	if (!validaCampos())
+		return;
+
+	let id = $("#idCli").val();
 
 	let cliente = {
 		id: Number(id),
@@ -83,19 +100,21 @@ function salvaCliente() {
 		type: "POST",
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
-		success: function (data) { successSalvaCliente(data); }
-	});
+		success: function () { successSalvaCliente();},
+		error: function (data) { failSalvaCliente(data);}
+	})
+	
 }
 
-function successSalvaCliente(data) {
-	data = JSON.parse(data);
-	if (data == "")
-		res = alert("Cliente salvo com sucesso!");
-	else
-		alert(data);
+function successSalvaCliente() {
+	res = alert("Cliente salvo com sucesso!");
 	location.reload();
 }
 
+function failSalvaCliente(data) {
+	parsed = data.responseJSON;
+	alert(parsed);
+}
 
 function criaCliente() {
 	limpaCampos();
@@ -122,6 +141,7 @@ function excluiCliente() {
 }
 
 function successExcluiCliente(data) {
+	let msg = alert("Cliente removido com sucesso!");
 	location.reload();
 }
 
