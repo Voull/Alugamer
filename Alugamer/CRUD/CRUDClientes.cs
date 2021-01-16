@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Alugamer.Database;
@@ -58,9 +59,21 @@ namespace Alugamer.CRUD
 
         public string Remove(int id)
         {
-            if (!clienteDao.Delete(id))
-                return erroDatabase.GeraErroDatabase(ErroDatabase.ERRO_DATABASE.ERRO_DELETAR_NAO_EXISTE);
-            return string.Empty;
+            try
+            {
+                if (!clienteDao.Delete(id))
+                    return erroDatabase.GeraErroDatabase(ErroDatabase.ERRO_DATABASE.ERRO_DELETAR_NAO_EXISTE);
+                return string.Empty;
+            }
+            catch(SqlException)
+            {
+                return erroDatabase.GeraErroGenerico(Erro.ERRO.ERRO_GENERICO_DATABASE);
+            }
+            catch (Exception)
+            {
+                return erroDatabase.GeraErroGenerico(Erro.ERRO.ERRO_GENERICO);
+            }
+
         }
     }
 }

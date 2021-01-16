@@ -20,7 +20,7 @@ namespace Alugamer.Database
 		{
             string sql = $@"INSERT INTO CAD_ALUGAVEIS (nome, descricao, quantidade, valor_compra, valor_aluguel, categoria)
                             VALUES ('{alugavel.Nome}', '{alugavel.Descricao}', '{alugavel.Quantidade}', '{alugavel.Valor_compra}',
-                                    '{alugavel.Valor_aluguel}' , '{alugavel.Categoria}')";
+                                    '{alugavel.Valor_aluguel}' , '{alugavel.IdCategoria}')";
             try
             {
                 _conn.execute(sql);
@@ -49,7 +49,7 @@ namespace Alugamer.Database
                 Quantidade = Convert.ToInt32(resp.Rows[0]["quantidade"]),
                 Valor_compra = Convert.ToDecimal(resp.Rows[0]["valor_compra"]),
                 Valor_aluguel = Convert.ToDecimal(resp.Rows[0]["valor_aluguel"]),
-                Categoria = Convert.ToString(resp.Rows[0]["categoria"])
+                IdCategoria = Convert.ToInt32(resp.Rows[0]["categoria"])
             };
         }
 
@@ -72,7 +72,7 @@ namespace Alugamer.Database
                     Quantidade = Convert.ToInt32(linhaAlugavel["quantidade"]),
                     Valor_compra = Convert.ToDecimal(linhaAlugavel["valor_compra"]),
                     Valor_aluguel = Convert.ToDecimal(linhaAlugavel["data_nascimento"]),
-                    Categoria = Convert.ToString(linhaAlugavel["categoria"])
+                    IdCategoria = Convert.ToInt32(linhaAlugavel["categoria"])
                 };
 
                 listaAlugavel.Add(alugavel);
@@ -107,7 +107,7 @@ namespace Alugamer.Database
         public string Update(Alugavel alugavel)
         {
             string sql = $@"UPDATE CAD_ALUGAVEIS set nome ='{alugavel.Nome}', descricao = '{alugavel.Descricao}', quantidade = '{alugavel.Quantidade}',
-                            valor_compra = '{alugavel.Valor_compra}', valor_aluguel = '{alugavel.Valor_aluguel}', categoria = '{alugavel.Categoria}' where cod_alugavel = {alugavel.Id}";
+                            valor_compra = '{alugavel.Valor_compra}', valor_aluguel = '{alugavel.Valor_aluguel}', categoria = '{alugavel.IdCategoria}' where cod_alugavel = {alugavel.Id}";
 
             try
             {
