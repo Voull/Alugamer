@@ -23,7 +23,7 @@ namespace Alugamer.Controllers
 
 			ViewBag.listaClientes = listaClientes;
 
-			return View();
+			return View(listaClientes);
 		}
 
 		[HttpGet]
