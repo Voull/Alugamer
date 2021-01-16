@@ -38,10 +38,10 @@
                         <td class="Cem">
                             <label for="categoriaAluga">Categoria:</label>
                             <select id="categoriaAluga" onchange="carregaItens()">
-                                <option value="Acessorio">Acessorio</option>
-                                <option value="Computador">Computador</option>
-                                <option value="Console">Console</option>
-                                <option value="VR">VR</option>
+                                @foreach (Categoria categoria in ViewBag.listaCategorias)
+                                {
+                                    <option value="@categoria.Id">@categoria.Nome</option>
+                                }
                             </select>
                             <br>
                             <br>

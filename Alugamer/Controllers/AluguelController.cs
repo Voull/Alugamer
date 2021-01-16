@@ -16,13 +16,12 @@ namespace Alugamer.Controllers
 	{
 		public IActionResult Index()
 		{
-			/*
-			CRUDAlugavel crudAlugavel = new CRUDAlugavel();
 
-			List<Alugavel> listaAlugavel = crudAlugavel.ListaCompleta();
+			CRUDCategoria crudCategoria = new CRUDCategoria();
 
-			ViewBag.listaAlugavel = listaAlugavel;
-			*/
+			List<Categoria> listaCategorias = crudCategoria.Lista();
+
+			ViewBag.listaCategorias = listaCategorias;
 
 			CRUDClientes crudClientes = new CRUDClientes();
 
@@ -34,7 +33,7 @@ namespace Alugamer.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult CarregaItens(string categoria)
+		public IActionResult CarregaItens(int categoria)
 		{
 			CRUDAlugavel crudAlugavel = new CRUDAlugavel();
 

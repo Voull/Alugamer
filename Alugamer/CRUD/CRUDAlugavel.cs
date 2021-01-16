@@ -32,7 +32,7 @@ namespace Alugamer.CRUD
             
         }
 
-        public List<Alugavel> ListaCompleta(string categoria)
+        public List<Alugavel> ListaCompleta(int categoria)
         {
             List<Alugavel> listaAlugavel = alugavelDao.ReadAllMaisDados(categoria);
 

@@ -5,6 +5,7 @@ using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Alugamer.Utils;
 
 namespace Alugamer.Database
 {
@@ -48,7 +49,7 @@ namespace Alugamer.Database
             }
             catch (Exception)
             {
-                return erroDatabase.GeraErroGenerico(Utils.Erro.ERRO.ERRO_GENERICO);
+                return erroDatabase.GeraErroGenerico(ERRO.ERRO_GENERICO_DATABASE);
             }
         }
     }
