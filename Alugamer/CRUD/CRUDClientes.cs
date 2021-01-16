@@ -62,16 +62,16 @@ namespace Alugamer.CRUD
             try
             {
                 if (!clienteDao.Delete(id))
-                    return erroDatabase.GeraErroDatabase(ErroDatabase.ERRO_DATABASE.ERRO_DELETAR_NAO_EXISTE);
+                    return erroDatabase.GeraErroDatabase(ERRO_DATABASE.ERRO_DELETAR_NAO_EXISTE);
                 return string.Empty;
             }
             catch(SqlException)
             {
-                return erroDatabase.GeraErroGenerico(Erro.ERRO.ERRO_GENERICO_DATABASE);
+                return erroDatabase.GeraErroGenerico(ERRO.ERRO_GENERICO_DATABASE);
             }
             catch (Exception)
             {
-                return erroDatabase.GeraErroGenerico(Erro.ERRO.ERRO_GENERICO);
+                return erroDatabase.GeraErroGenerico(ERRO.ERRO_GENERICO);
             }
 
         }

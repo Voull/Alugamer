@@ -20,6 +20,7 @@ namespace Alugamer.CRUD
         {
             categoriaDAO = new CategoriaDAO();
             categoriaValidation = new CategoriaValidation();
+            erroDatabase = new ErroDatabase();
         }
 
         public List<Categoria> Lista()
@@ -58,28 +59,41 @@ namespace Alugamer.CRUD
             if (errosCategoria.Count > 0) return string.Join(Environment.NewLine, errosCategoria);
 
             if (!categoriaDAO.Update(categoria))
-                return erroDatabase.GeraErroDatabase(ErroDatabase.ERRO_DATABASE.ERRO_NAO_EXISTE);
+                return erroDatabase.GeraErroDatabase(ERRO_DATABASE.ERRO_NAO_EXISTE);
 
             return string.Empty;
         }
 
         public string Remove(int id)
         {
-            try
-            {
-                if (!categoriaDAO.Remove(id))
-                    return erroDatabase.GeraErroDatabase(ErroDatabase.ERRO_DATABASE.ERRO_DELETAR_NAO_EXISTE);
 
+                if (!categoriaDAO.Remove(id))
+                    return erroDatabase.GeraErroDatabase(ERRO_DATABASE.ERRO_DELETAR_NAO_EXISTE);
+                
                 return string.Empty;
-            }
-            catch (SqlException)
+
+        }
+
+        public string RemoveVarios(List<int> listaId)
+        {
+            bool completo = true;
+            foreach(int id in listaId)
             {
-                return erroDatabase.GeraErroGenerico(Erro.ERRO.ERRO_GENERICO_DATABASE);
+                try
+                {
+                    if (!categoriaDAO.Remove(id))
+                        completo = false;
+                }
+                catch(SqlException ex) when (ex.Number == (int)DatabaseErrorCodes.CONFLICT)
+                {
+                    completo = false;
+                }
             }
-            catch (Exception)
-            {
-                return erroDatabase.GeraErroGenerico(Erro.ERRO.ERRO_GENERICO);
-            }
+
+            if (completo)
+                return string.Empty;
+            else 
+                return erroDatabase.GeraErroDatabase(ERRO_DATABASE.ERRO_DELETAR_MULTIPLO);
         }
     }
 }

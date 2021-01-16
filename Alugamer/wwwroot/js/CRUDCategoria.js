@@ -32,7 +32,7 @@ function removeCategorias() {
     let categorias = []
 
     $(".selected td:nth-child(1)").each(function () {
-        categorias.push($(this).val());
+        categorias.push(Number($(this).html()));
     });
 
     if (categorias.length == 0) {
@@ -43,18 +43,26 @@ function removeCategorias() {
     categorias = JSON.stringify(categorias);
 
     $.ajax({
-        url: "Categoria/" + Remove + "/",
+        url: "Categoria/DeleteGrupo",
         data: categorias,
-        type: "POST",
+        type: "DELETE",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: function () { successRemove(); },
+        success: function (data) { successRemove(data); },
         error: function (data) { failRemove(data); }
     });
 
 }
 
-function successRemove() {
+function successRemove(data) {
+    let msg = "";
+    if (data == "")
+        msg = 'Os Itens foram removidos com sucesso!';
+    else
+        msg = data;
+
+    let result = alert(msg);
+
     location.reload();
 }
 

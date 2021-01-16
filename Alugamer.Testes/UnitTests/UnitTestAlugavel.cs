@@ -32,7 +32,7 @@ namespace Alugamer.Testes.UnitTests
                 Quantidade = 10,
                 Valor_compra = 2500,
                 Valor_aluguel = 150,
-                IdCategoria = "Console"
+                IdCategoria = 1
             };
 
             List<string> erros = alugavelValidation.validar(alugavelValido);
@@ -51,12 +51,12 @@ namespace Alugamer.Testes.UnitTests
                 Quantidade = 10,
                 Valor_compra = 2500,
                 Valor_aluguel = 150,
-                IdCategoria = "Console"
+                IdCategoria = 1
             };
             List<string> erros = alugavelValidation.validar(alugavelValido);
 
             Assert.True(erros.Count == 1);
-            Assert.Equal(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Nome"), erros[0]);
+            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_TAMANHO_MAX, "Nome"), erros[0]);
 
         }
 
@@ -71,13 +71,13 @@ namespace Alugamer.Testes.UnitTests
                 Quantidade = 10,
                 Valor_compra = 2500,
                 Valor_aluguel = 150,
-                IdCategoria = "Console"
+                IdCategoria = 1
             };
 
             List<string> erros = alugavelValidation.validar(alugavelValido);
 
             Assert.True(erros.Count == 1);
-            Assert.Equal(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Nome"), erros[0]);
+            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Nome"), erros[0]);
 
         }
 
@@ -93,12 +93,12 @@ namespace Alugamer.Testes.UnitTests
                 Quantidade = 10,
                 Valor_compra = 2500,
                 Valor_aluguel = 150,
-                IdCategoria = "Console"
+                IdCategoria = 1
             };
             List<string> erros = alugavelValidation.validar(alugavelValido);
 
             Assert.True(erros.Count == 1);
-            Assert.Equal(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Descriçao"), erros[0]);
+            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_TAMANHO_MAX, "Descriçao"), erros[0]);
 
         }
 
@@ -113,35 +113,13 @@ namespace Alugamer.Testes.UnitTests
                 Quantidade = 10,
                 Valor_compra = 2500,
                 Valor_aluguel = 150,
-                IdCategoria = "Console"
+                IdCategoria = 1
             };
 
             List<string> erros = alugavelValidation.validar(alugavelValido);
 
             Assert.True(erros.Count == 1);
-            Assert.Equal(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Descrição"), erros[0]);
-
-        }
-
-
-        [Fact]
-        public void TesteAlugavelCategoriaTamanhoMax()
-        {
-            Alugavel alugavelValido = new Alugavel
-            {
-                Id = 1,
-                Nome = "Nintendo Switch",
-                Descricao = "Console Nintendo Switch Versão Azul/Vermelho",
-                Quantidade = 10,
-                Valor_compra = 2500,
-                Valor_aluguel = 150,
-                IdCategoria = "Console" + new string('a', 100)
-            };
-
-            List<string> erros = alugavelValidation.validar(alugavelValido);
-
-            Assert.True(erros.Count == 1);
-            Assert.Equal(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Categoria"), erros[0]);
+            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Descrição"), erros[0]);
 
         }
 
@@ -156,13 +134,13 @@ namespace Alugamer.Testes.UnitTests
                 Quantidade = 10,
                 Valor_compra = 2500,
                 Valor_aluguel = 150,
-                IdCategoria = string.Empty
+                IdCategoria = 0
             };
 
             List<string> erros = alugavelValidation.validar(alugavelValido);
 
             Assert.True(erros.Count == 1);
-            Assert.Equal(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Categoria"), erros[0]);
+            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Categoria"), erros[0]);
 
         }
 
@@ -172,7 +150,7 @@ namespace Alugamer.Testes.UnitTests
             List<string> erros = alugavelValidation.validar(alugavel);
 
             Assert.True(erros.Count == 1);
-            Assert.Equal(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "Quantidade"), erros[0]);
+            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Quantidade"), erros[0]);
         }
 
         [Theory, MemberData(nameof(AlugavelValorCompraInvalida))]
@@ -181,7 +159,7 @@ namespace Alugamer.Testes.UnitTests
             List<string> erros = alugavelValidation.validar(alugavel);
 
             Assert.True(erros.Count == 1);
-            Assert.Equal(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "Valor Compra"), erros[0]);
+            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Valor Compra"), erros[0]);
         }
 
         [Theory, MemberData(nameof(AlugavelValorCompraInvalida))]
@@ -190,7 +168,7 @@ namespace Alugamer.Testes.UnitTests
             List<string> erros = alugavelValidation.validar(alugavel);
 
             Assert.True(erros.Count == 1);
-            Assert.Equal(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "Valor Compra"), erros[0]);
+            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Valor Compra"), erros[0]);
         }
 
         public static IEnumerable<object[]> AlugavelQuantidadeInvalida
@@ -209,7 +187,7 @@ namespace Alugamer.Testes.UnitTests
                 //            Quantidade = 0,
                 //            Valor_compra = 2500,
                 //            Valor_aluguel = 150,
-                //            Categoria = "Console"
+                //            Categoria = 1
                 //        }
                 //    },
                     new object[]
@@ -222,7 +200,7 @@ namespace Alugamer.Testes.UnitTests
                             Quantidade = -1,
                             Valor_compra = 2500,
                             Valor_aluguel = 150,
-                            IdCategoria = "Console"
+                            IdCategoria = 1
                         }
                     },
             };
@@ -245,7 +223,7 @@ namespace Alugamer.Testes.UnitTests
                     //        Quantidade = 1,
                     //        Valor_compra= 0,
                     //        Valor_aluguel = 150,
-                    //        Categoria = "Console"
+                    //        Categoria = 1
                     //    }
                     //},
                     new object[]
@@ -258,7 +236,7 @@ namespace Alugamer.Testes.UnitTests
                             Quantidade = 1,
                             Valor_compra= -1,
                             Valor_aluguel = 150,
-                            IdCategoria = "Console"
+                            IdCategoria = 1
                         }
                     },
             };
@@ -281,7 +259,7 @@ namespace Alugamer.Testes.UnitTests
                 //            Quantidade = 1,
                 //            Valor_compra= 2500,
                 //            Valor_aluguel = 0,
-                //            Categoria = "Console"
+                //            Categoria = 1
                 //        }
                 //    },
                 new object[]
@@ -294,7 +272,7 @@ namespace Alugamer.Testes.UnitTests
                             Quantidade = 1,
                             Valor_compra= 2500,
                             Valor_aluguel = -1,
-                            IdCategoria = "Console"
+                            IdCategoria = 1
                         }
                     },
             };

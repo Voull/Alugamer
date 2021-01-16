@@ -24,45 +24,45 @@ namespace Alugamer.Validations
 			List<string> listaErros = new List<string>();
 
 			if (funcionario.Id < 0)
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Código"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Código"));
 
 			if (string.IsNullOrEmpty(funcionario.Nome))
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Nome"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Nome"));
 			else if (funcionario.Nome.Length > 100)
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Nome"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_TAMANHO_MAX, "Nome"));
 
 			if (string.IsNullOrEmpty(funcionario.Email))
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "E-mail"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "E-mail"));
 			else if(!regexEmail.IsMatch(funcionario.Email))
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "E-mail"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "E-mail"));
 			else if (funcionario.Email.Length > 200)
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "E-mail"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_TAMANHO_MAX, "E-mail"));
 
 			if (string.IsNullOrEmpty(funcionario.Telefone))
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Telefone"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Telefone"));
 			
 			else if (!regexTelefone.IsMatch(funcionario.Telefone))
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "Telefone"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Telefone"));
 
 			if (string.IsNullOrEmpty(funcionario.Endereco))
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Endereço"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Endereço"));
 			else if (funcionario.Endereco.Length > 200)
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Endereço"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_TAMANHO_MAX, "Endereço"));
 
 			if (funcionario.DataNascimento == null)
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Data de Nascimento"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Data de Nascimento"));
 			else if (funcionario.DataNascimento.Date >= DateTime.Today)
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "Data de Nascimento"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Data de Nascimento"));
 
 			if (string.IsNullOrEmpty(funcionario.Sexo))
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Sexo"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Sexo"));
 			else if (!funcionario.Sexo.Equals("M") && !funcionario.Sexo.Equals("F"))
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "Sexo"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Sexo"));
 			
 			if (string.IsNullOrEmpty(funcionario.Cpf))
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "CPF"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "CPF"));
 			else if (!regexCpf.IsMatch(funcionario.Cpf))
-				listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "CPF"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "CPF"));
 
 			return listaErros;
 		}

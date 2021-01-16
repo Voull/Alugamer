@@ -1,4 +1,5 @@
 ﻿using Alugamer.Models;
+using Alugamer.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -29,7 +30,7 @@ namespace Alugamer.Database
             }
             catch (Exception)
             {
-                return erroDatabase.GeraErroGenerico(Utils.Erro.ERRO.ERRO_GENERICO);
+                return erroDatabase.GeraErroGenerico(ERRO.ERRO_GENERICO);
             }
         }
 
@@ -121,7 +122,7 @@ namespace Alugamer.Database
             }
             catch (Exception)
             {
-                return erroDatabase.GeraErroGenerico(Utils.Erro.ERRO.ERRO_GENERICO_DATABASE);
+                return erroDatabase.GeraErroGenerico(ERRO.ERRO_GENERICO_DATABASE);
             }
         }
 

@@ -21,19 +21,19 @@ namespace Alugamer.Validations
             List<string> listaErros = new List<string>();
 
             if(categoria.Id < 0)
-                listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Código"));
+                listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Código"));
 
             if (string.IsNullOrEmpty(categoria.Nome))
-                listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Nome"));
+                listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Nome"));
 
             if(categoria.Nome.Length > 100)
-                listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Nome"));
+                listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_TAMANHO_MAX, "Nome"));
 
             if (string.IsNullOrEmpty(categoria.Descricao))
-                listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Descricao"));
+                listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Descricao"));
 
             if (categoria.Descricao.Length > 200)
-                listaErros.Add(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Descricao"));
+                listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_TAMANHO_MAX, "Descricao"));
 
             return listaErros;
         }

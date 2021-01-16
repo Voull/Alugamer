@@ -85,7 +85,7 @@ namespace Alugamer.Testes.IntegrationTests
             string msg = JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result);
 
             Assert.True(response.StatusCode == HttpStatusCode.BadRequest);
-            Assert.Equal(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Nome"), msg);
+            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Nome"), msg);
         }
 
         [Fact]
@@ -132,7 +132,7 @@ namespace Alugamer.Testes.IntegrationTests
             string msg = JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result);
 
             Assert.True(response.StatusCode == HttpStatusCode.BadRequest);
-            Assert.Equal(erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "Código"), msg);
+            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Código"), msg);
         }
         
         [Fact]
@@ -157,7 +157,7 @@ namespace Alugamer.Testes.IntegrationTests
             string msg = JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result);
 
             Assert.True(response.StatusCode == HttpStatusCode.Gone);
-            Assert.Equal(erroDatabase.GeraErroDatabase(ErroDatabase.ERRO_DATABASE.ERRO_DELETAR_NAO_EXISTE), msg);
+            Assert.Equal(erroDatabase.GeraErroDatabase(ERRO_DATABASE.ERRO_DELETAR_NAO_EXISTE), msg);
         }
     }
 }
