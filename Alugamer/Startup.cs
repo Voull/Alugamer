@@ -13,6 +13,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Http;
+using Alugamer.Auth;
+using Alugamer.Models;
+using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace Alugamer
 {
@@ -44,6 +49,7 @@ namespace Alugamer
 				x.SaveToken = true;
 				x.TokenValidationParameters = new TokenValidationParameters
 				{
+					ValidateLifetime = true,
 					ValidateIssuerSigningKey = true,
 					IssuerSigningKey = new SymmetricSecurityKey(key),
 					ValidateIssuer = false,
@@ -55,8 +61,15 @@ namespace Alugamer
 					{
 						context.Token = context.Request.Cookies["auth"];
 						return Task.CompletedTask;
+					},
+					OnTokenValidated = context =>
+                    {
+						UserInfo info = JsonConvert.DeserializeObject<UserInfo>(context.Principal.FindFirst(ClaimTypes.UserData).Value);
+						context.Response.Cookies.Append("auth", TokenService.GenerateToken(info));
+						return Task.CompletedTask;
 					}
-				};
+					
+				}; 
 			});
 		}
 
@@ -77,10 +90,15 @@ namespace Alugamer
             app.Use(async (context, next) =>
             {
                 await next();
-                if (context.Response.StatusCode == 404 && context.Response.ContentLength == null)
+                if (context.Response.StatusCode == StatusCodes.Status404NotFound && context.Response.ContentLength == null)
                 {
                     context.Request.Path = "/404";
                     await next();
+                }
+				else if(context.Response.StatusCode == (int)StatusCodes.Status401Unauthorized)
+                {
+					context.Request.Path = "/Login";
+					await next();
                 }
             });
 

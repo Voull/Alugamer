@@ -21,6 +21,9 @@ namespace Alugamer.Controllers
 
         public IActionResult Index()
         {
+            if (TokenService.GetUserInfo(HttpContext) != null)
+                return RedirectToAction("Index", "Home");
+
             return View();
         }
 
@@ -30,17 +33,19 @@ namespace Alugamer.Controllers
             LoginHandler loginHandler = new LoginHandler(HttpContext);
             if(!loginHandler.AuthLogin(nomeUsuario, senha))
             {
-                return Unauthorized(JsonConvert.SerializeObject(erroLogin.GeraErroLogin(ErroLogin.ERRO_LOGIN.ERRO_LOGIN_INVALIDO)));
+                return Unauthorized(JsonConvert.SerializeObject(erroLogin.GeraErroLogin(ERRO_LOGIN.ERRO_LOGIN_INVALIDO)));
             }
 
-            return RedirectToAction("Index", "Home");
+            return NoContent();
         }
 
         [HttpGet]
         [Authorize]
-        public IActionResult Teste()
+        public IActionResult Logout()
         {
-            return Ok();
+            TokenService.RevokeToken(HttpContext);
+
+            return RedirectToAction("Index", "Login");
         }
     }
 }

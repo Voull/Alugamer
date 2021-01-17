@@ -9,18 +9,9 @@
     });
 });
 
-$('#modalLogin').on('shown.bs.modal', function (e) {
-    Login();
-});
+function login(e) {
+    e.preventDefault();
 
-$('#formLogin').on('submit', function () {
-    $("#modalLogin").modal({
-        backdrop: "static"
-    });
-    return false;
-});
-
-function Login() {
     var url = "/Login/Login";
 
     var usuario = $("#campoUsuario").val();
@@ -30,11 +21,17 @@ function Login() {
         url: url,
         type: "POST",
         data: { nomeUsuario: usuario, senha: senha},
-
-        error: function (data) {
-            document.getElementById("modalErroMensagem").innerHTML = data.responseText;
-            $("#modalLogin").modal('hide');
-            $("#modalErro").modal();
-        }
+        dataType: "json",
+        success: function () { successLogin();},
+        error: function (data) {erroLogin(data);}
     });
+}
+
+function successLogin() {
+    location.href = "/";
+}
+
+function erroLogin(data) {
+    errorGenerico(data);
+    $("#campoSenha").val("");
 }

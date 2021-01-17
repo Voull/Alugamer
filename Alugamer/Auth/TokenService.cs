@@ -24,9 +24,10 @@ namespace Alugamer.Auth
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.UserData, JsonConvert.SerializeObject(userInfo))
+                    new Claim(ClaimTypes.UserData, JsonConvert.SerializeObject(userInfo)),
+                    new Claim(ClaimTypes.Role, userInfo.Admin ? "ADMIN" : "USER")
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(30),
+                Expires = DateTime.UtcNow.AddMinutes(20),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(authKey), SecurityAlgorithms.HmacSha256)
             };
 
@@ -34,14 +35,14 @@ namespace Alugamer.Auth
             return tokenHandler.WriteToken(token);
         }
 
-        public static async Task<UserInfo> GetUserInfo(HttpContext context)
+        public static UserInfo GetUserInfo(HttpContext context)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var token = context.Request.Cookies.Where(o => o.Key.Equals("auth")).Select(o => o.Value).FirstOrDefault();
 
             if (string.IsNullOrEmpty(token))
-                return new UserInfo();
+                return null;
 
             var decodedToken = tokenHandler.ReadJwtToken(token);
 
@@ -50,7 +51,11 @@ namespace Alugamer.Auth
             if (userInfoClaim == null) return null;
 
             return JsonConvert.DeserializeObject<UserInfo>(userInfoClaim.Value);
+        }
 
+        public static void RevokeToken(HttpContext context)
+        {
+            context.Response.Cookies.Delete("auth");
         }
 
     }

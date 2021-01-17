@@ -87,6 +87,7 @@ namespace Alugamer.Controllers
 		}
 
 		[HttpPost]
+		
 		public IActionResult Novo([FromBody] Cliente cliente)
 		{
 			try

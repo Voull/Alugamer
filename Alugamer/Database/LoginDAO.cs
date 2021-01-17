@@ -20,7 +20,7 @@ namespace Alugamer.Database
 
         public UserInfo GetUserInfo(int codFuncionario)
         {
-            string sql = $"SELECT COD_FUNCIONARIO, NOME_USUARIO, COD_PERFIL FROM CAD_LOGIN WHERE COD_FUNCIONARIO = {codFuncionario}";
+            string sql = $"SELECT CL.COD_FUNCIONARIO, CL.NOME_USUARIO, CL.ADMIN, CF.NOME FROM CAD_LOGIN CL, CAD_FUNCIONARIOS CF WHERE CL.COD_FUNCIONARIO = {codFuncionario}";
 
             DataTable login = _conn.dataTable(sql);
 
@@ -30,9 +30,17 @@ namespace Alugamer.Database
             return new UserInfo
             {
                 CodFuncionario = codFuncionario,
+                NomeFuncionario = Convert.ToString(login.Rows[0]["NOME"]),
                 NomeUsuario = Convert.ToString(login.Rows[0]["NOME_USUARIO"]),
-                CodPerfil = Convert.ToInt32(login.Rows[0]["COD_PERFIL"])
+                Admin = Convert.ToBoolean(login.Rows[0]["ADMIN"])
             };
+        }
+
+        public void SalvaPerfil(int codFuncionario, string senha)
+        {
+            string sql = $"UPDATE CAD_LOGIN SET SENHA = '{senha}' WHERE COD_FUNCIONARIO = '{codFuncionario}'";
+
+            _conn.execute(sql);
         }
     }
 }

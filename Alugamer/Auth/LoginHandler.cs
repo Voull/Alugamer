@@ -37,5 +37,6 @@ namespace Alugamer.Auth
 
             context.Response.Cookies.Append("auth", token);
         }
+
     }
 }
