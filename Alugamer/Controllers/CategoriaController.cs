@@ -31,7 +31,7 @@ namespace Alugamer.Controllers
             try
             {
                 List<Categoria> listaCategoria = crudCategoria.Lista();
-                
+
                 return View(listaCategoria);
             }
             catch (Exception)
@@ -48,33 +48,57 @@ namespace Alugamer.Controllers
             if (categoria.Id == -1)
             {
                 TempData["msg"] = erroDatabase.GeraErroDatabase(ERRO_DATABASE.ERRO_NAO_EXISTE);
-                return RedirectToAction("Erro404", "Error");
+                return RedirectToAction("Erro", "Error");
             }
-                
+
             return View(categoria);
         }
 
         [HttpPost]
-        public IActionResult Novo(Categoria categoria)
+        public IActionResult Novo([FromBody] Categoria categoria)
         {
             try
             {
                 string erros = crudCategoria.Insere(categoria);
                 if (string.IsNullOrEmpty(erros))
                     return NoContent();
-                return BadRequest(erros);
+                return BadRequest(JsonConvert.SerializeObject(erros));
             }
             catch (SqlException)
             {
                 Response.StatusCode = StatusCodes.Status500InternalServerError;
                 return Json(erro.GeraErroGenerico(ERRO.ERRO_GENERICO_DATABASE));
             }
-            catch (Exception){
+            catch (Exception) {
                 Response.StatusCode = StatusCodes.Status500InternalServerError;
                 return Json(erro.GeraErroGenerico(ERRO.ERRO_GENERICO));
             }
 
         }
+
+        [HttpPost]
+        public IActionResult Edita([FromBody] Categoria categoria)
+        {
+            try
+            {
+                string erros = crudCategoria.Edita(categoria);
+                if (string.IsNullOrEmpty(erros))
+                    return NoContent();
+                return BadRequest(JsonConvert.SerializeObject(erros));
+            }
+            catch (SqlException)
+            {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                return Json(erro.GeraErroGenerico(ERRO.ERRO_GENERICO_DATABASE));
+            }
+            catch (Exception)
+            {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                return Json(erro.GeraErroGenerico(ERRO.ERRO_GENERICO));
+            }
+
+        }
+
         [HttpGet]
         public IActionResult Lista()
         {
@@ -120,7 +144,7 @@ namespace Alugamer.Controllers
                 if (string.IsNullOrEmpty(erros))
                 {
                     Response.StatusCode = StatusCodes.Status410Gone;
-                    return Content(erros);
+                    return Json(erros);
                 }
                 else
                     return NoContent();

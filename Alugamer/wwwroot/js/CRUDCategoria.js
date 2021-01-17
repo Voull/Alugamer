@@ -8,7 +8,7 @@
         buttons: [{
             text: "Novo",
             action: function (e, dt, button, config) {
-                document.location.href += '/cadastro';
+                document.location.href += 'cadastro';
             },
             className: 'btn-primary'
         },
@@ -43,13 +43,13 @@ function removeCategorias() {
     categorias = JSON.stringify(categorias);
 
     $.ajax({
-        url: "Categoria/DeleteGrupo",
+        url: "/Categoria/DeleteGrupo",
         data: categorias,
         type: "DELETE",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: function (data) { successRemove(data); },
-        error: function (data) { failRemove(data); }
+        success: function (data) { successDeleteMultiploItem(data); },
+        error: function (data) { errorGenerico(data); }
     });
 
 }

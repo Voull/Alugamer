@@ -30,6 +30,13 @@ namespace Alugamer.CRUD
             return listaCategoria;
         }
 
+        public List<Categoria> ListaSimples()
+        {
+            List<Categoria> listaCategoria = categoriaDAO.ReadAllSimples();
+
+            return listaCategoria;
+        }
+
         public Categoria Busca(int id)
         {
             if (id == 0)
