@@ -1,118 +1,68 @@
-﻿@model Alugamer.Models.Categoria
+﻿@model Alugamer.Models.Cliente
 
 @{
     ViewData["Title"] = "Cadastro";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutCadastro.cshtml";
 }
 
-@section CSS{
-    <link rel="stylesheet" type="text/css" href="~/css/CadastroCategoria.css" />
+@section Header{
+    <h4>Cadastro de Clientes</h4>
 }
 
-@{
-    ViewData["Title"] = "Gestão de Clientes";
-}
 @section Scripts{
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script>
-    <script src="~/js/CRUDClients.js"></script>
+    <script type="text/javascript" src="~/js/cadastroCliente.js"></script>
 }
 
-@section CSS{
-    <link rel="stylesheet" href="~/css/CRUDClients.css" />
+@section Form{
+    <form onsubmit="salvaCliente(event)">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group" style="display:none">
+            <strong> <label asp-for="Id" class="control-label"></label></strong>
+            <input asp-for="Id" class="form-control" required />
+            <span asp-validation-for="Id" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <strong> <label asp-for="Nome" class="control-label"></label></strong>
+            <input asp-for="Nome" class="form-control" required />
+            <span asp-validation-for="Nome" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <strong>   <label asp-for="Email" class="control-label"></label></strong>
+            <input asp-for="Email" class="form-control" required />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <strong>  <label asp-for="Telefone" class="control-label"></label></strong>
+            <input asp-for="Telefone" class="form-control" required />
+            <span asp-validation-for="Telefone" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <strong>  <label asp-for="Endereco" class="control-label"></label></strong>
+            <input asp-for="Endereco" class="form-control" required />
+            <span asp-validation-for="Endereco" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <strong>   <label asp-for="DataNascimento" class="control-label"></label></strong>
+            <input asp-for="DataNascimento" class="form-control" required />
+            <span asp-validation-for="DataNascimento" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <strong> <label asp-for="Sexo" class="control-label"></label></strong>
+            <select asp-for="Sexo" class="form-control" required >
+                <option value="">Escolha</option>
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
+            </select>
+            <span asp-validation-for="Sexo" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <strong>  <label asp-for="Cpf" class="control-label"></label></strong>
+            <input asp-for="Cpf" class="form-control" required />
+            <span asp-validation-for="Cpf" class="text-danger"></span>
+        </div>
+        <div class="d-flex justify-content-end">
+            <input type="submit" value="Salvar" class="btn btn-primary" />
+        </div>
+    </form>
 }
-
-<h1>@ViewData["Title"]</h1>
-
-<div class="formClientes">
-    <input type="hidden" id="idCli">
-    <table class="tableBusca">
-        <tbody>
-            <tr>
-                <td>
-                    <label for="nomeBuscaCli">Nome:</label>
-                    <select id="clienteCli">
-                        <option value="0">Escolha...</option>
-                        @foreach (Cliente cliente in ViewBag.listaClientes)
-                        {
-                            <option value="@cliente.Id">@cliente.Nome</option>
-                        }
-                    </select>
-                </td>
-                <td>
-                    <input type="button" id="btnBuscaCli" onclick="buscaCliente()" value="Buscar">
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    <br>
-    <div class="lblDadosCliente"><h3>Dados</h3></div>
-    <div class="dadosCliente">
-        <p>
-            <label for="nomeCli">Nome:</label>
-            <input type="text" id="nomeCli" class="campoCliMedio" disabled>
-        </p>
-        <p>
-            <label for="emailCli">E-mail:</label>
-            <input type="email" id="emailCli" class="campoCliMedio" disabled>
-        </p>
-        <table>
-            <tbody>
-                <tr>
-                    <td>
-                        <label for="celCli">Celular:</label>
-                        <input type="tel" id="celCli" disabled />
-                    </td>
-                    <td>
-                        <label for="dataNascCli">Data de Nascimento:</label>
-                        <input type="date" id="dataNascCli" disabled>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <p>
-            <label for="endCli">Endereço:</label>
-            <input type="text" id="endCli" class="campoCliGrande" disabled>
-        </p>
-        <table>
-            <tbody>
-                <tr>
-                    <td>
-                        <label for="sexoCli">Sexo:</label>
-                        <select id="sexoCli" disabled>
-                            <option value="M">Masculino</option>
-                            <option value="F">Feminino</option>
-                        </select>
-                    </td>
-                    <td>
-                        <label for="cpfCli">CPF:</label>
-                        <input type="text" id="cpfCli" disabled>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table class="btnRodape">
-            <tbody>
-                <tr>
-                    <td>
-                        <input type="button" id="btnNovoCli" onclick="criaCliente()" value="Novo">
-                    </td>
-                    @*<td>
-                            <input type="button" id="btnEditarCli" onclick="editaCliente()" value="Editar">
-                        </td>*@
-                    <td>
-                        <input type="button" id="btnExcluirCli" onclick="excluiCliente()" value="Excluir">
-                    </td>
-
-                    <td>
-                        <input type="button" id="btnSalvar" onclick="salvaCliente()" value="Salvar">
-                    </td>
-                    <td>
-                        <input type="button" id="btnCancelarCli" onclick="cancela()" value="Cancelar">
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 
