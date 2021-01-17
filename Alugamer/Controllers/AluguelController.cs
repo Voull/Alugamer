@@ -1,19 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Alugamer.CRUD;
-using Alugamer.Database;
 using Alugamer.Models;
+using Alugamer.Utils;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 
 namespace Alugamer.Controllers
 {
 	public class AluguelController : Controller
 	{
+
+		private CRUDCategoria crudCategoria;
+		private Erro erro;
+		private ErroDatabase erroDatabase;
+
+
+		public AluguelController() : base()
+		{
+			crudCategoria = new CRUDCategoria();
+			erro = new Erro();
+			erroDatabase = new ErroDatabase();
+		}
+
+		public IActionResult Cadastro(int id)
+		{
+			CRUDCategoria crudCategoria = new CRUDCategoria();
+
+			List<Categoria> listaCategorias = crudCategoria.Lista();
+
+			ViewBag.listaCategorias = listaCategorias;
+
+			CRUDClientes crudClientes = new CRUDClientes();
+
+			List<Cliente> listaClientes = crudClientes.Lista();
+
+			ViewBag.listaClientes = listaClientes;
+
+			CRUDAluguel crudAluguel = new CRUDAluguel();
+
+			Aluguel aluguel = crudAluguel.Busca(id);
+			if (aluguel.Id == -1)
+			{
+				TempData["msg"] = erroDatabase.GeraErroDatabase(ERRO_DATABASE.ERRO_NAO_EXISTE);
+				return RedirectToAction("Erro404", "Error");
+			}
+
+			return View(aluguel);
+		}
+
+
 		public IActionResult Index()
 		{
 
@@ -29,7 +69,19 @@ namespace Alugamer.Controllers
 
 			ViewBag.listaClientes = listaClientes;
 
-			return View();
+			CRUDAluguel crudAluguel = new CRUDAluguel();
+
+			try
+			{
+				List<Aluguel> listaaluguel = crudAluguel.Lista();
+
+				return View(listaaluguel);
+			}
+			catch (Exception)
+			{
+				Response.StatusCode = StatusCodes.Status500InternalServerError;
+				return Json(erro.GeraErroGenerico(ERRO.ERRO_GENERICO));
+			}
 		}
 
 		[HttpGet]

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
@@ -11,11 +11,21 @@ namespace Alugamer.Models
 	public class Aluguel
 	{
 		public int Id { get; set;}
-        public int Locatario {get; set;}
+
+		[DisplayName("Cliente")]
+		public int Locatario {get; set;}
+		
 		public int Vendedor {get; set;}
+
+		[DisplayName("Valor Total")]
 		public Decimal Valor_total {get; set;}
+
+		[DisplayName("Data Inicial")]
 		public DateTime DataInicial {get; set;}
+
+		[DisplayName("Data Final")]
 		public DateTime DataFinal { get; set; }
+		
 		public List<ItemAluguel> Itens { get; set; }
 
 		public Aluguel()

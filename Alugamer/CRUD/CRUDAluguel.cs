@@ -6,6 +6,7 @@ using Alugamer.Database;
 using Alugamer.Models;
 using Alugamer.Validations;
 
+
 namespace Alugamer.CRUD
 {
     public class CRUDAluguel
@@ -26,6 +27,27 @@ namespace Alugamer.CRUD
             string resposta = aluguelDao.Insert(aluguel);
 
             return resposta;
+        }
+
+        public List<Aluguel> Lista()
+        {
+            List<Aluguel> listaAluguel = aluguelDao.Lista();
+
+            return listaAluguel;
+
+        }
+
+        public Aluguel Busca(int id)
+        {
+            if (id == 0)
+                return new Aluguel()
+                {
+                    Id = 0
+                };
+
+            Aluguel aluguel = aluguelDao.Read(id);
+
+            return aluguel;
         }
     }
 }

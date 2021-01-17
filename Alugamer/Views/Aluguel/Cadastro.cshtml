@@ -1,0 +1,101 @@
+﻿@model Alugamer.Models.Aluguel
+@{
+    ViewData["Title"] = "Cadastro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script type="text/javascript" src="~/js/CadastroAluguel.js"></script>
+}
+
+@section CSS{
+    <link rel="stylesheet" href="~/css/CadastroAluguel.css" />
+}
+
+<div class="formAluguel">
+    <form>
+        <fieldset>
+            <input type="hidden" id="idFunc">
+            <input type="hidden" id="idCli">
+            <table class="tableInfo">
+                <tbody>
+                    <tr>
+                        <td class="Cem">
+                            <label for="nomeCliente">Cliente:</label>
+                            <select id="nomeCliente">
+                                <option value="0">Escolha...</option>
+                                @foreach (Cliente cliente in ViewBag.listaClientes)
+                                {
+                                    <option value="@cliente.Id">@cliente.Nome</option>
+                                }
+                            </select>
+                            <label for="vendedor" class="Vendedor">Vendedor:</label>
+                            <input type="text" id="vendedor" class="campoAluguelPequeno">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="Cem">
+                            <label for="categoriaAluga">Categoria:</label>
+                            <select id="categoriaAluga" onchange="carregaItens()">
+                                @foreach (Categoria categoria in ViewBag.listaCategorias)
+                                {
+                                    <option value="@categoria.Id">@categoria.Nome</option>
+                                }
+                            </select>
+                            <br>
+                            <br>
+                            <label for="itensAluga">Itens:</label>
+                            <select id="itensAluga" onchange="escolheItem()">
+                                <option value="0">Escolha...</option>
+                                @*@foreach (Alugavel alugavel in ViewBag.listaAlugavel)
+                                    {
+                                        string item = alugavel.Nome + " - Qtd: " + alugavel.Quantidade + " - Valor: " + alugavel.Valor_aluguel;
+                                        <option value="@alugavel.Id">@item</option>
+                                    }*@
+                            </select>
+                            <label for="itenQtd">Quantidade:</label>
+                            <input type="text" id="itenQtd" class="campoAluguelMini">
+                            <input type="button" id="btnAdd" onclick="adicionaItem()" value="Adicionar">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label id="itemDescricao"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table id="dataTable" width="400px" border="1">
+                                <tr>
+                                    <td class="Cabecalho">      </td>
+                                    <td class="Cabecalho"> Codigo </td>
+                                    <td class="Cabecalho"> Item </td>
+                                    <td class="Cabecalho"> Quantidade </td>
+                                    <td class="Cabecalho"> Valor Unitário </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <label for="tempoAluguel"> Período de Aluguel:</label>
+                            <br>
+                            <input type="number" id="tempoAluguel" value="1" min="1" max="12">
+
+                            <label>Valor Total:</label>
+                            <br>
+                            <input type="text" id="total" class="campoAluguelMedio" disabled>
+                            <br>
+                            <br>
+                            <input type="button" id="btnFinalizar" onclick="finalizar()" value="Finalizar">
+                            <br>
+                            <br>
+                            <input type="button" style="background-color: red;color: white;" value="Remover Item" onclick="removeItem()" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

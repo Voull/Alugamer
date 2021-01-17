@@ -1,101 +1,68 @@
-﻿@{
-    ViewData["Title"] = "Aluguel";
+﻿@model IEnumerable<Alugamer.Models.Aluguel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Scripts{
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script>
-    <script src="~/js/CRUDAluguel.js"></script>
+    @*<script src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>*@
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.23/b-1.6.5/r-2.2.7/sl-1.3.1/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="~/js/CRUDAluguel.js"></script>
 }
 
 @section CSS{
-	<link rel="stylesheet" href="~/css/CRUDAluguel.css" />
+    @*<link rel="stylesheet" href="//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />*@
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.23/b-1.6.5/r-2.2.7/sl-1.3.1/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css" />
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 style="padding-bottom:5%">Aluguel</h1>
 
-
-<div class="formAluguel">
-    <form>
-        <fieldset>
-            <input type="hidden" id="idFunc">
-            <input type="hidden" id="idCli">
-            <table class="tableInfo">
-                <tbody>
-                    <tr>
-                        <td class="Cem">
-                            <label for="nomeCliente">Cliente:</label>
-                            <select id="nomeCliente">
-                                <option value="0">Escolha...</option>
-                                @foreach (Cliente cliente in ViewBag.listaClientes)
-                                {
-                                    <option value="@cliente.Id">@cliente.Nome</option>
-                                }
-                            </select>
-                            <label for="vendedor" class="Vendedor">Vendedor:</label>
-                            <input type="text" id="vendedor" class="campoAluguelPequeno">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="Cem">
-                            <label for="categoriaAluga">Categoria:</label>
-                            <select id="categoriaAluga" onchange="carregaItens()">
-                                @foreach (Categoria categoria in ViewBag.listaCategorias)
-                                {
-                                    <option value="@categoria.Id">@categoria.Nome</option>
-                                }
-                            </select>
-                            <br>
-                            <br>
-                            <label for="itensAluga">Itens:</label>
-                            <select id="itensAluga" onchange="escolheItem()">
-                                <option value="0">Escolha...</option>
-                                @*@foreach (Alugavel alugavel in ViewBag.listaAlugavel)
-                                {
-                                    string item = alugavel.Nome + " - Qtd: " + alugavel.Quantidade + " - Valor: " + alugavel.Valor_aluguel;
-                                    <option value="@alugavel.Id">@item</option>
-                                }*@
-                            </select>
-                            <label for="itenQtd">Quantidade:</label>
-                            <input type="text" id="itenQtd" class="campoAluguelMini">
-                            <input type="button" id="btnAdd" onclick="adicionaItem()" value="Adicionar">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label id="itemDescricao"></label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <table id="dataTable" width="400px" border="1">
-                                <tr>
-                                    <td class="Cabecalho">      </td>
-                                    <td class="Cabecalho"> Codigo </td>
-                                    <td class="Cabecalho"> Item </td>
-                                    <td class="Cabecalho"> Quantidade </td>
-                                    <td class="Cabecalho"> Valor Unitário </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td>
-                            <label for="tempoAluguel"> Período de Aluguel:</label>
-                            <br>
-                            <input type="number" id="tempoAluguel" value="1" min="1" max="12">
-
-                            <label>Valor Total:</label>
-                            <br>
-                            <input type="text" id="total" class="campoAluguelMedio" disabled>
-                            <br>
-                            <br>
-                            <input type="button" id="btnFinalizar" onclick="finalizar()" value="Finalizar">
-                            <br>
-                            <br>
-                            <input type="button" style="background-color: red;color: white;" value="Remover Item" onclick="removeItem()" />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </fieldset>
-    </form>
-</div>
-
-
+<table id="tbAluguel" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th style="display:none">
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                <label>Cliente</label>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor_total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataInicial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataFinal)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="display:none">
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @(((IEnumerable<Cliente>)ViewBag.listaClientes).Where(o => o.Id == item.Locatario).Select(o => o.Nome).FirstOrDefault())
+                </td>
+                <th>
+                    @Html.DisplayFor(model => item.Valor_total)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.DataInicial)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.DataFinal)
+                </th>
+                <td style="text-align:center">
+                    @Html.ActionLink("Editar", "Cadastro", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
