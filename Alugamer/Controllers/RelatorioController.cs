@@ -26,18 +26,18 @@ namespace Alugamer.Controllers
 		}
 
 
-		[HttpPost]
-		public IActionResult BuscaTodos([FromBody] Aluguel aluguel)
+		[HttpGet]
+		public IActionResult BuscaTodos(DateTime DataInicial, DateTime DataFinal)
 		{
 			CRUDRelatorio crudRelatorio = new CRUDRelatorio();
 
-			List<Aluguel> listaAluguel = crudRelatorio.buscaTodos(aluguel.DataInicial, aluguel.DataFinal);
+			List<Aluguel> listaAluguel = crudRelatorio.buscaTodos(DataInicial,DataFinal);
 
 			return Ok(JsonConvert.SerializeObject(listaAluguel));
 		}
 
-		[HttpPost]
-		public IActionResult BuscaCliente([FromBody] DateTime DataInicial, [FromBody] DateTime DataFinal, [FromBody] int Id)
+		[HttpGet]
+		public IActionResult BuscaCliente(DateTime DataInicial,DateTime DataFinal,int Id)
 		{
 			CRUDRelatorio crudRelatorio = new CRUDRelatorio();
 

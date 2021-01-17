@@ -91,7 +91,6 @@ function failSalvaAlugavel(data) {
 	alert(parsed);
 }
 
-
 function criaAlugavel() {
 	limpaCampos();
 	$("#idAluga").val("0");
