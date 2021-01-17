@@ -35,13 +35,15 @@ namespace Alugamer.Validations
 				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_TAMANHO_MAX, "Descricao"));
 
 			if (alugavel.Quantidade < 0)
-				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Quantidade"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Quantidade"));
 
-			if (alugavel.Valor_aluguel < 0)
-				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Valor para aluguel"));
+			if (alugavel.Valor_aluguel <= 0)
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Valor de Aluguel"));
 
-			if (alugavel.Valor_compra < 0)
-				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Valor de Compra"));
+			if (alugavel.Valor_compra <= 0)
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Valor de Compra"));
+			if (alugavel.IdCategoria <= 0)
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Categoria"));
 
 			return listaErros;
 		}

@@ -89,7 +89,7 @@ namespace Alugamer.Testes.UnitTests
             {
                 Id = 1,
                 Nome = "Nintendo Switch",
-                Descricao = "Console Nintendo Switch Versão Azul/Vermelho" + new string('a', 100),
+                Descricao = "Console Nintendo Switch Versão Azul/Vermelho" + new string('a', 200),
                 Quantidade = 10,
                 Valor_compra = 2500,
                 Valor_aluguel = 150,
@@ -98,7 +98,7 @@ namespace Alugamer.Testes.UnitTests
             List<string> erros = alugavelValidation.validar(alugavelValido);
 
             Assert.True(erros.Count == 1);
-            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_TAMANHO_MAX, "Descriçao"), erros[0]);
+            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_TAMANHO_MAX, "Descricao"), erros[0]);
 
         }
 
@@ -119,7 +119,7 @@ namespace Alugamer.Testes.UnitTests
             List<string> erros = alugavelValidation.validar(alugavelValido);
 
             Assert.True(erros.Count == 1);
-            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Descrição"), erros[0]);
+            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Descricao"), erros[0]);
 
         }
 
@@ -159,16 +159,16 @@ namespace Alugamer.Testes.UnitTests
             List<string> erros = alugavelValidation.validar(alugavel);
 
             Assert.True(erros.Count == 1);
-            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Valor Compra"), erros[0]);
+            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Valor de Compra"), erros[0]);
         }
 
-        [Theory, MemberData(nameof(AlugavelValorCompraInvalida))]
+        [Theory, MemberData(nameof(AlugavelValorAluguelInvalida))]
         public void TesteAlugavelValorAluguelInvalida(Alugavel alugavel)
         {
             List<string> erros = alugavelValidation.validar(alugavel);
 
             Assert.True(erros.Count == 1);
-            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Valor Compra"), erros[0]);
+            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Valor de Aluguel"), erros[0]);
         }
 
         public static IEnumerable<object[]> AlugavelQuantidadeInvalida
@@ -213,19 +213,19 @@ namespace Alugamer.Testes.UnitTests
             {
                 return new[]
                 {
-                    //new object[]
-                    //{
-                    //    new Alugavel
-                    //    {
-                    //        Id = 1,
-                    //        Nome = "Nintendo Switch",
-                    //        Descricao = "Console Nintendo Switch Versão Azul/Vermelho",
-                    //        Quantidade = 1,
-                    //        Valor_compra= 0,
-                    //        Valor_aluguel = 150,
-                    //        Categoria = 1
-                    //    }
-                    //},
+                    new object[]
+                    {
+                        new Alugavel
+                        {
+                            Id = 1,
+                            Nome = "Nintendo Switch",
+                            Descricao = "Console Nintendo Switch Versão Azul/Vermelho",
+                            Quantidade = 1,
+                            Valor_compra= 0,
+                            Valor_aluguel = 150,
+                            IdCategoria = 1
+                        }
+                    },
                     new object[]
                     {
                         new Alugavel
@@ -249,19 +249,19 @@ namespace Alugamer.Testes.UnitTests
             {
                 return new[]
                 {
-                //    new object[]
-                //    {
-                //        new Alugavel
-                //        {
-                //            Id = 1,
-                //            Nome = "Nintendo Switch",
-                //            Descricao = "Console Nintendo Switch Versão Azul/Vermelho",
-                //            Quantidade = 1,
-                //            Valor_compra= 2500,
-                //            Valor_aluguel = 0,
-                //            Categoria = 1
-                //        }
-                //    },
+                    new object[]
+                    {
+                        new Alugavel
+                        {
+                            Id = 1,
+                            Nome = "Nintendo Switch",
+                            Descricao = "Console Nintendo Switch Versão Azul/Vermelho",
+                            Quantidade = 1,
+                            Valor_compra= 2500,
+                            Valor_aluguel = 0,
+                            IdCategoria = 1
+                        }
+                    },
                 new object[]
                     {
                         new Alugavel

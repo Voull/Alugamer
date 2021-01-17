@@ -48,6 +48,7 @@ namespace Alugamer.Testes.IntegrationTests
         {
             Alugavel alugavel = new Alugavel
             {
+                Id = 0,
                 Nome = "Nintendo Switch",
                 Descricao = "Console Nintendo Switch Versão Azul/Vermelho",
                 Quantidade = 10,
@@ -68,6 +69,7 @@ namespace Alugamer.Testes.IntegrationTests
         {
             Alugavel alugavel = new Alugavel
             {
+                Id = 0,
                 Descricao = "Console Nintendo Switch Versão Azul/Vermelho",
                 Quantidade = 10,
                 Valor_compra = 2500,
@@ -126,7 +128,7 @@ namespace Alugamer.Testes.IntegrationTests
             string msg = JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result);
 
             Assert.True(response.StatusCode == HttpStatusCode.BadRequest);
-            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Código"), msg);
+            Assert.Equal(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Código"), msg);
         }
 
         [Fact]
@@ -141,17 +143,18 @@ namespace Alugamer.Testes.IntegrationTests
             response.EnsureSuccessStatusCode();
         }
 
-        [Fact]
-        public async Task DeleteAlugavelErro()
-        {
-            var client = _factory.CreateClient();
+        //[Fact]
+        //public async Task DeleteAlugavelErro()
+        //{
+        //    var client = _factory.CreateClient();
 
-            var response = await client.DeleteAsync("/Alugavel/Remove/0");
+        //    var response = await client.DeleteAsync("/Alugavel/Remove/0");
 
-            string msg = JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result);
+        //    string msg = JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result);
 
-            Assert.True(response.StatusCode == HttpStatusCode.Gone);
-            Assert.Equal(erroDatabase.GeraErroDatabase(ERRO_DATABASE.ERRO_DELETAR_NAO_EXISTE), msg);
-        }
+
+        //    Assert.True(response.StatusCode == HttpStatusCode.Gone);
+        //    Assert.Equal(erroDatabase.GeraErroDatabase(ERRO_DATABASE.ERRO_DELETAR_NAO_EXISTE), msg);
+        //}
     }
 }

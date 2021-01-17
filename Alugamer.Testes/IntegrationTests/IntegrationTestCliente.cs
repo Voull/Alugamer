@@ -29,7 +29,7 @@ namespace Alugamer.Testes.IntegrationTests
             clienteValidation = new ClienteValidation();
         }
 
-        [Fact, TestPriority(-1)]
+        [Fact, TestPriority(-5)]
         public async Task GetCliente()
         {
             var client = _factory.CreateClient();

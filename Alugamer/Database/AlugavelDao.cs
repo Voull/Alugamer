@@ -19,9 +19,9 @@ namespace Alugamer.Database
 
         public string Insert(Alugavel alugavel)
 		{
-            string sql = $@"INSERT INTO CAD_ALUGAVEIS (nome, descricao, quantidade, valor_compra, valor_aluguel, categoria)
-                            VALUES ('{alugavel.Nome}', '{alugavel.Descricao}', '{alugavel.Quantidade}', '{alugavel.Valor_compra}',
-                                    '{alugavel.Valor_aluguel}' , '{alugavel.IdCategoria}')";
+            string sql = $@"INSERT INTO CAD_ALUGAVEIS (nome, descricao, quantidade, valor_compra, valor_aluguel, cod_categoria)
+                            VALUES ('{alugavel.Nome}', '{alugavel.Descricao}', {alugavel.Quantidade}, {alugavel.Valor_compra.ToString("0.00", CultureInfo.InvariantCulture)},
+                                    {alugavel.Valor_aluguel.ToString("0.00", CultureInfo.InvariantCulture)} , {alugavel.IdCategoria})";
             try
             {
                 _conn.execute(sql);
@@ -35,7 +35,7 @@ namespace Alugamer.Database
 
         public Alugavel Read(int id)
         {
-            string sql = $@"SELECT cod_alugavel, nome, descricao, quantidade, valor_compra, valor_aluguel , categoria
+            string sql = $@"SELECT cod_alugavel, nome, descricao, quantidade, valor_compra, valor_aluguel , cod_categoria
                             from CAD_ALUGAVEIS where cod_alugavel =({id})";
 
             DataTable resp = _conn.dataTable(sql);
@@ -50,7 +50,7 @@ namespace Alugamer.Database
                 Quantidade = Convert.ToInt32(resp.Rows[0]["quantidade"]),
                 Valor_compra = Convert.ToDecimal(resp.Rows[0]["valor_compra"]),
                 Valor_aluguel = Convert.ToDecimal(resp.Rows[0]["valor_aluguel"]),
-                IdCategoria = Convert.ToInt32(resp.Rows[0]["categoria"])
+                IdCategoria = Convert.ToInt32(resp.Rows[0]["cod_categoria"])
             };
         }
 
@@ -73,7 +73,7 @@ namespace Alugamer.Database
                     Quantidade = Convert.ToInt32(linhaAlugavel["quantidade"]),
                     Valor_compra = Convert.ToDecimal(linhaAlugavel["valor_compra"]),
                     Valor_aluguel = Convert.ToDecimal(linhaAlugavel["data_nascimento"]),
-                    IdCategoria = Convert.ToInt32(linhaAlugavel["categoria"])
+                    IdCategoria = Convert.ToInt32(linhaAlugavel["cod_categoria"])
                 };
 
                 listaAlugavel.Add(alugavel);
@@ -107,8 +107,8 @@ namespace Alugamer.Database
 
         public string Update(Alugavel alugavel)
         {
-            string sql = $@"UPDATE CAD_ALUGAVEIS set nome ='{alugavel.Nome}', descricao = '{alugavel.Descricao}', quantidade = '{alugavel.Quantidade}',
-                            valor_compra = '{alugavel.Valor_compra}', valor_aluguel = '{alugavel.Valor_aluguel}', categoria = '{alugavel.IdCategoria}' where cod_alugavel = {alugavel.Id}";
+            string sql = $@"UPDATE CAD_ALUGAVEIS set nome ='{alugavel.Nome}', descricao = '{alugavel.Descricao}', quantidade = {alugavel.Quantidade},
+                            valor_compra = {alugavel.Valor_compra.ToString("0.00", CultureInfo.InvariantCulture)}, valor_aluguel = {alugavel.Valor_aluguel.ToString("0.00", CultureInfo.InvariantCulture)}, cod_categoria = {alugavel.IdCategoria} where cod_alugavel = {alugavel.Id}";
 
             try
             {

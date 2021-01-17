@@ -28,8 +28,8 @@ namespace Alugamer.Testes.AutomatedUITests
                 var selectSexo = new SelectElement(dropDownSexo);
                 selectSexo.SelectByText("Console");
 
-                driver.FindElementById("valorCompraAluga").SendKeys("5000,00");
-                driver.FindElementById("valorAluga").SendKeys("100,00");
+                driver.FindElementById("valorCompraAluga").SendKeys("5000");
+                driver.FindElementById("valorAluga").SendKeys("100");
                 driver.FindElementById("qtdAluga").SendKeys("20");
 
                 driver.FindElementById("btnSalvar").Click();
@@ -82,8 +82,8 @@ namespace Alugamer.Testes.AutomatedUITests
                 var selectSexo = new SelectElement(dropDownSexo);
                 selectSexo.SelectByText("Console");
 
-                driver.FindElementById("valorCompraAluga").SendKeys("5000,00");
-                driver.FindElementById("valorAluga").SendKeys("100,00");
+                driver.FindElementById("valorCompraAluga").SendKeys("5000");
+                driver.FindElementById("valorAluga").SendKeys("100");
                 driver.FindElementById("qtdAluga").SendKeys("20");
 
                 driver.FindElementById("btnSalvar").Click();
