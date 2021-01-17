@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -14,9 +15,13 @@ namespace Alugamer.Models
         public string Nome {get; set;}
 		public string Email {get; set;}
 		public string Telefone {get; set;}
+		[DisplayName("Endereço")]
 		public string Endereco {get; set;}
+		[DataType(DataType.Date)]
+		[DisplayName("Data de Nascimento")]
 		public DateTime DataNascimento {get; set;}
 		public string Sexo {get; set;}
+		[DisplayName("CPF")]
 		public string Cpf {get; set;}
 
 		public Cliente()

@@ -1,7 +1,9 @@
 ﻿using Alugamer.Models;
+using Alugamer.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +26,7 @@ namespace Alugamer.Database
             }
             catch (Exception)
             {
-                return erroDatabase.GeraErroGenerico(Utils.Erro.ERRO.ERRO_GENERICO);
+                return erroDatabase.GeraErroGenerico(ERRO.ERRO_GENERICO);
             }
         }
 
@@ -42,11 +44,11 @@ namespace Alugamer.Database
                 Id = id,
                 Nome = Convert.ToString(resp.Rows[0]["nome"]),
                 Email = Convert.ToString(resp.Rows[0]["email"]),
-                Telefone = Convert.ToString(resp.Rows[0]["telefone"]),
+                Telefone = Convert.ToString(resp.Rows[0]["telefone"]).Trim(),
                 Endereco = Convert.ToString(resp.Rows[0]["endereco"]),
                 DataNascimento = Convert.ToDateTime(resp.Rows[0]["data_nascimento"], CultureInfo.InvariantCulture),
                 Sexo = Convert.ToString(resp.Rows[0]["sexo"]),
-                Cpf = Convert.ToString(resp.Rows[0]["cpf"])
+                Cpf = Convert.ToString(resp.Rows[0]["cpf"]).Trim()
 
             };
         }
@@ -67,11 +69,11 @@ namespace Alugamer.Database
                     Id = Convert.ToInt32(linhaCliente["cod_cliente"]),
                     Nome = Convert.ToString(linhaCliente["nome"]),
                     Email = Convert.ToString(linhaCliente["email"]),
-                    Telefone = Convert.ToString(linhaCliente["telefone"]),
+                    Telefone = Convert.ToString(linhaCliente["telefone"]).Trim(),
                     Endereco = Convert.ToString(linhaCliente["endereco"]),
                     DataNascimento = Convert.ToDateTime(linhaCliente["data_nascimento"], CultureInfo.InvariantCulture),
                     Sexo = Convert.ToString(linhaCliente["sexo"]),
-                    Cpf = Convert.ToString(linhaCliente["cpf"])
+                    Cpf = Convert.ToString(linhaCliente["cpf"]).Trim()
                 };
 
                 listaClientes.Add(cliente);
@@ -82,7 +84,7 @@ namespace Alugamer.Database
 
         public List<Cliente> ReadAllSimples()
         {
-            string sql = $@"SELECT cod_cliente, nome 
+            string sql = $@"SELECT cod_cliente, nome, cpf 
                             from CAD_CLIENTES";
 
             DataTable resp = _conn.dataTable(sql);
@@ -94,7 +96,8 @@ namespace Alugamer.Database
                 Cliente cliente = new Cliente
                 {
                     Id = Convert.ToInt32(linhaCliente["cod_cliente"]),
-                    Nome = Convert.ToString(linhaCliente["nome"])
+                    Nome = Convert.ToString(linhaCliente["nome"]),
+                    Cpf = Convert.ToString(linhaCliente["cpf"])
                 };
 
                 listaClientes.Add(cliente);
@@ -116,15 +119,27 @@ namespace Alugamer.Database
             }
             catch (Exception)
             {
-                return erroDatabase.GeraErroGenerico(Utils.Erro.ERRO.ERRO_GENERICO_DATABASE);
+                return erroDatabase.GeraErroGenerico(ERRO.ERRO_GENERICO_DATABASE);
             }
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            string sql = $@"DELETE FROM CAD_CLIENTES WHERE COD_CLIENTE = {id}";
-            
-            _conn.execute(sql);
+            string sql = $@"IF EXISTS(SELECT 1 FROM CAD_CLIENTES WHERE COD_CLIENTE = {id})
+                            BEGIN
+                                DELETE FROM CAD_CLIENTES WHERE COD_CLIENTE = {id}
+                                SELECT 1
+                            END";
+
+            return Convert.ToBoolean(_conn.scalar(sql));
         }
+
+        public bool Exists(int id)
+        {
+            string sql = $"SELECT 1 FROM CAD_CLIENTES WHERE COD_CLIENTE = {id}";
+
+            return Convert.ToBoolean(_conn.scalar(sql));
+        }
+
     }
 }

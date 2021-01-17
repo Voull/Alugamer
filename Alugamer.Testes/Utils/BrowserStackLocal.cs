@@ -17,6 +17,7 @@ namespace Alugamer.Testes.Utils
             {
                 AcceptInsecureCertificates = true
             };
+            capabilities.AddArgument("lang=pt-BR");
             capabilities.AddAdditionalCapability("os", "Windows", true);
             capabilities.AddAdditionalCapability("os_version", "10", true);
             capabilities.AddAdditionalCapability("browser", "Chrome", true);
@@ -30,8 +31,6 @@ namespace Alugamer.Testes.Utils
             #if TRAVIS
             capabilities.AddAdditionalCapability("browserstack.localIdentifier", Environment.GetEnvironmentVariable("BROWSERSTACK_LOCAL_IDENTIFIER"), true);
             #endif
-
-
         }
     }
 }

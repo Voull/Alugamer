@@ -1,12 +1,12 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-div.formClientes {
+div.formFuncionario {
     width: 80%;
     border-style: outset;
 }
 
-div.dadosCliente {
+div.dadosFuncionario {
     border-style: ridge;
     margin-left: 60px;
     margin: 30px;
@@ -14,15 +14,15 @@ div.dadosCliente {
     padding: 15px;
 }
 
-div.lblDadosCliente{
+div.lblDadosFuncionario {
     margin-left: 75px;
 }
 
-input.campoCliMedio{
+input.campoFuncMedio {
     width: 60%;
 }
 
-input.campoCliGrande {
+input.campoFuncGrande {
     width: 90%;
 }
 
@@ -37,6 +37,6 @@ table.btnRodape {
     width: 100%;
 }
 
-td{
+td {
     padding: 5px;
 }
