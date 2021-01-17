@@ -48,7 +48,7 @@ namespace Alugamer.Controllers
             if (categoria.Id == -1)
             {
                 TempData["msg"] = erroDatabase.GeraErroDatabase(ERRO_DATABASE.ERRO_NAO_EXISTE);
-                return RedirectToAction("Erro404", "Error");
+                return RedirectToAction("Erro", "Error");
             }
 
             return View(categoria);
