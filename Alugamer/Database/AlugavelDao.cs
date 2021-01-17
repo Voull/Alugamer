@@ -135,5 +135,33 @@ namespace Alugamer.Database
 
             return Convert.ToBoolean(_conn.scalar(sql));
         }
+
+        public List<Alugavel> ReadAllMaisDados(int Categoria)
+        {
+
+            string sql = $@"SELECT cod_alugavel, nome, descricao, quantidade, valor_aluguel 
+                        from CAD_ALUGAVEIS where cod_categoria = '{Categoria}'";
+
+            DataTable resp = _conn.dataTable(sql);
+
+            List<Alugavel> listaAlugavel = new List<Alugavel>();
+
+            foreach (DataRow linhaAlugavel in resp.Rows)
+            {
+                Alugavel alugavel = new Alugavel
+                {
+                    Id = Convert.ToInt32(linhaAlugavel["cod_alugavel"]),
+                    Nome = Convert.ToString(linhaAlugavel["nome"]),
+                    Descricao = Convert.ToString(linhaAlugavel["descricao"]),
+                    Quantidade = Convert.ToInt32(linhaAlugavel["quantidade"]),
+                    Valor_aluguel = Convert.ToDecimal(linhaAlugavel["valor_aluguel"])
+                };
+
+                listaAlugavel.Add(alugavel);
+            }
+
+            return listaAlugavel;
+        }
+
     }
 }
