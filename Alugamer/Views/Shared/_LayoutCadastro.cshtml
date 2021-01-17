@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section CSS{
+    <link rel="stylesheet" type="text/css" href="~/css/Cadastro.css" />
+    @RenderSection("CSS", false);
+}
+
+@section Scripts{ 
+    @RenderSection("Scripts", false);
+}
+
+@RenderSection("Header", true)
+
+<div class="row">
+    <div class="card col-md-4">
+        <div class="card-body">
+            @RenderSection("Form", true)
+        </div>
+    </div>
+</div>
+

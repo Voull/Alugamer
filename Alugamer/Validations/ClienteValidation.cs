@@ -13,7 +13,7 @@ namespace Alugamer.Validations
 		private ErroModel erroModel;
 		private readonly Regex regexTelefone = new Regex(@"^\([0-9]{2}\) [0-9]{4,5}-[0-9]{4}$");
 		private readonly Regex regexCpf = new Regex(@"^([0-9]{3}\.){2}[0-9]{3}-[0-9]{2}$");
-		private readonly Regex regexEmail = new Regex(@"^[^@]+@[a-zA-Z0-9]+\.\w+");
+		private readonly Regex regexEmail = new Regex(@"^[^@\s]+@[a-zA-Z0-9]+\.\w+");
 		public ClienteValidation()
         {
 			erroModel = new ErroModel();

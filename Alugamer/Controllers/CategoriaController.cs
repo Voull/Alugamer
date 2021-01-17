@@ -121,7 +121,10 @@ namespace Alugamer.Controllers
             {
                 Categoria categoria = crudCategoria.Busca(id);
                 if (categoria.Id == -1)
-                    return NotFound();
+                {
+                    Response.StatusCode = StatusCodes.Status404NotFound;
+                    return Content(JsonConvert.SerializeObject(erroDatabase.GeraErroDatabase(ERRO_DATABASE.ERRO_NAO_EXISTE)));
+                }
                 return Ok(JsonConvert.SerializeObject(categoria));
             }
             catch (SqlException)
@@ -171,7 +174,7 @@ namespace Alugamer.Controllers
         {
             try
             {
-                string erros = crudCategoria.RemoveVarios(listaId);
+                string erros = crudCategoria.Remove(listaId);
                 if (string.IsNullOrEmpty(erros))
                     return NoContent();
                 else

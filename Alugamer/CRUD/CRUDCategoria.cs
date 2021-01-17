@@ -81,7 +81,7 @@ namespace Alugamer.CRUD
 
         }
 
-        public string RemoveVarios(List<int> listaId)
+        public string Remove(List<int> listaId)
         {
             bool completo = true;
             foreach(int id in listaId)
