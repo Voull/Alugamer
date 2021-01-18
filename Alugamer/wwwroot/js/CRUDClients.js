@@ -8,7 +8,8 @@
 		buttons: [{
 			text: "Novo",
 			action: function (e, dt, button, config) {
-				document.location.href += '/cadastro';
+				document.location.href = '/Cliente/Cadastro';
+
 			},
 			className: 'btn-primary'
 		},

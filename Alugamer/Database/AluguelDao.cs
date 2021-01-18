@@ -11,12 +11,6 @@ namespace Alugamer.Database
 {
     public class AluguelDao : BaseDao
     {
-        private Conexao _conn;
-        public AluguelDao()
-		{
-            _conn = new Conexao();
-		}
-
         public string Insert(Aluguel aluguel)
 		{
             string sql = $@"INSERT INTO CAD_ALUGUEL (cod_funcionario, cod_cliente, valor_total, data_inicial, data_final)

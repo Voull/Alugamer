@@ -1,13 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@using Alugamer.Auth
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>@ViewData["Title"] - Alugamer</title>
-	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="~/css/site.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Alugamer</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
 
-	@RenderSection("CSS", required: false)
+    @RenderSection("CSS", required: false)
 </head>
 <body>
     <header>
@@ -41,7 +42,23 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Aluguel" asp-action="Index">Novo Aluguel</a>
                         </li>
+                        @{
+                            UserInfo info = TokenService.GetUserInfo(Context);
+                            if (info != null)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-dark truncate" id="menuPerfil" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@info.NomeFuncionario</a>
+
+                                    <div class="dropdown-menu" aria-labelledby="menuPerfil">
+                                        <a class="nav-link hov text-dark" asp-area="" asp-controller="Usuario" asp-action="Perfil">Meu Perfil</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-danger" asp-area="" asp-controller="Login" asp-action="Logout">Sair</a>
+                                    </div>
+                                </li>
+                            }
+                        }
                     </ul>
+                       
                 </div>
             </div>
         </nav>
@@ -62,7 +79,7 @@
     <script src="~/js/ajaxResponse.js"></script>
     <script src="~/js/vanilla-masker.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/inputUteis.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
-    

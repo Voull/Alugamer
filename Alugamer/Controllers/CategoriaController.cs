@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Alugamer.Auth;
 using Alugamer.CRUD;
 using Alugamer.Models;
 using Alugamer.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -28,6 +30,9 @@ namespace Alugamer.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            if (TokenService.GetUserInfo(HttpContext) == null)
+                return RedirectToAction("Index", "Login");
+
             try
             {
                 List<Categoria> listaCategoria = crudCategoria.Lista();
@@ -44,6 +49,9 @@ namespace Alugamer.Controllers
         [HttpGet]
         public IActionResult Cadastro(int id)
         {
+            if (TokenService.GetUserInfo(HttpContext) == null)
+                return RedirectToAction("Index", "Login");
+
             Categoria categoria = crudCategoria.Busca(id);
             if (categoria.Id == -1)
             {
@@ -55,6 +63,7 @@ namespace Alugamer.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Novo([FromBody] Categoria categoria)
         {
             try
@@ -77,6 +86,7 @@ namespace Alugamer.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Edita([FromBody] Categoria categoria)
         {
             try
@@ -100,6 +110,7 @@ namespace Alugamer.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Lista()
         {
             try
@@ -115,6 +126,7 @@ namespace Alugamer.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Busca(int id)
         {
             try
@@ -139,6 +151,8 @@ namespace Alugamer.Controllers
             }
         }
 
+        [HttpDelete]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             try
@@ -170,6 +184,7 @@ namespace Alugamer.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         public IActionResult DeleteGrupo([FromBody]List<int> listaId)
         {
             try

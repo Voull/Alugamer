@@ -19,7 +19,6 @@ function inputHandler(masks, max, event) {
 }
 
 
-
 function salvaCliente(e) {
 	e.preventDefault();
 
@@ -49,7 +48,7 @@ function salvaCliente(e) {
 	cliente = JSON.stringify(cliente);
 
 	$.ajax({
-		url: "/Cliente/" + (id == 0 ? "Novo" : "Edita") + "/",
+		url: "/Funcionario/" + (id == 0 ? "Novo" : "Edita") + "/",
 		data: cliente,
 		type: "POST",
 		contentType: "application/json; charset=utf-8",

@@ -4,10 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Alugamer.Auth;
 using Alugamer.CRUD;
 using Alugamer.Database;
 using Alugamer.Models;
 using Alugamer.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -26,8 +28,12 @@ namespace Alugamer.Controllers
 			erroDatabase = new ErroDatabase();
 		}
 
+		[HttpGet]
 		public IActionResult Index()
 		{
+			if (TokenService.GetUserInfo(HttpContext) == null)
+				return RedirectToAction("Index", "Login");
+
             try
             {
 				List<Cliente> listaClientes = crudClientes.Lista();
@@ -51,6 +57,9 @@ namespace Alugamer.Controllers
 		[HttpGet]
 		public IActionResult Busca(int id)
 		{
+			if (TokenService.GetUserInfo(HttpContext) == null)
+				return RedirectToAction("Index", "Login");
+
 			try
 			{
 				Cliente cliente = crudClientes.Busca(id);
@@ -76,6 +85,9 @@ namespace Alugamer.Controllers
 		[HttpGet]
 		public IActionResult Cadastro(int id)
 		{
+			if (TokenService.GetUserInfo(HttpContext) == null)
+				return RedirectToAction("Index", "Login");
+
 			Cliente cliente = crudClientes.Busca(id);
 			if (cliente.Id == -1)
 			{
@@ -87,6 +99,7 @@ namespace Alugamer.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		public IActionResult Novo([FromBody] Cliente cliente)
 		{
 			try
@@ -111,6 +124,7 @@ namespace Alugamer.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		public IActionResult Edita([FromBody]Cliente cliente)
 		{
 			try
@@ -135,6 +149,7 @@ namespace Alugamer.Controllers
 		}
 
         [HttpDelete]
+		[Authorize]
 		public IActionResult Remove(int id)
 		{
 			try
@@ -166,6 +181,7 @@ namespace Alugamer.Controllers
 		}
 
 		[HttpDelete]
+		[Authorize]
 		public IActionResult DeleteGrupo([FromBody] List<int> listaId)
 		{
 			try

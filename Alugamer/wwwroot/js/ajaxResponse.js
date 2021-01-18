@@ -48,11 +48,14 @@ function errorGenerico(data) {
     let msg = "Um erro ocorreu, atualize a página!\nCaso o erro persista, notifique um Administrador.";
 
     if (data != undefined) {
-        if (data.responseText != undefined && data.responseText != "")
-            msg = data.responseText;
+        if (data.responseText != undefined) {
+            if (data.responseText != "")
+                msg = data.responseText;
+        }
         else if (data != "")
             msg = data;
     }
+    msg = msg.replaceAll('"', '');
 
     let result = alert(msg);
 }
