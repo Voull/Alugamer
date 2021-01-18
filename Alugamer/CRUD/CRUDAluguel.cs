@@ -46,8 +46,16 @@ namespace Alugamer.CRUD
                 };
 
             Aluguel aluguel = aluguelDao.Read(id);
+            aluguel.Itens = BuscaItens(id);
 
             return aluguel;
+        }
+
+        private List<ItemAluguel> BuscaItens(int idAluguel)
+        {
+            List<ItemAluguel> listaItens = aluguelDao.ListaItens(idAluguel);
+
+            return listaItens;
         }
     }
 }

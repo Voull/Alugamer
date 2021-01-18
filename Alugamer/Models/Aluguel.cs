@@ -19,7 +19,6 @@ namespace Alugamer.Models
 
 		[DisplayName("Valor Total")]
 		public Decimal Valor_total {get; set;}
-
 		[DisplayName("Data Inicial")]
 		public DateTime DataInicial {get; set;}
 

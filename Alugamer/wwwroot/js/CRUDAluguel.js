@@ -11,14 +11,6 @@
 				document.location.href = '/Aluguel/Cadastro';
 			},
 			className: 'btn-primary'
-		},
-		{
-			text: "Remover",
-			action: function (e, dt, button, config) {
-				removeCategorias();
-			},
-			className: 'btn-danger'
-
 		}
 		]
 	});

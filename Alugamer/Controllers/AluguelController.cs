@@ -18,38 +18,59 @@ namespace Alugamer.Controllers
 	{
 
 		private CRUDCategoria crudCategoria;
+		private CRUDClientes crudClientes;
+		private CRUDAlugavel crudAlugavel;
+		private CRUDAluguel crudAluguel;
 		private Erro erro;
 		private ErroDatabase erroDatabase;
-
+		private CRUDFuncionario crudFuncionario;
 
 		public AluguelController() : base()
 		{
 			crudCategoria = new CRUDCategoria();
 			erro = new Erro();
 			erroDatabase = new ErroDatabase();
+			crudAlugavel = new CRUDAlugavel();
+			crudClientes = new CRUDClientes();
+			crudAluguel = new CRUDAluguel();
+			crudFuncionario = new CRUDFuncionario();
 		}
 
+		[HttpGet]
 		public IActionResult Cadastro(int id)
 		{
-			CRUDCategoria crudCategoria = new CRUDCategoria();
+			UserInfo info = TokenService.GetUserInfo(HttpContext);
+
+			if (info == null)
+				return RedirectToAction("Index", "Login");
 
 			List<Categoria> listaCategorias = crudCategoria.Lista();
-
 			ViewBag.listaCategorias = listaCategorias;
 
-			CRUDClientes crudClientes = new CRUDClientes();
-
 			List<Cliente> listaClientes = crudClientes.Lista();
-
 			ViewBag.listaClientes = listaClientes;
-
-			CRUDAluguel crudAluguel = new CRUDAluguel();
+			
+			List<Alugavel> listaAlugaveis = crudAlugavel.ListaCompleta();
+			ViewBag.listaAlugavel = listaAlugaveis;
 
 			Aluguel aluguel = crudAluguel.Busca(id);
 			if (aluguel.Id == -1)
 			{
 				TempData["msg"] = erroDatabase.GeraErroDatabase(ERRO_DATABASE.ERRO_NAO_EXISTE);
-				return RedirectToAction("Erro404", "Error");
+				return RedirectToAction("Erro", "Error");
+			}
+
+			if (id == 0)
+			{
+				ViewBag.codFuncionario = info.CodFuncionario;
+				ViewBag.NomeFuncionario = info.NomeFuncionario;
+			}
+            else
+            {
+				Funcionario vendedor = crudFuncionario.Busca(aluguel.Vendedor);
+
+				ViewBag.CodFuncionario = aluguel.Vendedor;
+				ViewBag.NomeFuncionario = vendedor.Nome;
 			}
 
 			return View(aluguel);
@@ -116,5 +137,6 @@ namespace Alugamer.Controllers
 
             return Ok(JsonConvert.SerializeObject(""));
 		}
+
 	}
 }

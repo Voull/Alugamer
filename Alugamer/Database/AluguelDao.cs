@@ -11,12 +11,6 @@ namespace Alugamer.Database
 {
     public class AluguelDao : BaseDao
     {
-        private Conexao _conn;
-        public AluguelDao()
-		{
-            _conn = new Conexao();
-		}
-
         public List<Aluguel> Lista()
         {
 
@@ -44,6 +38,30 @@ namespace Alugamer.Database
             return listaAluguel;
         }
 
+        public List<ItemAluguel> ListaItens(int idAluguel)
+        {
+
+            string sql = $@" SELECT cod_aluguel, cod_alugavel, qtd_alugavel, valor_total from CAD_ITEM_ALUGUEL where cod_aluguel = {idAluguel}";
+
+            DataTable resp = _conn.dataTable(sql);
+
+            List<ItemAluguel> listaItens = new List<ItemAluguel>();
+
+            foreach (DataRow linhaAluguel in resp.Rows)
+            {
+                ItemAluguel item = new ItemAluguel
+                {
+                    IdAluguel = Convert.ToInt32(linhaAluguel["cod_aluguel"]),
+                    IdItem = Convert.ToInt32(linhaAluguel["cod_alugavel"]),
+                    Quantidade = Convert.ToInt32(linhaAluguel["qtd_alugavel"]),
+                    Valor = Convert.ToDecimal(linhaAluguel["valor_total"])
+                };
+
+                listaItens.Add(item);
+            }
+
+            return listaItens;
+        }
 
         public string Insert(Aluguel aluguel)
 		{
@@ -83,7 +101,7 @@ namespace Alugamer.Database
 
         public Aluguel Read(int id)
         {
-            string sql = $"SELECT cod_funcionario, cod_cliente, valor_total, data_inicial, data_final FROM CAD_ALUGUEL WHERE cos_aluguel = {id}";
+            string sql = $"SELECT cod_funcionario, cod_cliente, valor_total, data_inicial, data_final FROM CAD_ALUGUEL WHERE cod_aluguel = {id}";
 
             DataTable tableAluguel = _conn.dataTable(sql);
 

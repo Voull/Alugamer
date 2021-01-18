@@ -6,7 +6,8 @@ function carregaItens() {
 	var categoria = $("#categoriaAluga").val();
 
 	$.ajax({
-		url: "Cadastro/CarregaItens?categoria=" + categoria,
+		url: "/Aluguel/CarregaItens",
+		data: {categoria: categoria},
 		type: "GET",
 		success: function (data) { successCarregaItens(data); },
 		error: function (data) { failCarregaItens(data); }
@@ -22,14 +23,13 @@ function successCarregaItens(data) {
 
 	for (var i = 0; i < Itens.length; i++) {
 		var el = document.createElement("option");
-		var item = Itens[i].Nome + " - Em estoque: " + Itens[i].Quantidade + " - Valor: " + Itens[i].Valor_aluguel;
+			var item = Itens[i].Nome + " - Em estoque: " + Itens[i].Quantidade + " - Valor: " + Itens[i].Valor_aluguel;
 
 		el.textContent = item;
 		el.value = i;
 
 		select.appendChild(el);
     }
-
 }
 
 function failCarregaItens(data) {
@@ -95,7 +95,7 @@ function adicionaItem() {
 
 			vlrTotalAluguel += qtd * vlrAluga;
 
-			$("#total").val(vlrTotalAluguel);
+			calculaVlrTotal();
 
 			$("#itenQtd").val("");
 		}
@@ -120,7 +120,7 @@ function removeItem() {
 
 				vlrTotalAluguel -= (qtd * vlr);
 
-				$("#total").val(vlrTotalAluguel);
+				calculaVlrTotal()
 			}
 		}
 	} catch (e) {
@@ -151,26 +151,29 @@ function finalizar() {
 	var tempoAluguel = Number($("#tempoAluguel").val())
 	data.setUTCMonth(data.getUTCMonth() + tempoAluguel);
 	var dateFim = data.getUTCFullYear() + "-0" + (data.getUTCMonth() + 1) + "-" + data.getUTCDate();
+	let desconto = $("#taxaDesconto").val() == "" ? 0 : $("#taxaDesconto").val();
+	let valorDesconto = vlrTotalAluguel * (desconto / 100) * tempoAluguel;
 
 	let aluguel = {};
 	aluguel.Id = -1;
 	aluguel.Locatario = Number($("#nomeCliente").val());
 	aluguel.Vendedor = 1;
-	aluguel.Valor_total = vlrTotalAluguel;
+	aluguel.Valor_total = $("#total").val();
 	aluguel.DataInicial = dateInicio;
 	aluguel.DataFinal = dateFim;
 	aluguel.Itens = ListItensAluguel;
+	aluguel.Valor_desconto = valorDesconto;
 
 	aluguel = JSON.stringify(aluguel);
 
 	$.ajax({
-		url: "Cadastro/Novo/",
+		url: "/Aluguel/Novo/",
 		data: aluguel,
 		type: "POST",
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
-		success: function () { successSalvaAluguel(); },
-		error: function (data) { failSalvaAluguel(data); }
+		success: function () { successSalvaItem(); },
+		error: function (data) { errorGenerico(data); }
 	});
 
 }
@@ -183,4 +186,12 @@ function successSalvaAluguel() {
 function failSalvaAluguel(data) {
 	parsed = data.responseJSON;
 	alert(parsed);
+}
+
+function calculaVlrTotal() {
+	let tempoAluguel = $("#tempoAluguel").val() == "" ? 1 : $("#tempoAluguel").val();
+	let desconto = $("#taxaDesconto").val() == "" ? 0 : $("#taxaDesconto").val();
+	let valorFinal = vlrTotalAluguel * (1 - (desconto / 100)) * tempoAluguel;
+
+	$("#total").val(valorFinal)
 }

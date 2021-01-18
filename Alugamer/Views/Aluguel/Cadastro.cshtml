@@ -1,9 +1,16 @@
 ﻿@model Alugamer.Models.Aluguel
+
+@using System.Collections.Generic
+@using Alugamer.Models 
 @{
     ViewData["Title"] = "Cadastro";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{ 
+    string disabled = Model.Id != 0 ? "disabled" : null;
+    string display = Model.Id != 0 ? "display:none" : null;
+}
 @section Scripts{
     <script type="text/javascript" src="~/js/CadastroAluguel.js"></script>
 }
@@ -22,30 +29,40 @@
                     <tr>
                         <td class="Cem">
                             <label for="nomeCliente">Cliente:</label>
-                            <select id="nomeCliente">
+                            <select id="nomeCliente" @disabled>
                                 <option value="0">Escolha...</option>
                                 @foreach (Cliente cliente in ViewBag.listaClientes)
                                 {
-                                    <option value="@cliente.Id">@cliente.Nome</option>
+                                    @if (cliente.Id == Model.Locatario)
+                                    {
+                                        <option value="@cliente.Id" selected> @cliente.Nome</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@cliente.Id"> @cliente.Nome</option>
+                                    }
+
                                 }
                             </select>
                             <label for="vendedor" class="Vendedor">Vendedor:</label>
-                            <input type="text" id="vendedor" class="campoAluguelPequeno">
+                            <input type="text" value="@ViewBag.NomeFuncionario" class="campoAluguelPequeno" disabled>
+                            <input type="text" id="vendedor" value="@ViewBag.CodFuncionario" class="campoAluguelPequeno" style="display:none">
                         </td>
                     </tr>
                     <tr>
-                        <td class="Cem">
+                        <td class="Cem" style="@display">
                             <label for="categoriaAluga">Categoria:</label>
                             <select id="categoriaAluga" onchange="carregaItens()">
                                 @foreach (Categoria categoria in ViewBag.listaCategorias)
                                 {
+
                                     <option value="@categoria.Id">@categoria.Nome</option>
                                 }
                             </select>
                             <br>
                             <br>
-                            <label for="itensAluga">Itens:</label>
-                            <select id="itensAluga" onchange="escolheItem()">
+                            <label for="itensAluga" @display>Itens:</label>
+                            <select id="itensAluga" onchange="escolheItem()"@display>
                                 <option value="0">Escolha...</option>
                                 @*@foreach (Alugavel alugavel in ViewBag.listaAlugavel)
                                     {
@@ -53,9 +70,9 @@
                                         <option value="@alugavel.Id">@item</option>
                                     }*@
                             </select>
-                            <label for="itenQtd">Quantidade:</label>
-                            <input type="text" id="itenQtd" class="campoAluguelMini">
-                            <input type="button" id="btnAdd" onclick="adicionaItem()" value="Adicionar">
+                            <label for="itenQtd" @display>Quantidade:</label>
+                            <input type="text" id="itenQtd" class="campoAluguelMini" @display>
+                            <input type="button" id="btnAdd" onclick="adicionaItem()" value="Adicionar" @display>
                         </td>
                     </tr>
                     <tr>
@@ -66,19 +83,38 @@
                     <tr>
                         <td>
                             <table id="dataTable" width="400px" border="1">
-                                <tr>
-                                    <td class="Cabecalho">      </td>
-                                    <td class="Cabecalho"> Codigo </td>
-                                    <td class="Cabecalho"> Item </td>
-                                    <td class="Cabecalho"> Quantidade </td>
-                                    <td class="Cabecalho"> Valor Unitário </td>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th class="Cabecalho">      </th>
+                                        <th class="Cabecalho"> Codigo </th>
+                                        <th class="Cabecalho"> Item </th>
+                                        <th class="Cabecalho"> Quantidade </th>
+                                        <th class="Cabecalho"> Valor Unitário </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                       @foreach (ItemAluguel item in Model.Itens)
+                                    {
+                                        <tr>
+                                            <td><input type="checkbox" name="chkbox[]"></td>
+                                            <td>@item.IdItem</td>
+                                            <td>@(((IEnumerable<Alugavel>)ViewBag.listaAlugavel).Where(o => o.Id == item.IdItem).Select(o => o.Nome).FirstOrDefault())</td>
+                                            <td>@item.Quantidade</td>
+                                            <td>@item.Valor</td>
+                                        </tr>
+                                    }
+                                </tbody>
                             </table>
                         </td>
+                        <td style="padding-top:1%">
+                            <label for="taxaDesconto"> Taxa de Desconto (%)</label>
+                            <input type="number" onchange="calculaVlrTotal()" id="taxaDesconto" max="100" step="5" style="width:100px"/>
+                        </td>
                         <td>
-                            <label for="tempoAluguel"> Período de Aluguel:</label>
+
+                            <label for="tempoAluguel"> Período de Aluguel (meses):</label>
                             <br>
-                            <input type="number" id="tempoAluguel" value="1" min="1" max="12">
+                            <input type="number" onchange="calculaVlrTotal()" id="tempoAluguel" value="1" min="1" max="12">
 
                             <label>Valor Total:</label>
                             <br>
