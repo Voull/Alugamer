@@ -45,9 +45,9 @@ namespace Alugamer.Validations
 				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Telefone"));
 
 			if (string.IsNullOrEmpty(funcionario.Endereco))
-				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Endereço"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Endereco"));
 			else if (funcionario.Endereco.Length > 200)
-				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_TAMANHO_MAX, "Endereço"));
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_TAMANHO_MAX, "Endereco"));
 
 			if (funcionario.DataNascimento == null)
 				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Data de Nascimento"));

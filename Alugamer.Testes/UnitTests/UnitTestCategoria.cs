@@ -42,7 +42,7 @@ namespace Alugamer.Testes.UnitTests
 				Descricao = "Descricao de teste"
 
 			};
-			Assert.True(categoriaValidation.valida(categoriaValido).Count == 0);
+			Assert.True(categoriaValidation.valida(categoriaValido).Count == 1);
 		}
 
 		[Fact]
@@ -55,7 +55,7 @@ namespace Alugamer.Testes.UnitTests
 				Descricao = "Descricao de teste"
 
 			};
-			Assert.True(categoriaValidation.valida(categoriaValido).Count == 0);
+			Assert.True(categoriaValidation.valida(categoriaValido).Count == 1);
 		}
 
 		[Fact]
@@ -64,11 +64,11 @@ namespace Alugamer.Testes.UnitTests
 			Categoria categoriaValido = new Categoria
 			{
 				Id = 1,
-				Nome = "nomeTeste" + new string('a', 100),
+				Nome = "nomeTeste" + new string('a', 200),
 				Descricao = "Descricao de teste"
 
 			};
-			Assert.True(categoriaValidation.valida(categoriaValido).Count == 0);
+			Assert.True(categoriaValidation.valida(categoriaValido).Count == 1);
 		}
 
 		[Fact]
@@ -81,7 +81,7 @@ namespace Alugamer.Testes.UnitTests
 				Descricao = string.Empty
 
 			};
-			Assert.True(categoriaValidation.valida(categoriaValido).Count == 0);
+			Assert.True(categoriaValidation.valida(categoriaValido).Count == 1);
 		}
 
 		[Fact]
@@ -91,12 +91,10 @@ namespace Alugamer.Testes.UnitTests
 			{
 				Id = 1,
 				Nome = "nomeTeste",
-				Descricao = "Descricao de teste" + new string('a', 100)
+				Descricao = "Descricao de teste" + new string('a', 200)
 
 			};
-			Assert.True(categoriaValidation.valida(categoriaValido).Count == 0);
+			Assert.True(categoriaValidation.valida(categoriaValido).Count == 1);
 		}
-
-
 	}
 }

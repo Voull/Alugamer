@@ -30,15 +30,15 @@ namespace Alugamer.Validations
 			if (aluguel.Valor_total < 0)
 				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Valor Total"));
 
-			if (aluguel.DataInicial == null)
-				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Data Inicial"));
-			else if (aluguel.DataInicial.Date > DateTime.Today)
-				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Data Inicial"));
+			if (aluguel.Valor_desconto <= 0)
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Valor Desconto"));
 
-			if (aluguel.DataFinal == null)
-				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Data Final"));
-			else if (aluguel.DataFinal.Date <= DateTime.Today)
+			 if (aluguel.DataInicial > DateTime.Today)
+				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Data Inicial"));
+			
+			if (aluguel.DataFinal < DateTime.Today)
 				listaErros.Add(erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Data Final"));
+
 
 			foreach (ItemAluguel item in aluguel.Itens)
             {
