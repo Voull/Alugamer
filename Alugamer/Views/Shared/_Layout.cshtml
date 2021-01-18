@@ -40,7 +40,10 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Funcionario" asp-action="Index">Gestão de Funcionários</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Aluguel" asp-action="Index">Novo Aluguel</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Aluguel" asp-action="Index">Aluguel</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Relatorio" asp-action="Index">Relatórios</a>
                         </li>
                         @{
                             UserInfo info = TokenService.GetUserInfo(Context);

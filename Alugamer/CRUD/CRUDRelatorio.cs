@@ -17,17 +17,17 @@ namespace Alugamer.CRUD
         }
 
 
-        public List<Aluguel> buscaTodos(DateTime dataIni, DateTime dataFim)
+        public List<RelatorioRow> buscaTodos(DateTime dataIni, DateTime dataFim)
         {
-            List<Aluguel> listaAlugavel = relatoriolDao.ReadAll(dataIni, dataFim);
+            List<RelatorioRow> listaAlugavel = relatoriolDao.ReadAll(dataIni, dataFim);
 
             return listaAlugavel;
           
         }
 
-        public List<Aluguel> BuscaCliente(DateTime dataIni, DateTime dataFim, int id)
+        public List<RelatorioRow> BuscaCliente(DateTime dataIni, DateTime dataFim, int id)
         {
-            List<Aluguel> listaAlugavel = relatoriolDao.ReadAllCliente(dataIni, dataFim, id);
+            List<RelatorioRow> listaAlugavel = relatoriolDao.ReadAllCliente(dataIni, dataFim, id);
 
             return listaAlugavel;
 
