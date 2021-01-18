@@ -54,7 +54,7 @@ namespace Alugamer.Testes.UnitTests
 			List<string> erros = clienteValidation.validar(clienteCpf);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "CPF"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "CPF"));
 		}
 
 		[Fact]
@@ -74,7 +74,7 @@ namespace Alugamer.Testes.UnitTests
 			List<string> erros = clienteValidation.validar(clienteCpf);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "CPF"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "CPF"));
 		}
 
 		[Fact]
@@ -95,7 +95,7 @@ namespace Alugamer.Testes.UnitTests
 			List<string> erros = clienteValidation.validar(clienteDataNascimento);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "Data de Nascimento"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Data de Nascimento"));
 		}
 
 		[Fact]
@@ -115,7 +115,7 @@ namespace Alugamer.Testes.UnitTests
 			List<string> erros = clienteValidation.validar(clienteDataNascimento);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "Data de Nascimento"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Data de Nascimento"));
 		}
 
 		[Fact]
@@ -136,7 +136,7 @@ namespace Alugamer.Testes.UnitTests
 			List<string> erros = clienteValidation.validar(clienteEmail);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "E-mail"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "E-mail"));
 		}
 
 		[Fact]
@@ -157,7 +157,7 @@ namespace Alugamer.Testes.UnitTests
 			List<string> erros = clienteValidation.validar(clienteEmail);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "E-mail"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ERRO_MODEL.ERRO_TAMANHO_MAX, "E-mail"));
 		}
 
 		[Fact]
@@ -177,7 +177,7 @@ namespace Alugamer.Testes.UnitTests
 			List<string> erros = clienteValidation.validar(clienteEmail);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "E-mail"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "E-mail"));
 		}
 
 
@@ -199,7 +199,7 @@ namespace Alugamer.Testes.UnitTests
 			List<string> erros = clienteValidation.validar(clienteEndereco);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Endereco"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ERRO_MODEL.ERRO_TAMANHO_MAX, "Endereco"));
 		}
 
 		[Fact]
@@ -219,7 +219,7 @@ namespace Alugamer.Testes.UnitTests
 			List<string> erros = clienteValidation.validar(clienteEndereco);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Endereco"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Endereco"));
 		}
 
 
@@ -241,7 +241,7 @@ namespace Alugamer.Testes.UnitTests
 			List<string> erros = clienteValidation.validar(clienteNome);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_TAMANHO_MAX, "Nome"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ERRO_MODEL.ERRO_TAMANHO_MAX, "Nome"));
 		}
 
 		[Fact]
@@ -261,7 +261,7 @@ namespace Alugamer.Testes.UnitTests
 			List<string> erros = clienteValidation.validar(clienteNome);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Nome"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Nome"));
 		}
 
 		[Fact]
@@ -282,7 +282,7 @@ namespace Alugamer.Testes.UnitTests
 			List<string> erros = clienteValidation.validar(clienteSexo);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "Sexo"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Sexo"));
 		}
 
 		[Fact]
@@ -302,7 +302,7 @@ namespace Alugamer.Testes.UnitTests
 			List<string> erros = clienteValidation.validar(clienteSexo);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Sexo"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Sexo"));
 		}
 
 
@@ -324,7 +324,7 @@ namespace Alugamer.Testes.UnitTests
 			List<string> erros = clienteValidation.validar(clienteTelefone);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_INVALIDO, "Telefone"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ERRO_MODEL.ERRO_INVALIDO, "Telefone"));
 		}
 
 		[Fact]
@@ -344,7 +344,7 @@ namespace Alugamer.Testes.UnitTests
 			List<string> erros = clienteValidation.validar(clienteTelefone);
 
 			Assert.True(erros.Count == 1, $"Detectados mais erros do que o esperado! - Qtd: {erros.Count}");
-			Assert.Equal(erros[0], erroModel.GeraErroModel(ErroModel.ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Telefone"));
+			Assert.Equal(erros[0], erroModel.GeraErroModel(ERRO_MODEL.ERRO_CAMPO_OBRIGATORIO, "Telefone"));
 		}
 	}
 }

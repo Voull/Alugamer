@@ -28,6 +28,7 @@ namespace Alugamer.Controllers
 			erroDatabase = new ErroDatabase();
 		}
 
+		[HttpGet]
 		public IActionResult Index()
 		{
             try

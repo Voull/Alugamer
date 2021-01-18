@@ -1,0 +1,70 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewData["Title"] = "Alugamer";
+}
+
+
+@section CSS{
+    <link rel="stylesheet" href="~/css/login.css" />
+}
+
+<div class="card col-md-3" style="margin-top:10%;">
+    <div class="card-body">
+        <form id="formLogin" onsubmit="login(event)">
+            <div class="form-group">
+                <label for="campoUsuario">Usuário:</label>
+                <input type="text" class="form-control" aria-describedby="userHelp" id="campoUsuario" name="usuario" placeholder="Usuário" required>
+            </div>
+            <div class="form-group">
+                <label for="campoSenha">Senha:</label>
+                <input type="password" class="form-control" aria-describedby="passwordHelp" name="senha" id="campoSenha" placeholder="Senha" required>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <input type="submit" class="btn btn-primary btn-block" value="Login">
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+@*<div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalAutentica" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitulo">Aguarde...</h5>
+            </div>
+            <div class="modal-body center" id="modalMensagem">
+                <img class="d-block mx-auto" id="imgCarregando" src="~/resources/loader.gif" width="50" alt="Processando">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="modalErro" tabindex="-1" role="dialog" aria-labelledby="modalAutentica" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalErroTitulo">Erro</h4>
+                <button type="button" class="close" data-dismiss="modal" id="modalClose" aria-label="Close">&times;</button>
+            </div>
+
+            <div class="modal-body" id="modalErroMensagem">
+
+            </div>
+        </div>
+
+    </div>
+</div>*@
+
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="~/js/inputUteis.js"></script>
+    <script src="~/js/login.js"></script>
+    <script src="~/js/hashing.js"></script>
+}

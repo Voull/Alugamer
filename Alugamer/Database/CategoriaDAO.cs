@@ -9,12 +9,6 @@ namespace Alugamer.Database
 {
     public class CategoriaDAO : BaseDao
     {
-        private Conexao _conn;
-        public CategoriaDAO()
-        {
-            _conn = new Conexao();
-        }
-
         public List<Categoria> ReadAll()
         {
             string sql = "SELECT COD_CATEGORIA, NOME, DESCRICAO FROM CAD_CATEGORIAS";

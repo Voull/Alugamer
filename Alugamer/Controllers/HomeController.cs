@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Alugamer.Models;
+using Microsoft.AspNetCore.Authorization;
+using Alugamer.Auth;
 
 namespace Alugamer.Controllers
 {
@@ -20,6 +22,9 @@ namespace Alugamer.Controllers
 
 		public IActionResult Index()
 		{
+			if (TokenService.GetUserInfo(HttpContext) == null)
+				return RedirectToAction("Index", "Login");
+			
 			return View();
 		}
 

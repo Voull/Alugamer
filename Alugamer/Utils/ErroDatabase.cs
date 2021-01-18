@@ -10,7 +10,7 @@ namespace Alugamer.Utils
     public class ErroDatabase : Erro
     {
         private readonly string erroDeletar = "O Item não pode ser apagado.";
-        private readonly string erroDeletarMultiplo = "Alguns Itens não puderam ser apagados!\nVerifique se os Itens estão sendo utilizados!";
+        private readonly string erroDeletarMultiplo = "Alguns Itens não puderam ser apagados! Verifique se os Itens estão sendo utilizados!";
         private readonly string erroDeletarConflito = "O Item está sendo utilizado!";
         private readonly string erroNaoExiste = "O Item não existe!";
 
