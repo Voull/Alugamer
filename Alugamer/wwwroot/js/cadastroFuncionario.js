@@ -2,8 +2,8 @@
 	var telMask = ['(99) 9999-99999', '(99) 99999-9999'];
 	var cpfMask = ["999.999.999-99", "999.999.999-99"];
 
-	VMasker($("#Telefone")).maskPattern(telMask[0]);
-	VMasker($("#Cpf")).maskPattern(cpfMask);
+	VMasker($("#Telefone")).maskPattern(telMask[1]);
+	VMasker($("#Cpf")).maskPattern(cpfMask[0]);
 
 	$("#Telefone")[0].addEventListener('input', inputHandler.bind(undefined, telMask, 14), false);
 	$("#Cpf")[0].addEventListener('input', inputHandler.bind(undefined, cpfMask, 14), false);
@@ -17,7 +17,6 @@ function inputHandler(masks, max, event) {
 	VMasker(c).maskPattern(masks[m]);
 	c.value = VMasker.toPattern(v, masks[m]);
 }
-
 
 
 function salvaCliente(e) {
@@ -49,7 +48,7 @@ function salvaCliente(e) {
 	cliente = JSON.stringify(cliente);
 
 	$.ajax({
-		url: "/Cliente/" + (id == 0 ? "Novo" : "Edita") + "/",
+		url: "/Funcionario/" + (id == 0 ? "Novo" : "Edita") + "/",
 		data: cliente,
 		type: "POST",
 		contentType: "application/json; charset=utf-8",

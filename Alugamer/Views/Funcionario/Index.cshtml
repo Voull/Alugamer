@@ -8,7 +8,7 @@
     @*<script src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>*@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.23/b-1.6.5/r-2.2.7/sl-1.3.1/datatables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="~/js/CRUDClients.js"></script>
+    <script type="text/javascript" src="~/js/CRUDFuncionario.js"></script>
 }
 
 @section CSS{
@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css" />
 }
 
-<h1 style="padding-bottom:5%">Clientes</h1>
+<h1 style="padding-bottom:5%">Funcionarios</h1>
 
 <table id="tbCliente" class="table table-striped table-bordered">
     <thead>
@@ -48,7 +48,8 @@
                     @Html.DisplayFor(modelItem => item.Cpf)
                 </td>
                 <td style="text-align:center">
-                    @Html.ActionLink("Editar", "Cadastro", new { id = item.Id })
+                    @Html.ActionLink("Editar", "Cadastro", new { id = item.Id }) |
+                    @Html.ActionLink("Editar Usuário", "Usuario", new { id = item.Id })
                 </td>
             </tr>
         }

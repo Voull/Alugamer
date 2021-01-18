@@ -2,8 +2,8 @@
 	var telMask = ['(99) 9999-99999', '(99) 99999-9999'];
 	var cpfMask = ["999.999.999-99", "999.999.999-99"];
 
-	VMasker($("#Telefone")).maskPattern(telMask[0]);
-	VMasker($("#Cpf")).maskPattern(cpfMask);
+	VMasker($("#Telefone")).maskPattern(telMask[1]);
+	VMasker($("#Cpf")).maskPattern(cpfMask[0]);
 
 	$("#Telefone")[0].addEventListener('input', inputHandler.bind(undefined, telMask, 14), false);
 	$("#Cpf")[0].addEventListener('input', inputHandler.bind(undefined, cpfMask, 14), false);

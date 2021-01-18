@@ -14,10 +14,12 @@ namespace Alugamer.CRUD
         private LoginDAO loginDAO;
         private UsuarioValidation usuarioValidation;
         private ErroLogin erroLogin;
+        private CRUDFuncionario crudFuncionario;
 
         public CRUDUsuario()
         {
             loginDAO = new LoginDAO();
+            crudFuncionario = new CRUDFuncionario();
             erroLogin = new ErroLogin();
             usuarioValidation = new UsuarioValidation();
         }
@@ -25,6 +27,21 @@ namespace Alugamer.CRUD
         public UserInfo Busca(int idFuncionario)
         {
             UserInfo info = loginDAO.GetUserInfo(idFuncionario);
+
+            return info;
+        }
+
+        public UserInfo BuscaUsuario(int idFuncionario)
+        {
+            UserInfo info = Busca(idFuncionario);
+            if(info.CodFuncionario == -1)
+            {
+                Funcionario funcionario = crudFuncionario.Busca(idFuncionario);
+                if (funcionario.Id == -1)
+                    return info;
+                info.CodFuncionario = idFuncionario;
+                info.NomeFuncionario = funcionario.Nome;
+            }
 
             return info;
         }
@@ -45,6 +62,19 @@ namespace Alugamer.CRUD
                 return erroLogin.GeraErroLogin(ERRO_LOGIN.ERRO_SENHA_INCORRETA);
 
             loginDAO.SalvaPerfil(perfil.CodFuncionario, senhaNova);
+
+            return string.Empty;
+        }
+
+        public string SalvaUsuario(UserInfo perfil, string senhaNova)
+        {
+            List<string> erros = usuarioValidation.validaPerfil(perfil);
+
+            if (erros.Count > 0)
+                return string.Join(Environment.NewLine, erros);
+
+            if (!loginDAO.SalvaUsuario(perfil.CodFuncionario, perfil.NomeUsuario, senhaNova, perfil.Admin))
+                return erroLogin.GeraErroLogin(ERRO_LOGIN.ERRO_NOME_USUARIO_DUPLICADO);
 
             return string.Empty;
         }

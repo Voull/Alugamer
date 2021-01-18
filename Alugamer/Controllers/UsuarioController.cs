@@ -31,10 +31,11 @@ namespace Alugamer.Controllers
         }
 
         [HttpGet]
-        
         public IActionResult Perfil()
         {
             UserInfo info = TokenService.GetUserInfo(HttpContext);
+            if (info == null)
+                return RedirectToAction("Index", "Login");
 
             return View("Index", info);
         }

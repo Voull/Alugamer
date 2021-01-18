@@ -2,6 +2,7 @@
 
 @{
     string campoUsuario = string.IsNullOrEmpty(Model.NomeUsuario) ? null : "disabled";
+    string campoAdmin = Model.Admin ? "" : "style=display:none";
 }
 
 @{
@@ -11,7 +12,7 @@
 
 @section Scripts{
     <script type="text/javascript" src="~/js/hashing.js"></script>
-    <script type="text/javascript" src="~/js/perfilUsuario.js"></script>
+    <script type="text/javascript" src="~/js/cadastroUsuario.js"></script>
 }
 
 @section Header{
@@ -33,13 +34,8 @@
         </div>
         <div class="form-group">
             <label asp-for="NomeUsuario" class="control-label"></label>
-            <input asp-for="NomeUsuario" disabled="@campoUsuario" class="form-control" />
+            <input asp-for="NomeUsuario" class="form-control" />
             <span asp-validation-for="NomeUsuario" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label for="SenhaOld" class="control-label">Senha Atual</label>
-            <input type="password" id="SenhaOld" class="form-control" />
         </div>
 
         <div class="form-group">
@@ -52,6 +48,11 @@
             <input type="password" id="SenhaNewRepeat" class="form-control" />
         </div>
 
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="Admin" /> @Html.DisplayNameFor(model => model.Admin)
+            </label>
+        </div>
         <div class="d-flex justify-content-end">
             <input type="submit" value="Salvar" class="btn btn-primary" />
         </div>

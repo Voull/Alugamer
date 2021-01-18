@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Alugamer.Auth;
 using Alugamer.CRUD;
 using Alugamer.Database;
 using Alugamer.Models;
@@ -19,16 +20,23 @@ namespace Alugamer.Controllers
 	public class FuncionarioController : Controller
 	{
 		private CRUDFuncionario crudFuncionario;
+		private CRUDUsuario crudUsuario;
 		private ErroDatabase erroDatabase;
+		private ErroLogin erroLogin;
 
 		public FuncionarioController()
 		{
 			crudFuncionario = new CRUDFuncionario();
+			crudUsuario = new CRUDUsuario();
 			erroDatabase = new ErroDatabase();
+			erroLogin = new ErroLogin();
 		}
 
+		[HttpGet]
 		public IActionResult Index()
 		{
+			if (TokenService.GetUserInfo(HttpContext) == null)
+				return RedirectToAction("Index", "Login");
 			try
 			{
 				List<Funcionario> listaFuncionarios = crudFuncionario.Lista();
@@ -52,6 +60,9 @@ namespace Alugamer.Controllers
 		[HttpGet]
 		public IActionResult Busca(int id)
 		{
+			if (TokenService.GetUserInfo(HttpContext) == null)
+				return RedirectToAction("Index", "Login");
+
 			try
 			{
 				Funcionario funcionario = crudFuncionario.Busca(id);
@@ -77,6 +88,9 @@ namespace Alugamer.Controllers
 		[HttpGet]
 		public IActionResult Cadastro(int id)
 		{
+			if (TokenService.GetUserInfo(HttpContext) == null)
+				return RedirectToAction("Index", "Login");
+
 			Funcionario funcionario = crudFuncionario.Busca(id);
 			if (funcionario.Id == -1)
 			{
@@ -87,8 +101,62 @@ namespace Alugamer.Controllers
 			return View(funcionario);
 		}
 
-		[HttpPost]
+		[HttpGet]
+		public IActionResult Usuario(int id)
+		{
+			UserInfo user = TokenService.GetUserInfo(HttpContext);
 
+			if (user != null)
+            {
+				if (!user.Admin)
+				{
+					TempData["msg"] = erroLogin.GeraErroLogin(ERRO_LOGIN.ERRO_PERMISSAO);
+					return RedirectToAction("Erro", "Error");
+				}
+			}
+            else
+				return RedirectToAction("Index", "Login");
+			
+
+
+
+			UserInfo info = crudUsuario.BuscaUsuario(id);
+			if (info.CodFuncionario == -1)
+			{
+				TempData["msg"] = erroDatabase.GeraErroDatabase(ERRO_DATABASE.ERRO_NAO_EXISTE);
+				return RedirectToAction("Erro", "Error");
+			}
+
+			return View(info);
+		}
+
+
+		[HttpPost]
+		[Authorize(Roles = "ADMIN")]
+		public IActionResult SalvaUsuario(UserInfo perfil, string senhaNova)
+		{
+			try
+			{
+				string erros = crudUsuario.SalvaUsuario(perfil, senhaNova);
+				if (!string.IsNullOrEmpty(erros))
+					return BadRequest(JsonConvert.SerializeObject(erros));
+
+				return NoContent();
+			}
+			catch (SqlException)
+			{
+				Response.StatusCode = StatusCodes.Status500InternalServerError;
+				return Json(erroDatabase.GeraErroGenerico(ERRO.ERRO_GENERICO_DATABASE));
+			}
+			catch (Exception)
+			{
+				Response.StatusCode = StatusCodes.Status500InternalServerError;
+				return Json(erroDatabase.GeraErroGenerico(ERRO.ERRO_GENERICO));
+			}
+		}
+
+		[HttpPost]
+		[Authorize]
 		public IActionResult Novo([FromBody] Funcionario funcionario)
 		{
 			try
@@ -113,6 +181,7 @@ namespace Alugamer.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		public IActionResult Edita([FromBody] Funcionario funcionario)
 		{
 			try
@@ -137,6 +206,7 @@ namespace Alugamer.Controllers
 		}
 
 		[HttpDelete]
+		[Authorize]
 		public IActionResult Remove(int id)
 		{
 			try
@@ -168,6 +238,7 @@ namespace Alugamer.Controllers
 		}
 
 		[HttpDelete]
+		[Authorize]
 		public IActionResult DeleteGrupo([FromBody] List<int> listaId)
 		{
 			try
