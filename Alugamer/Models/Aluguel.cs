@@ -19,10 +19,10 @@ namespace Alugamer.Models
 
 		[DisplayName("Valor Total")]
 		public Decimal Valor_total {get; set;}
-		[DisplayName("Data Inicial")]
+		public Decimal Valor_desconto { get; set; }
+		public Decimal Valor_multa { get; set; }
 		public DateTime DataInicial {get; set;}
-
-		[DisplayName("Data Final")]
+		public DateTime DataDevolucao { get; set; }
 		public DateTime DataFinal { get; set; }
 		
 		public List<ItemAluguel> Itens { get; set; }
@@ -33,8 +33,11 @@ namespace Alugamer.Models
 			Locatario = -1;
 			Vendedor = -1;
 			Valor_total = -1;
+			Valor_desconto = -1;
+			Valor_multa = -1;
 			DataInicial = DateTime.Today;
 			DataFinal = DateTime.Today;
+			DataDevolucao = DateTime.Today;
 			Itens = new List<ItemAluguel>();
 		}
 	}
