@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Alugamer.Auth;
 using Alugamer.CRUD;
 using Alugamer.Models;
 using Alugamer.Utils;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -54,8 +56,11 @@ namespace Alugamer.Controllers
 		}
 
 
+		[HttpGet]
 		public IActionResult Index()
 		{
+			if (TokenService.GetUserInfo(HttpContext) == null)
+				return RedirectToAction("Index", "Login");
 
 			CRUDCategoria crudCategoria = new CRUDCategoria();
 
@@ -85,6 +90,7 @@ namespace Alugamer.Controllers
 		}
 
 		[HttpGet]
+		[Authorize]
 		public IActionResult CarregaItens(int categoria)
 		{
 			CRUDAlugavel crudAlugavel = new CRUDAlugavel();
@@ -95,6 +101,7 @@ namespace Alugamer.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		public IActionResult Novo([FromBody] Aluguel aluguel)
 		{
 			if (aluguel == null) return BadRequest(JsonConvert.SerializeObject("Dados Inválidos!"));

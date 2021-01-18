@@ -1,13 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@using Alugamer.Auth
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>@ViewData["Title"] - Alugamer</title>
-	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="~/css/site.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Alugamer</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
 
-	@RenderSection("CSS", required: false)
+    @RenderSection("CSS", required: false)
 </head>
 <body>
     <header>
@@ -23,14 +24,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @*<li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </li>*@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Index">Gestão de Clientes</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Alugavel" asp-action="Index">Gestão de Estoque</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" id="menuEstoque" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestão de Estoque</a>
+
+                            <div class="dropdown-menu" aria-labelledby="menuEstoque">
+                                <a class="nav-link hov text-dark" asp-area="" asp-controller="Alugavel" asp-action="Index">Alugáveis</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Categoria" asp-action="Index">Categorias</a>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Funcionario" asp-action="Index">Gestão de Funcionários</a>
@@ -38,7 +42,23 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Aluguel" asp-action="Index">Novo Aluguel</a>
                         </li>
+                        @{
+                            UserInfo info = TokenService.GetUserInfo(Context);
+                            if (info != null)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-dark truncate" id="menuPerfil" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@info.NomeFuncionario</a>
+
+                                    <div class="dropdown-menu" aria-labelledby="menuPerfil">
+                                        <a class="nav-link hov text-dark" asp-area="" asp-controller="Usuario" asp-action="Perfil">Meu Perfil</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="nav-link text-danger" asp-area="" asp-controller="Login" asp-action="Logout">Sair</a>
+                                    </div>
+                                </li>
+                            }
+                        }
                     </ul>
+                       
                 </div>
             </div>
         </nav>
@@ -56,7 +76,10 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/ajaxResponse.js"></script>
+    <script src="~/js/vanilla-masker.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/inputUteis.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -17,7 +17,8 @@ namespace Alugamer.Controllers
         }
 
         [Route("/404")]
-        public IActionResult Erro404()
+        [Route("/500")]
+        public IActionResult Erro()
         {
             if (string.IsNullOrEmpty(Convert.ToString(TempData["msg"])))
                 ViewBag.Msg = erro.GeraErroGenerico(ERRO.ERRO_404);

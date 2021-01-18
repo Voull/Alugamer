@@ -1,8 +1,4 @@
-﻿@*
-   
-*@
-
-@model IEnumerable<Alugamer.Models.Cliente>
+﻿@model IEnumerable<Alugamer.Models.Cliente>
 
 @{
     ViewData["Title"] = "Index";
@@ -33,7 +29,7 @@
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.Cpf)
             </th>
             <th></th>
         </tr>
@@ -49,7 +45,7 @@
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Email)
+                    @Html.DisplayFor(modelItem => item.Cpf)
                 </td>
                 <td style="text-align:center">
                     @Html.ActionLink("Editar", "Cadastro", new { id = item.Id })

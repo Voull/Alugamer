@@ -24,6 +24,12 @@ namespace Alugamer.CRUD
 
         public Cliente Busca(int id)
         {
+            if (id == 0)
+                return new Cliente()
+                {
+                    Id = 0
+                };
+
             Cliente cliente = clienteDao.Read(id);
             return cliente;
         }
@@ -36,7 +42,7 @@ namespace Alugamer.CRUD
             
         }
 
-        public string Novo(Cliente cliente)
+        public string Insere(Cliente cliente)
         {
             List<String> errosCliente = clienteValidation.validar(cliente);
             if (errosCliente.Count > 0) return string.Join(Environment.NewLine, errosCliente);
@@ -75,5 +81,27 @@ namespace Alugamer.CRUD
             }
 
         }
+        public string Remove(List<int> listaId)
+        {
+            bool completo = true;
+            foreach (int id in listaId)
+            {
+                try
+                {
+                    if (!clienteDao.Delete(id))
+                        completo = false;
+                }
+                catch (SqlException ex) when (ex.Number == (int)DatabaseErrorCodes.CONFLICT)
+                {
+                    completo = false;
+                }
+            }
+
+            if (completo)
+                return string.Empty;
+            else
+                return erroDatabase.GeraErroDatabase(ERRO_DATABASE.ERRO_DELETAR_MULTIPLO);
+        }
+
     }
 }

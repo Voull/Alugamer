@@ -12,11 +12,6 @@ namespace Alugamer.Database
 {
     public class ClienteDao : BaseDao
     {
-        private Conexao _conn;
-        public ClienteDao()
-		{
-            _conn = new Conexao();
-		}
 
         public string Insert(Cliente cliente)
 		{
@@ -89,7 +84,7 @@ namespace Alugamer.Database
 
         public List<Cliente> ReadAllSimples()
         {
-            string sql = $@"SELECT cod_cliente, nome 
+            string sql = $@"SELECT cod_cliente, nome, cpf 
                             from CAD_CLIENTES";
 
             DataTable resp = _conn.dataTable(sql);
@@ -101,7 +96,8 @@ namespace Alugamer.Database
                 Cliente cliente = new Cliente
                 {
                     Id = Convert.ToInt32(linhaCliente["cod_cliente"]),
-                    Nome = Convert.ToString(linhaCliente["nome"])
+                    Nome = Convert.ToString(linhaCliente["nome"]),
+                    Cpf = Convert.ToString(linhaCliente["cpf"])
                 };
 
                 listaClientes.Add(cliente);

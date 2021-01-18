@@ -30,6 +30,13 @@ namespace Alugamer.CRUD
             return listaCategoria;
         }
 
+        public List<Categoria> ListaSimples()
+        {
+            List<Categoria> listaCategoria = categoriaDAO.ReadAllSimples();
+
+            return listaCategoria;
+        }
+
         public Categoria Busca(int id)
         {
             if (id == 0)
@@ -74,7 +81,7 @@ namespace Alugamer.CRUD
 
         }
 
-        public string RemoveVarios(List<int> listaId)
+        public string Remove(List<int> listaId)
         {
             bool completo = true;
             foreach(int id in listaId)

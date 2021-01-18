@@ -1,0 +1,59 @@
+﻿@model Alugamer.Models.UserInfo
+
+@{
+    string campoUsuario = string.IsNullOrEmpty(Model.NomeUsuario) ? null : "disabled";
+}
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutCadastro.cshtml";
+}
+
+@section Scripts{
+    <script type="text/javascript" src="~/js/hashing.js"></script>
+    <script type="text/javascript" src="~/js/perfilUsuario.js"></script>
+}
+
+@section Header{
+    <h4>Perfil de Usuário</h4>
+}
+
+@section Form{
+    <form onsubmit="salvaPerfil(event)">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group" style="display:none">
+            <label asp-for="CodFuncionario" class="control-label"></label>
+            <input asp-for="CodFuncionario" class="form-control" />
+            <span asp-validation-for="CodFuncionario" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="NomeFuncionario" class="control-label"></label>
+            <input asp-for="NomeFuncionario" class="form-control" disabled />
+            <span asp-validation-for="NomeFuncionario" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="NomeUsuario" class="control-label"></label>
+            <input asp-for="NomeUsuario" disabled="@campoUsuario" class="form-control" />
+            <span asp-validation-for="NomeUsuario" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="SenhaOld" class="control-label">Senha Atual</label>
+            <input type="password" id="SenhaOld" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="SenhaNew" class="control-label">Senha Nova</label>
+            <input type="password" id="SenhaNew" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="SenhaNewRepeat" class="control-label">Repita a Senha Nova</label>
+            <input type="password" id="SenhaNewRepeat" class="form-control" />
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <input type="submit" value="Salvar" class="btn btn-primary" />
+        </div>
+    </form>
+}
