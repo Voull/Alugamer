@@ -76,6 +76,36 @@ namespace Alugamer.Controllers
 			return View(aluguel);
 		}
 
+		[HttpGet]
+		public IActionResult Finalizacao(int id)
+		{
+			UserInfo info = TokenService.GetUserInfo(HttpContext);
+
+			if (info == null)
+				return RedirectToAction("Index", "Login");
+
+
+			List<Alugavel> listaAlugaveis = crudAlugavel.ListaCompleta();
+			ViewBag.listaAlugavel = listaAlugaveis;
+
+			Aluguel aluguel = crudAluguel.Busca(id);
+			if (aluguel.Id == -1)
+			{
+				TempData["msg"] = erroDatabase.GeraErroDatabase(ERRO_DATABASE.ERRO_NAO_EXISTE);
+				return RedirectToAction("Erro", "Error");
+			}
+
+			Cliente cliente = crudClientes.Busca(aluguel.Locatario);
+			ViewBag.NomeCliente = cliente.Nome;
+
+			Funcionario vendedor = crudFuncionario.Busca(aluguel.Vendedor);
+
+            ViewBag.CodFuncionario = aluguel.Vendedor;
+            ViewBag.NomeFuncionario = vendedor.Nome;
+
+            return View(aluguel);
+		}
+
 
 		[HttpGet]
 		public IActionResult Index()
@@ -136,6 +166,18 @@ namespace Alugamer.Controllers
             }
 
             return Ok(JsonConvert.SerializeObject(""));
+		}
+
+		[HttpPost]
+		[Authorize]
+		public IActionResult FinalizaAluguel([FromBody] Aluguel aluguel)
+		{
+			if (aluguel == null) return BadRequest(JsonConvert.SerializeObject("Dados Inválidos!"));
+
+			CRUDAluguel crudAluguel = new CRUDAluguel();
+			crudAluguel.Finaliza(aluguel);
+
+			return Ok(JsonConvert.SerializeObject(""));
 		}
 
 	}

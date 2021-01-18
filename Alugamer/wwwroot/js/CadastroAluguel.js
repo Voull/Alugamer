@@ -152,13 +152,13 @@ function finalizar() {
 	data.setUTCMonth(data.getUTCMonth() + tempoAluguel);
 	var dateFim = data.getUTCFullYear() + "-0" + (data.getUTCMonth() + 1) + "-" + data.getUTCDate();
 	let desconto = $("#taxaDesconto").val() == "" ? 0 : $("#taxaDesconto").val();
-	let valorDesconto = vlrTotalAluguel * (desconto / 100) * tempoAluguel;
+	let valorDesconto = Number(vlrTotalAluguel * (desconto / 100) * tempoAluguel);
 
 	let aluguel = {};
 	aluguel.Id = -1;
 	aluguel.Locatario = Number($("#nomeCliente").val());
 	aluguel.Vendedor = 1;
-	aluguel.Valor_total = $("#total").val();
+	aluguel.Valor_total = Number($("#total").val());
 	aluguel.DataInicial = dateInicio;
 	aluguel.DataFinal = dateFim;
 	aluguel.Itens = ListItensAluguel;

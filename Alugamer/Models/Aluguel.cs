@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
@@ -21,11 +22,18 @@ namespace Alugamer.Models
 		public Decimal Valor_total {get; set;}
 		public Decimal Valor_desconto { get; set; }
 		public Decimal Valor_multa { get; set; }
+		[DataType(DataType.Date)]
+		[DisplayName("Data Inicial: ")]
 		public DateTime DataInicial {get; set;}
+		[DataType(DataType.Date)]
+		[DisplayName("Data Devolução: ")]
 		public DateTime DataDevolucao { get; set; }
+		[DataType(DataType.Date)]
+		[DisplayName("Data Fim: ")]
 		public DateTime DataFinal { get; set; }
 		
 		public List<ItemAluguel> Itens { get; set; }
+		public bool Finalizado { get; set; }
 
 		public Aluguel()
         {

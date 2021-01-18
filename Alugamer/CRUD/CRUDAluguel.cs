@@ -29,6 +29,16 @@ namespace Alugamer.CRUD
             return resposta;
         }
 
+        public void Finaliza(Aluguel aluguel)
+        {
+            Aluguel atual = Busca(aluguel.Id);
+            atual.DataDevolucao = aluguel.DataDevolucao;
+            atual.Valor_multa = aluguel.Valor_multa;
+            atual.Valor_total += aluguel.Valor_multa;
+
+            aluguelDao.Update(atual);
+        }
+
         public List<Aluguel> Lista()
         {
             List<Aluguel> listaAluguel = aluguelDao.Lista();
