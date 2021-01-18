@@ -131,11 +131,11 @@ namespace Alugamer.Database
             return Convert.ToBoolean(_conn.scalar(sql));
         }
 
-        public List<Alugavel> ReadAllMaisDados(int Categoria)
+        public List<Alugavel> ReadAllMaisDados(int Categoria = 0)
         {
 
-            string sql = $@"SELECT cod_alugavel, nome, descricao, quantidade, valor_aluguel 
-                        from CAD_ALUGAVEIS where cod_categoria = '{Categoria}'";
+            string sql = $@"SELECT cod_alugavel, nome, descricao, quantidade, valor_aluguel, cod_categoria
+                        from CAD_ALUGAVEIS {(Categoria == 0 ? "" : $" where cod_categoria ={Categoria}")}";
 
             DataTable resp = _conn.dataTable(sql);
 
@@ -149,7 +149,8 @@ namespace Alugamer.Database
                     Nome = Convert.ToString(linhaAlugavel["nome"]),
                     Descricao = Convert.ToString(linhaAlugavel["descricao"]),
                     Quantidade = Convert.ToInt32(linhaAlugavel["quantidade"]),
-                    Valor_aluguel = Convert.ToDecimal(linhaAlugavel["valor_aluguel"])
+                    Valor_aluguel = Convert.ToDecimal(linhaAlugavel["valor_aluguel"]),
+                    IdCategoria = Convert.ToInt32(linhaAlugavel["cod_categoria"])
                 };
 
                 listaAlugavel.Add(alugavel);

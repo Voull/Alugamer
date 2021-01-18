@@ -1,0 +1,97 @@
+﻿@model Alugamer.Models.Aluguel
+
+@using System.Collections.Generic
+@using Alugamer.Models 
+@{
+    ViewData["Title"] = "Cadastro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    string display = Model.Finalizado ? "display:none" : null;
+}
+
+@section Scripts{
+    <script type="text/javascript" src="~/js/FinalizacaoAluguel.js"></script>
+}
+
+@section CSS{
+    <link rel="stylesheet" href="~/css/CadastroAluguel.css" />
+}
+
+<div class="formAluguel">
+    <form>
+        <fieldset>
+            <input type="hidden" id="idFunc">
+            <input type="hidden" id="idCli">
+            <input type="hidden" id="idAluguel" value="@Model.Id"/>
+            <table class="tableInfo">
+                <tbody>
+                    <tr>
+                        <td class="Cem">
+                            <label for="nomeCliente">Cliente:</label>
+                            <input type="text" value="@ViewBag.NomeCliente" class="campoAluguelPequeno" disabled>
+                            <label for="vendedor" class="Vendedor">Vendedor:</label>
+                            <input type="text" value="@ViewBag.NomeFuncionario" class="campoAluguelPequeno" disabled>
+                            <input type="text" id="vendedor" value="@ViewBag.CodFuncionario" class="campoAluguelPequeno" style="display:none">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong><label asp-for="DataInicial"></label></strong>
+                            <input asp-for="DataInicial" disabled />
+                        </td>
+                        <td>
+                            <strong><label asp-for="DataFinal"></label></strong>
+                            <input asp-for="DataFinal"  disabled/>
+                        </td>
+                        <td>
+                            <strong><label asp-for="DataDevolucao"></label></strong>
+                            <input asp-for="DataDevolucao" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table id="dataTable" width="400px" border="1">
+                                <thead>
+                                    <tr>
+                                        <th class="Cabecalho"> Codigo </th>
+                                        <th class="Cabecalho"> Item </th>
+                                        <th class="Cabecalho"> Quantidade </th>
+                                        <th class="Cabecalho"> Valor Unitário </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                       @foreach (ItemAluguel item in Model.Itens)
+                                    {
+                                        <tr>
+                                            <td>@item.IdItem</td>
+                                            <td>@(((IEnumerable<Alugavel>)ViewBag.listaAlugavel).Where(o => o.Id == item.IdItem).Select(o => o.Nome).FirstOrDefault())</td>
+                                            <td>@item.Quantidade</td>
+                                            <td>@item.Valor</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </td>
+                        <td style="padding-top:1%">
+                            <label for="taxaMulta"> Multa (%)</label>
+                            <input type="number" onchange="calculaVlrTotal()" id="taxaMulta" max="100" min="0" step="5" style="width:100px"/>
+                        </td>
+                        <td>
+                            <label>Valor Final:</label>
+                            <br>
+                            <input type="text" id="total" value="@Model.Valor_total" class="campoAluguelMedio" disabled>
+                            <br>
+                            <br>
+                            <input type="button" id="btnFinalizar" onclick="finalizar()" value="Finalizar" style="@display">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
